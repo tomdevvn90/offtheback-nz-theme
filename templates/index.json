@@ -119,6 +119,7 @@
         "promotion-1": {
           "type": "promotion",
           "settings": {
+            "image": "shopify:\/\/shop_images\/spacejoy-7fX2YfJIrOQ-unsplash.jpg",
             "title": "Home & Living",
             "text": "Use this section to welcome customers to your store, say a bit about your brand, or share news.",
             "color": "#ffffff",
@@ -133,6 +134,7 @@
         "promotion-2": {
           "type": "promotion",
           "settings": {
+            "image": "shopify:\/\/shop_images\/matthew-kwong-XVhgrKy8C4g-unsplash.jpg",
             "title": "Electronic & Computers",
             "text": "Use this section to welcome",
             "color": "#ffffff",
