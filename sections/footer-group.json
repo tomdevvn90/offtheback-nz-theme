@@ -29,7 +29,7 @@
         "payment_icons": true,
         "show_locale_selector": true,
         "show_currency_selector": true,
-        "additional_menu": "footer"
+        "additional_menu": ""
       }
     }
   },
