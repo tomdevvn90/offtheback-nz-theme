@@ -6,6 +6,7 @@
         "slide-1": {
           "type": "slide",
           "settings": {
+            "background_image": "shopify:\/\/shop_images\/Drone_580x290_7d0857c2-9567-499a-ab3a-73bda1502758.jpg",
             "title": "Slide",
             "text": "Introduce customers to your shop with lifestyle and product imagery",
             "color": "#ffffff",
