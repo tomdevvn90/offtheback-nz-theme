@@ -157,7 +157,7 @@
         "promotion-1": {
           "type": "promotion",
           "settings": {
-            "title": "Mosaic",
+            "title": "Home & Living",
             "text": "Use this section to welcome customers to your store, say a bit about your brand, or share news.",
             "color": "#ffffff",
             "block_link": "",
@@ -171,8 +171,8 @@
         "promotion-2": {
           "type": "promotion",
           "settings": {
-            "title": "Mosaic",
-            "text": "Use this section to welcome customers to your store, say a bit about your brand, or share news.",
+            "title": "Electronic & Computers",
+            "text": "Use this section to welcome",
             "color": "#ffffff",
             "block_link": "",
             "button_text": "",
@@ -185,8 +185,8 @@
         "promotion-3": {
           "type": "promotion",
           "settings": {
-            "title": "Mosaic",
-            "text": "Use this section to welcome customers to your store, say a bit about your brand, or share news.",
+            "title": "Pets",
+            "text": "Use this section to welcome customers to your store",
             "color": "#ffffff",
             "block_link": "",
             "button_text": "",
@@ -199,8 +199,8 @@
         "promotion-4": {
           "type": "promotion",
           "settings": {
-            "title": "Mosaic",
-            "text": "Use this section to welcome customers to your store, say a bit about your brand, or share news.",
+            "title": "Health & Beauty",
+            "text": "Use this section to welcome customers to your store",
             "color": "#ffffff",
             "block_link": "",
             "button_text": "",
@@ -225,31 +225,12 @@
         "compress_blocks": false
       }
     },
-    "dynamic_featured_collection": {
-      "type": "dynamic-featured-collection",
-      "blocks": {
-        "view-all-card": {
-          "type": "view_all_card",
-          "settings": {
-            "text_alignment": "center-center",
-            "pre_heading": "View all",
-            "heading": "Collection",
-            "text_color": "#FFFFFF",
-            "overlay_color": "#000000",
-            "overlay_opacity": 50
-          }
-        }
-      },
-      "block_order": [
-        "view-all-card"
-      ],
+    "db75e0da-1755-4915-96c1-c7ad7694cadd": {
+      "type": "products-grid",
       "settings": {
-        "title": "",
-        "layout": "slideshow",
-        "collection": "",
-        "product_count": 9,
-        "cta_label": "",
-        "cta_button_style": "primary"
+        "products_per_page_range": 15,
+        "limit_number_of_loadmore": 10,
+        "button_link": "shopify:\/\/collections\/all"
       }
     },
     "dynamic_testimonials": {
@@ -338,7 +319,7 @@
     "dynamic_slideshow",
     "dynamic_highlights_banner",
     "dynamic_promo_mosaic",
-    "dynamic_featured_collection",
+    "db75e0da-1755-4915-96c1-c7ad7694cadd",
     "dynamic_testimonials",
     "dynamic_search"
   ]
