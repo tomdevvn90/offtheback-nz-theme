@@ -29,9 +29,9 @@
             "background_image": "shopify:\/\/shop_images\/HomePage_SURREYHILLSImageBanner_1.webp",
             "title": "Sofa Covers",
             "text": "Protect and refresh your L-shaped sofa with our stretchable L-shape sofa cover! Made from high-quality",
-            "color": "#1d1d1d",
+            "color": "#ffffff",
             "link": "",
-            "text_alignment": "left",
+            "text_alignment": "center",
             "button_one_label": "View Products",
             "button_one_link": "shopify:\/\/collections\/sofa-covers-1",
             "button_one_style": "primary",
@@ -40,7 +40,7 @@
             "button_two_style": "primary",
             "show_overlay": true,
             "overlay_color": "#000000",
-            "overlay_opacity": 4
+            "overlay_opacity": 37
           }
         }
       },
