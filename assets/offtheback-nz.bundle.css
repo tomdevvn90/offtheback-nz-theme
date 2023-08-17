@@ -73,3 +73,22 @@
   font-size: 11px;
   font-weight: bold;
 }
+
+.site-navigation .navmenu-link-depth-1,
+.site-navigation .site-header-account-link a {
+  padding: 0.5em;
+}
+
+.site-navigation .navmenu-depth-1 > li:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+.mobile-nav-content .navmenu-depth-1 > .navmenu-item > .navmenu-link,
+.mobile-nav-primary-content .navmenu-depth-1 > .navmenu-item > .navmenu-link,
+.navmenu-meganav.navmenu-meganav--desktop .navmenu-item-text,
+.site-navigation .navmenu-depth-1 > li > a,
+.site-navigation a,
+.site-navigation summary,
+.site-header-actions {
+  font-size: 0.9em;
+}

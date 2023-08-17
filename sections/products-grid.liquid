@@ -1,0 +1,68 @@
+{% assign paginate_by = section.settings.products_per_page_range %}
+{% assign limit_number_loadmore = section.settings.limit_number_of_loadmore %}
+
+<section id="shopify-section--{{ section.id }}" class="custom-block__products-grid featured-collection__container">
+  <div class="custom-block__products-grid-inner">
+    {% paginate collections.frontpage.products by paginate_by %}
+      <ul
+        class="productgrid--items featured-collection__content products-grid__js-selector"
+        data-current-paged="{{ paginate.current_page }}"
+        data-total-pages="{{ paginate.pages }}"
+        data-limit-number-loadmore="{{ limit_number_loadmore }}"
+        data-html="productgrid-items"
+        data-layout="grid">
+        {% for product in collections.frontpage.products %}
+          {% render 'product-grid-item', product: product %}
+        {% endfor %}
+      </ul>
+      {% comment %} {% render 'pagination', paginate: paginate %} {% endcomment %}
+    {% endpaginate %}
+  </div>
+
+  {% if section.settings.button_link %}
+    <a
+      class="button button-primary button__view-more"
+      href="{{ section.settings.button_link }}"
+      target="_blank">
+      More Products
+    </a>
+  {% endif %}
+</section>
+<!-- #shopify-section--{{ section.id }} -->
+
+{% schema %}
+  {
+    "name": {
+      "en": "Products Grid"
+    },
+    "settings": [
+      {
+        "type": "range",
+        "id": "products_per_page_range",
+        "min": 6,
+        "max": 24,
+        "step": 1,
+        "label": "Products Per Page",
+        "default": 16
+      }, {
+        "type": "range",
+        "id": "limit_number_of_loadmore",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "label": "Limit the number of load more",
+        "default": 10
+      }, {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Products Grid",
+        "category": "Products Grid"
+      }
+    ]
+  }
+{% endschema %}
