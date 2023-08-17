@@ -126,7 +126,7 @@
             "block_link": "",
             "button_text": "",
             "button_style": "primary",
-            "show_overlay": false,
+            "show_overlay": true,
             "background": "#000000",
             "opacity": 30
           }
