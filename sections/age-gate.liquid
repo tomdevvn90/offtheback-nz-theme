@@ -1,4 +1,4 @@
-{% liquid 
+{% liquid
   capture _
     echo settings.show_age_gate_logo
   endcapture
@@ -35,6 +35,11 @@
         "category": "t:sections.age_gate.presets.category",
         "name": "t:sections.age_gate.presets.name"
       }
-    ]
+    ],
+    "disabled_on": {
+      "groups": [
+        "*"
+      ]
+    }
   }
 {% endschema %}

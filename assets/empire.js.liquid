@@ -1023,730 +1023,6 @@ return EvEmitter;
 
 /***/ }),
 
-/***/ 387:
-/***/ ((module, exports, __webpack_require__) => {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * EventEmitter2
- * https://github.com/hij1nx/EventEmitter2
- *
- * Copyright (c) 2013 hij1nx
- * Licensed under the MIT license.
- */
-;!function(undefined) {
-
-  var isArray = Array.isArray ? Array.isArray : function _isArray(obj) {
-    return Object.prototype.toString.call(obj) === "[object Array]";
-  };
-  var defaultMaxListeners = 10;
-
-  function init() {
-    this._events = {};
-    if (this._conf) {
-      configure.call(this, this._conf);
-    }
-  }
-
-  function configure(conf) {
-    if (conf) {
-      this._conf = conf;
-
-      conf.delimiter && (this.delimiter = conf.delimiter);
-      this._events.maxListeners = conf.maxListeners !== undefined ? conf.maxListeners : defaultMaxListeners;
-      conf.wildcard && (this.wildcard = conf.wildcard);
-      conf.newListener && (this.newListener = conf.newListener);
-      conf.verboseMemoryLeak && (this.verboseMemoryLeak = conf.verboseMemoryLeak);
-
-      if (this.wildcard) {
-        this.listenerTree = {};
-      }
-    } else {
-      this._events.maxListeners = defaultMaxListeners;
-    }
-  }
-
-  function logPossibleMemoryLeak(count, eventName) {
-    var errorMsg = '(node) warning: possible EventEmitter memory ' +
-        'leak detected. %d listeners added. ' +
-        'Use emitter.setMaxListeners() to increase limit.';
-
-    if(this.verboseMemoryLeak){
-      errorMsg += ' Event name: %s.';
-      console.error(errorMsg, count, eventName);
-    } else {
-      console.error(errorMsg, count);
-    }
-
-    if (console.trace){
-      console.trace();
-    }
-  }
-
-  function EventEmitter(conf) {
-    this._events = {};
-    this.newListener = false;
-    this.verboseMemoryLeak = false;
-    configure.call(this, conf);
-  }
-  EventEmitter.EventEmitter2 = EventEmitter; // backwards compatibility for exporting EventEmitter property
-
-  //
-  // Attention, function return type now is array, always !
-  // It has zero elements if no any matches found and one or more
-  // elements (leafs) if there are matches
-  //
-  function searchListenerTree(handlers, type, tree, i) {
-    if (!tree) {
-      return [];
-    }
-    var listeners=[], leaf, len, branch, xTree, xxTree, isolatedBranch, endReached,
-        typeLength = type.length, currentType = type[i], nextType = type[i+1];
-    if (i === typeLength && tree._listeners) {
-      //
-      // If at the end of the event(s) list and the tree has listeners
-      // invoke those listeners.
-      //
-      if (typeof tree._listeners === 'function') {
-        handlers && handlers.push(tree._listeners);
-        return [tree];
-      } else {
-        for (leaf = 0, len = tree._listeners.length; leaf < len; leaf++) {
-          handlers && handlers.push(tree._listeners[leaf]);
-        }
-        return [tree];
-      }
-    }
-
-    if ((currentType === '*' || currentType === '**') || tree[currentType]) {
-      //
-      // If the event emitted is '*' at this part
-      // or there is a concrete match at this patch
-      //
-      if (currentType === '*') {
-        for (branch in tree) {
-          if (branch !== '_listeners' && tree.hasOwnProperty(branch)) {
-            listeners = listeners.concat(searchListenerTree(handlers, type, tree[branch], i+1));
-          }
-        }
-        return listeners;
-      } else if(currentType === '**') {
-        endReached = (i+1 === typeLength || (i+2 === typeLength && nextType === '*'));
-        if(endReached && tree._listeners) {
-          // The next element has a _listeners, add it to the handlers.
-          listeners = listeners.concat(searchListenerTree(handlers, type, tree, typeLength));
-        }
-
-        for (branch in tree) {
-          if (branch !== '_listeners' && tree.hasOwnProperty(branch)) {
-            if(branch === '*' || branch === '**') {
-              if(tree[branch]._listeners && !endReached) {
-                listeners = listeners.concat(searchListenerTree(handlers, type, tree[branch], typeLength));
-              }
-              listeners = listeners.concat(searchListenerTree(handlers, type, tree[branch], i));
-            } else if(branch === nextType) {
-              listeners = listeners.concat(searchListenerTree(handlers, type, tree[branch], i+2));
-            } else {
-              // No match on this one, shift into the tree but not in the type array.
-              listeners = listeners.concat(searchListenerTree(handlers, type, tree[branch], i));
-            }
-          }
-        }
-        return listeners;
-      }
-
-      listeners = listeners.concat(searchListenerTree(handlers, type, tree[currentType], i+1));
-    }
-
-    xTree = tree['*'];
-    if (xTree) {
-      //
-      // If the listener tree will allow any match for this part,
-      // then recursively explore all branches of the tree
-      //
-      searchListenerTree(handlers, type, xTree, i+1);
-    }
-
-    xxTree = tree['**'];
-    if(xxTree) {
-      if(i < typeLength) {
-        if(xxTree._listeners) {
-          // If we have a listener on a '**', it will catch all, so add its handler.
-          searchListenerTree(handlers, type, xxTree, typeLength);
-        }
-
-        // Build arrays of matching next branches and others.
-        for(branch in xxTree) {
-          if(branch !== '_listeners' && xxTree.hasOwnProperty(branch)) {
-            if(branch === nextType) {
-              // We know the next element will match, so jump twice.
-              searchListenerTree(handlers, type, xxTree[branch], i+2);
-            } else if(branch === currentType) {
-              // Current node matches, move into the tree.
-              searchListenerTree(handlers, type, xxTree[branch], i+1);
-            } else {
-              isolatedBranch = {};
-              isolatedBranch[branch] = xxTree[branch];
-              searchListenerTree(handlers, type, { '**': isolatedBranch }, i+1);
-            }
-          }
-        }
-      } else if(xxTree._listeners) {
-        // We have reached the end and still on a '**'
-        searchListenerTree(handlers, type, xxTree, typeLength);
-      } else if(xxTree['*'] && xxTree['*']._listeners) {
-        searchListenerTree(handlers, type, xxTree['*'], typeLength);
-      }
-    }
-
-    return listeners;
-  }
-
-  function growListenerTree(type, listener) {
-
-    type = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-
-    //
-    // Looks for two consecutive '**', if so, don't add the event at all.
-    //
-    for(var i = 0, len = type.length; i+1 < len; i++) {
-      if(type[i] === '**' && type[i+1] === '**') {
-        return;
-      }
-    }
-
-    var tree = this.listenerTree;
-    var name = type.shift();
-
-    while (name !== undefined) {
-
-      if (!tree[name]) {
-        tree[name] = {};
-      }
-
-      tree = tree[name];
-
-      if (type.length === 0) {
-
-        if (!tree._listeners) {
-          tree._listeners = listener;
-        }
-        else {
-          if (typeof tree._listeners === 'function') {
-            tree._listeners = [tree._listeners];
-          }
-
-          tree._listeners.push(listener);
-
-          if (
-            !tree._listeners.warned &&
-            this._events.maxListeners > 0 &&
-            tree._listeners.length > this._events.maxListeners
-          ) {
-            tree._listeners.warned = true;
-            logPossibleMemoryLeak.call(this, tree._listeners.length, name);
-          }
-        }
-        return true;
-      }
-      name = type.shift();
-    }
-    return true;
-  }
-
-  // By default EventEmitters will print a warning if more than
-  // 10 listeners are added to it. This is a useful default which
-  // helps finding memory leaks.
-  //
-  // Obviously not all Emitters should be limited to 10. This function allows
-  // that to be increased. Set to zero for unlimited.
-
-  EventEmitter.prototype.delimiter = '.';
-
-  EventEmitter.prototype.setMaxListeners = function(n) {
-    if (n !== undefined) {
-      this._events || init.call(this);
-      this._events.maxListeners = n;
-      if (!this._conf) this._conf = {};
-      this._conf.maxListeners = n;
-    }
-  };
-
-  EventEmitter.prototype.event = '';
-
-  EventEmitter.prototype.once = function(event, fn) {
-    this.many(event, 1, fn);
-    return this;
-  };
-
-  EventEmitter.prototype.many = function(event, ttl, fn) {
-    var self = this;
-
-    if (typeof fn !== 'function') {
-      throw new Error('many only accepts instances of Function');
-    }
-
-    function listener() {
-      if (--ttl === 0) {
-        self.off(event, listener);
-      }
-      return fn.apply(this, arguments);
-    }
-
-    listener._origin = fn;
-
-    this.on(event, listener);
-
-    return self;
-  };
-
-  EventEmitter.prototype.emit = function() {
-
-    this._events || init.call(this);
-
-    var type = arguments[0];
-
-    if (type === 'newListener' && !this.newListener) {
-      if (!this._events.newListener) {
-        return false;
-      }
-    }
-
-    var al = arguments.length;
-    var args,l,i,j;
-    var handler;
-
-    if (this._all && this._all.length) {
-      handler = this._all.slice();
-      if (al > 3) {
-        args = new Array(al);
-        for (j = 0; j < al; j++) args[j] = arguments[j];
-      }
-
-      for (i = 0, l = handler.length; i < l; i++) {
-        this.event = type;
-        switch (al) {
-        case 1:
-          handler[i].call(this, type);
-          break;
-        case 2:
-          handler[i].call(this, type, arguments[1]);
-          break;
-        case 3:
-          handler[i].call(this, type, arguments[1], arguments[2]);
-          break;
-        default:
-          handler[i].apply(this, args);
-        }
-      }
-    }
-
-    if (this.wildcard) {
-      handler = [];
-      var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-      searchListenerTree.call(this, handler, ns, this.listenerTree, 0);
-    } else {
-      handler = this._events[type];
-      if (typeof handler === 'function') {
-        this.event = type;
-        switch (al) {
-        case 1:
-          handler.call(this);
-          break;
-        case 2:
-          handler.call(this, arguments[1]);
-          break;
-        case 3:
-          handler.call(this, arguments[1], arguments[2]);
-          break;
-        default:
-          args = new Array(al - 1);
-          for (j = 1; j < al; j++) args[j - 1] = arguments[j];
-          handler.apply(this, args);
-        }
-        return true;
-      } else if (handler) {
-        // need to make copy of handlers because list can change in the middle
-        // of emit call
-        handler = handler.slice();
-      }
-    }
-
-    if (handler && handler.length) {
-      if (al > 3) {
-        args = new Array(al - 1);
-        for (j = 1; j < al; j++) args[j - 1] = arguments[j];
-      }
-      for (i = 0, l = handler.length; i < l; i++) {
-        this.event = type;
-        switch (al) {
-        case 1:
-          handler[i].call(this);
-          break;
-        case 2:
-          handler[i].call(this, arguments[1]);
-          break;
-        case 3:
-          handler[i].call(this, arguments[1], arguments[2]);
-          break;
-        default:
-          handler[i].apply(this, args);
-        }
-      }
-      return true;
-    } else if (!this._all && type === 'error') {
-      if (arguments[1] instanceof Error) {
-        throw arguments[1]; // Unhandled 'error' event
-      } else {
-        throw new Error("Uncaught, unspecified 'error' event.");
-      }
-      return false;
-    }
-
-    return !!this._all;
-  };
-
-  EventEmitter.prototype.emitAsync = function() {
-
-    this._events || init.call(this);
-
-    var type = arguments[0];
-
-    if (type === 'newListener' && !this.newListener) {
-        if (!this._events.newListener) { return Promise.resolve([false]); }
-    }
-
-    var promises= [];
-
-    var al = arguments.length;
-    var args,l,i,j;
-    var handler;
-
-    if (this._all) {
-      if (al > 3) {
-        args = new Array(al);
-        for (j = 1; j < al; j++) args[j] = arguments[j];
-      }
-      for (i = 0, l = this._all.length; i < l; i++) {
-        this.event = type;
-        switch (al) {
-        case 1:
-          promises.push(this._all[i].call(this, type));
-          break;
-        case 2:
-          promises.push(this._all[i].call(this, type, arguments[1]));
-          break;
-        case 3:
-          promises.push(this._all[i].call(this, type, arguments[1], arguments[2]));
-          break;
-        default:
-          promises.push(this._all[i].apply(this, args));
-        }
-      }
-    }
-
-    if (this.wildcard) {
-      handler = [];
-      var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-      searchListenerTree.call(this, handler, ns, this.listenerTree, 0);
-    } else {
-      handler = this._events[type];
-    }
-
-    if (typeof handler === 'function') {
-      this.event = type;
-      switch (al) {
-      case 1:
-        promises.push(handler.call(this));
-        break;
-      case 2:
-        promises.push(handler.call(this, arguments[1]));
-        break;
-      case 3:
-        promises.push(handler.call(this, arguments[1], arguments[2]));
-        break;
-      default:
-        args = new Array(al - 1);
-        for (j = 1; j < al; j++) args[j - 1] = arguments[j];
-        promises.push(handler.apply(this, args));
-      }
-    } else if (handler && handler.length) {
-      handler = handler.slice();
-      if (al > 3) {
-        args = new Array(al - 1);
-        for (j = 1; j < al; j++) args[j - 1] = arguments[j];
-      }
-      for (i = 0, l = handler.length; i < l; i++) {
-        this.event = type;
-        switch (al) {
-        case 1:
-          promises.push(handler[i].call(this));
-          break;
-        case 2:
-          promises.push(handler[i].call(this, arguments[1]));
-          break;
-        case 3:
-          promises.push(handler[i].call(this, arguments[1], arguments[2]));
-          break;
-        default:
-          promises.push(handler[i].apply(this, args));
-        }
-      }
-    } else if (!this._all && type === 'error') {
-      if (arguments[1] instanceof Error) {
-        return Promise.reject(arguments[1]); // Unhandled 'error' event
-      } else {
-        return Promise.reject("Uncaught, unspecified 'error' event.");
-      }
-    }
-
-    return Promise.all(promises);
-  };
-
-  EventEmitter.prototype.on = function(type, listener) {
-    if (typeof type === 'function') {
-      this.onAny(type);
-      return this;
-    }
-
-    if (typeof listener !== 'function') {
-      throw new Error('on only accepts instances of Function');
-    }
-    this._events || init.call(this);
-
-    // To avoid recursion in the case that type == "newListeners"! Before
-    // adding it to the listeners, first emit "newListeners".
-    this.emit('newListener', type, listener);
-
-    if (this.wildcard) {
-      growListenerTree.call(this, type, listener);
-      return this;
-    }
-
-    if (!this._events[type]) {
-      // Optimize the case of one listener. Don't need the extra array object.
-      this._events[type] = listener;
-    }
-    else {
-      if (typeof this._events[type] === 'function') {
-        // Change to array.
-        this._events[type] = [this._events[type]];
-      }
-
-      // If we've already got an array, just append.
-      this._events[type].push(listener);
-
-      // Check for listener leak
-      if (
-        !this._events[type].warned &&
-        this._events.maxListeners > 0 &&
-        this._events[type].length > this._events.maxListeners
-      ) {
-        this._events[type].warned = true;
-        logPossibleMemoryLeak.call(this, this._events[type].length, type);
-      }
-    }
-
-    return this;
-  };
-
-  EventEmitter.prototype.onAny = function(fn) {
-    if (typeof fn !== 'function') {
-      throw new Error('onAny only accepts instances of Function');
-    }
-
-    if (!this._all) {
-      this._all = [];
-    }
-
-    // Add the function to the event listener collection.
-    this._all.push(fn);
-    return this;
-  };
-
-  EventEmitter.prototype.addListener = EventEmitter.prototype.on;
-
-  EventEmitter.prototype.off = function(type, listener) {
-    if (typeof listener !== 'function') {
-      throw new Error('removeListener only takes instances of Function');
-    }
-
-    var handlers,leafs=[];
-
-    if(this.wildcard) {
-      var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-      leafs = searchListenerTree.call(this, null, ns, this.listenerTree, 0);
-    }
-    else {
-      // does not use listeners(), so no side effect of creating _events[type]
-      if (!this._events[type]) return this;
-      handlers = this._events[type];
-      leafs.push({_listeners:handlers});
-    }
-
-    for (var iLeaf=0; iLeaf<leafs.length; iLeaf++) {
-      var leaf = leafs[iLeaf];
-      handlers = leaf._listeners;
-      if (isArray(handlers)) {
-
-        var position = -1;
-
-        for (var i = 0, length = handlers.length; i < length; i++) {
-          if (handlers[i] === listener ||
-            (handlers[i].listener && handlers[i].listener === listener) ||
-            (handlers[i]._origin && handlers[i]._origin === listener)) {
-            position = i;
-            break;
-          }
-        }
-
-        if (position < 0) {
-          continue;
-        }
-
-        if(this.wildcard) {
-          leaf._listeners.splice(position, 1);
-        }
-        else {
-          this._events[type].splice(position, 1);
-        }
-
-        if (handlers.length === 0) {
-          if(this.wildcard) {
-            delete leaf._listeners;
-          }
-          else {
-            delete this._events[type];
-          }
-        }
-
-        this.emit("removeListener", type, listener);
-
-        return this;
-      }
-      else if (handlers === listener ||
-        (handlers.listener && handlers.listener === listener) ||
-        (handlers._origin && handlers._origin === listener)) {
-        if(this.wildcard) {
-          delete leaf._listeners;
-        }
-        else {
-          delete this._events[type];
-        }
-
-        this.emit("removeListener", type, listener);
-      }
-    }
-
-    function recursivelyGarbageCollect(root) {
-      if (root === undefined) {
-        return;
-      }
-      var keys = Object.keys(root);
-      for (var i in keys) {
-        var key = keys[i];
-        var obj = root[key];
-        if ((obj instanceof Function) || (typeof obj !== "object") || (obj === null))
-          continue;
-        if (Object.keys(obj).length > 0) {
-          recursivelyGarbageCollect(root[key]);
-        }
-        if (Object.keys(obj).length === 0) {
-          delete root[key];
-        }
-      }
-    }
-    recursivelyGarbageCollect(this.listenerTree);
-
-    return this;
-  };
-
-  EventEmitter.prototype.offAny = function(fn) {
-    var i = 0, l = 0, fns;
-    if (fn && this._all && this._all.length > 0) {
-      fns = this._all;
-      for(i = 0, l = fns.length; i < l; i++) {
-        if(fn === fns[i]) {
-          fns.splice(i, 1);
-          this.emit("removeListenerAny", fn);
-          return this;
-        }
-      }
-    } else {
-      fns = this._all;
-      for(i = 0, l = fns.length; i < l; i++)
-        this.emit("removeListenerAny", fns[i]);
-      this._all = [];
-    }
-    return this;
-  };
-
-  EventEmitter.prototype.removeListener = EventEmitter.prototype.off;
-
-  EventEmitter.prototype.removeAllListeners = function(type) {
-    if (arguments.length === 0) {
-      !this._events || init.call(this);
-      return this;
-    }
-
-    if (this.wildcard) {
-      var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-      var leafs = searchListenerTree.call(this, null, ns, this.listenerTree, 0);
-
-      for (var iLeaf=0; iLeaf<leafs.length; iLeaf++) {
-        var leaf = leafs[iLeaf];
-        leaf._listeners = null;
-      }
-    }
-    else if (this._events) {
-      this._events[type] = null;
-    }
-    return this;
-  };
-
-  EventEmitter.prototype.listeners = function(type) {
-    if (this.wildcard) {
-      var handlers = [];
-      var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-      searchListenerTree.call(this, handlers, ns, this.listenerTree, 0);
-      return handlers;
-    }
-
-    this._events || init.call(this);
-
-    if (!this._events[type]) this._events[type] = [];
-    if (!isArray(this._events[type])) {
-      this._events[type] = [this._events[type]];
-    }
-    return this._events[type];
-  };
-
-  EventEmitter.prototype.listenerCount = function(type) {
-    return this.listeners(type).length;
-  };
-
-  EventEmitter.prototype.listenersAny = function() {
-
-    if(this._all) {
-      return this._all;
-    }
-    else {
-      return [];
-    }
-
-  };
-
-  if (true) {
-     // AMD. Register as an anonymous module.
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
-      return EventEmitter;
-    }).call(exports, __webpack_require__, exports, module),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-}();
-
-
-/***/ }),
-
 /***/ 729:
 /***/ ((module) => {
 
@@ -5919,7 +5195,6 @@ function _classPrivateMethodInitSpec(obj, privateSet) {
 
 var list = [
 	" daum[ /]",
-	" DCV$",
 	" deusu/",
 	"(?:^| )site",
 	"@[a-z]",
@@ -5928,42 +5203,27 @@ var list = [
 	"\\[at\\][a-z]",
 	"^12345",
 	"^<",
-	"^[\\w \\.]+/v?\\d+(\\.\\d+)?(\\.\\d{1,10})?$",
-	"^[\\w\\-\\(\\)]+$",
+	"^[\\w \\.\\-\\(\\)]+(/v?\\d+(\\.\\d+)?(\\.\\d{1,10})?)?$",
 	"^[^ ]{50,}$",
-	"^ace explorer",
-	"^acoon",
 	"^active",
 	"^ad muncher",
 	"^anglesharp/",
 	"^anonymous",
-	"^apple-pubsub/",
-	"^astute srm",
 	"^avsdevicesdk/",
 	"^axios/",
 	"^bidtellect/",
 	"^biglotron",
-	"^blackboard safeassign",
-	"^blocknote.net",
-	"^braze sender",
-	"^captivenetworksupport",
 	"^castro",
-	"^cf-uc ",
 	"^clamav[ /]",
 	"^cobweb/",
 	"^coccoc",
 	"^custom",
-	"^dap ",
 	"^ddg[_-]android",
 	"^discourse",
 	"^dispatch/\\d",
 	"^downcast/",
 	"^duckduckgo",
-	"^email",
-	"^enigma browser",
-	"^evernote clip resolver",
 	"^facebook",
-	"^faraday",
 	"^fdm[ /]\\d",
 	"^getright/",
 	"^gozilla/",
@@ -5971,35 +5231,20 @@ var list = [
 	"^hobbit",
 	"^hotzonu",
 	"^hwcdn/",
-	"^invision",
 	"^jeode/",
-	"^jetbrains",
 	"^jetty/",
 	"^jigsaw",
 	"^linkdex",
 	"^lwp[-: ]",
-	"^mailchimp\\.com$",
 	"^metauri",
 	"^microsoft bits",
-	"^microsoft data",
-	"^microsoft office existence",
-	"^microsoft office protocol discovery",
-	"^microsoft windows network diagnostics",
-	"^microsoft-cryptoapi",
-	"^microsoft-webdav-miniredir",
 	"^movabletype",
 	"^mozilla/\\d\\.\\d \\(compatible;?\\)$",
 	"^mozilla/\\d\\.\\d \\w*$",
-	"^my browser$",
 	"^navermailapp",
 	"^netsurf",
-	"^nginx\\W",
-	"^node-superagent",
-	"^octopus",
 	"^offline explorer",
-	"^pagething",
-	"^panscient",
-	"^perimeterx",
+	"^phantom",
 	"^php",
 	"^postman",
 	"^postrank",
@@ -6007,35 +5252,26 @@ var list = [
 	"^read",
 	"^reed",
 	"^restsharp/",
-	"^shareaza",
-	"^shockwave flash",
 	"^snapchat",
 	"^space bison",
-	"^sprinklr",
 	"^svn",
 	"^swcd ",
-	"^t-online browser",
 	"^taringa",
 	"^test certificate info",
-	"^the knowledge ai",
-	"^thinklab",
 	"^thumbor/",
-	"^traackr.com",
 	"^tumblr/",
-	"^uptime",
-	"^vbulletin",
+	"^user-agent:mozilla",
+	"^valid",
 	"^venus/fedoraplanet",
 	"^w3c",
 	"^webbandit/",
 	"^webcopier",
 	"^wget",
 	"^whatsapp",
-	"^www-mechanize",
 	"^xenu link sleuth",
 	"^yahoo",
 	"^yandex",
 	"^zdm/\\d",
-	"^zeushdthree",
 	"^zoom marketplace/",
 	"^{{.*}}$",
 	"adbeat\\.com",
@@ -6055,7 +5291,6 @@ var list = [
 	"client",
 	"cloud",
 	"crawl",
-	"daemon",
 	"dareboost",
 	"datanyze",
 	"dataprovider",
@@ -6091,13 +5326,10 @@ var list = [
 	"optimize",
 	"pageburst",
 	"pagespeed",
-	"parse",
 	"perl",
-	"phantom",
 	"pingdom",
 	"powermarks",
 	"preview",
-	"probe",
 	"proxy",
 	"ptst[ /]\\d",
 	"reader",
@@ -6118,14 +5350,12 @@ var list = [
 	"synapse",
 	"synthetic",
 	"taginspector/",
-	"toolbar",
 	"torrent",
 	"tracemyfile",
 	"transcoder",
 	"trendsmapresolver",
 	"twingly recon",
 	"url",
-	"valid",
 	"virtuoso",
 	"wappalyzer",
 	"webglance",
@@ -24167,7 +23397,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /******/ 	
 /************************************************************************/
 (() => {
-(function (name) {
+(function (n, v) {
     // eslint-disable-next-line max-len
     if (window.Shopify && window.Shopify.theme && navigator && navigator.sendBeacon && window.Shopify.designMode) {
       if (sessionStorage.getItem('oots_beacon')) return;
@@ -24175,15 +23405,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       navigator.sendBeacon('https://app.outofthesandbox.com/beacon', new URLSearchParams({
         shop_domain: window.Shopify.shop,
         shop_id: window.Store.id,
-        theme_name: name,
-        theme_store_id: window.Shopify.theme.theme_store_id || 0,
+        theme_name: n,
+        theme_version: v,
+        theme_store_id: window.Shopify.theme.theme_store_id,
         theme_id: window.Shopify.theme.id,
         theme_role: window.Shopify.theme.role,
       }));
 
       sessionStorage.setItem('oots_beacon', '');
     }
-  }('empire'))
+  }('empire','9.1.1'))
 })();
 
 (() => {
@@ -24212,7 +23443,7 @@ var script_default = /*#__PURE__*/__webpack_require__.n(script);
 ;// CONCATENATED MODULE: ./node_modules/@pixelunion/pxs-map/dist/index.es.js
 
 /*!
- * @pixelunion/pxs-map v3.0.0
+ * @pixelunion/pxs-map v3.1.0
  * (c) 2023 Pixel Union
  */
 
@@ -24572,8 +23803,8 @@ var PxsMap = function PxsMap(section) {
 ;// CONCATENATED MODULE: ./node_modules/@pixelunion/age-gate/dist/index.es.js
 
 /*!
- * @pixelunion/age-gate v1.0.4
- * (c) 2022 Pixel Union
+ * @pixelunion/age-gate v1.1.0
+ * (c) 2023 Pixel Union
  */
 
 function index_es_classCallCheck(instance, Constructor) {
@@ -28943,6 +28174,396 @@ class SurfacePickUp {
 
 /* harmony default export */ const shopify_surface_pick_up_dist_index_es = (SurfacePickUp);
 
+;// CONCATENATED MODULE: ./node_modules/@pixelunion/pxs-gift-card-recipient-form/dist/index.es.js
+
+/*!
+ * @pixelunion/pxs-gift-card-recipient-form v1.0.0
+ * (c) 2023 Pixel Union
+ */
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var EventHandler_1 = createCommonjsModule(function (module, exports) {
+exports.__esModule = true;
+var EventHandler = /** @class */ (function () {
+    function EventHandler() {
+        this.events = [];
+    }
+    EventHandler.prototype.register = function (el, event, listener) {
+        if (!el || !event || !listener)
+            return null;
+        this.events.push({ el: el, event: event, listener: listener });
+        el.addEventListener(event, listener);
+        return { el: el, event: event, listener: listener };
+    };
+    EventHandler.prototype.unregister = function (_a) {
+        var el = _a.el, event = _a.event, listener = _a.listener;
+        if (!el || !event || !listener)
+            return null;
+        this.events = this.events.filter(function (e) { return el !== e.el
+            || event !== e.event || listener !== e.listener; });
+        el.removeEventListener(event, listener);
+        return { el: el, event: event, listener: listener };
+    };
+    EventHandler.prototype.unregisterAll = function () {
+        this.events.forEach(function (_a) {
+            var el = _a.el, event = _a.event, listener = _a.listener;
+            return el.removeEventListener(event, listener);
+        });
+        this.events = [];
+    };
+    return EventHandler;
+}());
+exports["default"] = EventHandler;
+});
+
+var index_es_EventHandler = unwrapExports(EventHandler_1);
+
+/*!
+   * @pixelunion/animations v0.1.0
+   * (c) 2019 Pixel Union
+   * Released under the UNLICENSED license.
+  */
+
+function pxs_gift_card_recipient_form_dist_index_es_classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function dist_index_es_defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function dist_index_es_createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) dist_index_es_defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) dist_index_es_defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+/**
+ * Promisified version of window.requestAnimationFrame.
+ * @returns {Promise} Promise will resolve when requestAnimationFrame callback is run.
+ */
+function index_es_raf() {
+  return new Promise(function (resolve) {
+    window.requestAnimationFrame(resolve);
+  });
+}
+/**
+ * Represents an HTML element with associate states
+ */
+
+
+var index_es_Animation =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {Object} options
+   * @param {HTMLElement}  options.el Target element
+   * @param {String} [options.state=initial] Initial state. This is also the default state.
+   * @param {String} [options.stateAttribute=data-revealer] Attribute name to update with state.
+   * @param {String} [options.stateChangeAttribute=data-revealer-transition] Attribute name to
+   * update with change of state.
+   * @param {String} [options.endEvent=transitionend] Event to listen for at end of state change.
+   * @param {Boolean} [options.hold=false] If true, changeAttribute will not be removed until the
+   * next state change.
+   * @param {Function} [options.onStart] Callback to execute immediate after
+   * applying stateChangeAttribute.
+   */
+  function Animation(options) {
+    pxs_gift_card_recipient_form_dist_index_es_classCallCheck(this, Animation);
+
+    this._el = options.el;
+    this.cancelRunning = null;
+    this._state = options.state || 'initial';
+    this.initialState = this._state;
+    this.stateAttribute = options.stateAttribute || 'data-animation-state';
+    this.stateChangeAttribute = options.stateChangeAttribute || 'data-animation';
+    this.endEvent = options.endEvent || 'transitionend';
+    this.hold = !!options.hold;
+
+    this.onStart = options.onStart || function () {
+      /* do nothing */
+    };
+
+    this.activeEventHandler = null;
+  }
+  /**
+   * Returns target element
+   *
+   * @return {HTMLElement} Target element
+   */
+
+
+  dist_index_es_createClass(Animation, [{
+    key: "isState",
+
+    /**
+     * Check if a state is active
+     * @param {String} state State to compare
+     *
+     * @return {Boolean}
+     */
+    value: function isState(state) {
+      return state === this._state;
+    }
+    /**
+     * Sequences a change to a new state.
+     * @param {String} state Target state
+     *
+     * @param {Boolean} options.force Switch to final state immediately
+     *
+     * @param {Function} options.onStart Callback to execute immediately after
+     * applying stateChangeAttribute for this state change only.
+     *
+     * @param {Boolean} [options.hold=false] If true, changeAttribute will not be removed until the
+     * next state change.
+     *
+     * @return {Promise} Resolves when endEvent triggered
+     */
+
+  }, {
+    key: "animateTo",
+    value: function animateTo(state) {
+      var _this = this;
+
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var from = this._el.dataset[this.stateAttribute] || this._state;
+      var to = state || this.initialState;
+      var force = options.force;
+      var hold = 'hold' in options ? options.hold : this.hold;
+      return new Promise(function (resolve) {
+        if (_this.cancelRunning) {
+          _this.cancelRunning();
+        }
+
+        if (from === to) {
+          // Removing this here fixes some lingering attributes. But why?
+          _this._el.removeAttribute(_this.stateChangeAttribute);
+
+          resolve(from, null);
+          return;
+        }
+
+        var running = true;
+
+        _this.cancelRunning = function () {
+          running = false;
+          resolve(null, null);
+        };
+
+        _this._el.removeEventListener(_this.endEvent, _this.activeEventHandler);
+
+        _this.activeEventHandler = null;
+
+        if (force) {
+          _this._el.setAttribute(_this.stateChangeAttribute, "".concat(from, "=>").concat(to));
+
+          _this.onStart({
+            el: _this._el,
+            from: from,
+            to: to
+          });
+
+          if (typeof options.onStart === 'function') {
+            options.onStart({
+              el: _this._el,
+              from: from,
+              to: to
+            });
+          }
+
+          _this._el.setAttribute(_this.stateAttribute, to);
+
+          _this._state = to;
+
+          if (!hold) {
+            _this._el.removeAttribute(_this.stateChangeAttribute);
+          }
+
+          resolve(to, null);
+          return;
+        }
+
+        index_es_raf().then(function () {
+          if (!running) throw new Error('cancelled');
+
+          _this._el.setAttribute(_this.stateChangeAttribute, "".concat(from, "=>").concat(to));
+
+          _this.onStart({
+            el: _this._el,
+            from: from,
+            to: to
+          });
+
+          if (typeof options.onStart === 'function') {
+            options.onStart({
+              el: _this._el,
+              from: from,
+              to: to
+            });
+          }
+
+          return index_es_raf();
+        }).then(function () {
+          if (!running) throw new Error('cancelled');
+
+          _this._el.removeEventListener(_this.endEvent, _this.activeEventHandler);
+
+          _this.activeEventHandler = function (e) {
+            // Ignore any events bubbling up
+            if (e.target !== _this._el || !running) return;
+
+            _this._el.removeEventListener(_this.endEvent, _this.activeEventHandler);
+
+            if (!hold) {
+              _this._el.removeAttribute(_this.stateChangeAttribute);
+            }
+
+            resolve(to, e);
+          };
+
+          _this._el.addEventListener(_this.endEvent, _this.activeEventHandler);
+
+          _this._el.setAttribute(_this.stateAttribute, to);
+
+          _this._state = to;
+        })["catch"](function (error) {
+          // Only catch 'cancelled' errors.
+          if (error.message !== 'cancelled') throw error;
+        });
+      });
+    }
+    /**
+     * Remove any event listeners
+     */
+
+  }, {
+    key: "unload",
+    value: function unload() {
+      this._el.removeEventListener(this.endEvent, this.activeEventHandler);
+
+      this.activeEventHandler = null;
+    }
+  }, {
+    key: "el",
+    get: function get() {
+      return this._el;
+    }
+    /**
+     * Returns current state
+     *
+     * @return {String} Current state
+     */
+
+  }, {
+    key: "state",
+    get: function get() {
+      return this._state;
+    }
+  }]);
+
+  return Animation;
+}();
+
+function index_es_transition(options) {
+  return new index_es_Animation(options);
+}
+
+class RecipientForm {
+  constructor(el) {
+    this.el = el;
+    this.events = new index_es_EventHandler();
+    this.recipientForm = this.el.querySelector('[data-recipient-form]');
+    this.recipientFormInputs = this.el.querySelectorAll('[data-recipient-form-input]');
+    this.recipientFormEmailInput = this.el.querySelector('[data-recipient-form-email-input]');
+    this.disclosure = this.el.querySelector('[data-recipient-disclosure]');
+    this.disclosureCheckbox = this.el.querySelector('[data-recipient-disclosure-checkbox]');
+    this.checkmark = this.disclosure.querySelector('.checkmark');
+    this.checkmarkCheck = this.disclosure.querySelector('.checkmark__check');
+    this.fillAnimation = index_es_transition({
+      el: this.checkmark
+    });
+    this.checkAnimation = index_es_transition({
+      el: this.checkmarkCheck
+    });
+    this.events.register(this.recipientForm, 'keydown', event => this._onKeydown(event));
+    this.events.register(this.disclosure, 'toggle', () => this._onToggle());
+    this.events.register(this.disclosureCheckbox, 'change', () => this._onChange());
+  }
+
+  _onChange() {
+    this.disclosure.open = this.disclosureCheckbox.checked;
+  }
+
+  _onKeydown(event) {
+    // Prevent input form submission
+    if (event.key === 'Enter' && event.target.matches('[data-recipient-form-input]')) {
+      event.preventDefault();
+    }
+  }
+
+  _onToggle() {
+    if (this.disclosure.open) {
+      this._showRecipientForm();
+    } else {
+      this._hideRecipientForm();
+    }
+  }
+
+  _showRecipientForm() {
+    if (this.checkmark && this.checkmarkCheck) {
+      this.fillAnimation.animateTo('checked');
+      this.checkAnimation.animateTo('checked');
+    }
+
+    this.disclosureCheckbox.checked = true;
+    this.recipientFormEmailInput.required = true;
+  }
+
+  _hideRecipientForm() {
+    if (this.checkmark && this.checkmarkCheck) {
+      this.fillAnimation.animateTo('unchecked');
+      this.checkAnimation.animateTo('unchecked');
+    }
+
+    this.disclosureCheckbox.checked = false;
+    this.recipientFormEmailInput.required = false;
+
+    this._resetRecipientForm();
+  }
+
+  _resetRecipientForm() {
+    this.recipientFormInputs.forEach(el => {
+      el.value = '';
+
+      if (el.classList.contains('form-field-filled')) {
+        el.classList.remove('form-field-filled');
+      }
+    });
+
+    if (this.recipientForm.classList.contains('recipient-form--has-errors')) {
+      this.recipientForm.classList.remove('recipient-form--has-errors');
+    }
+  }
+
+}
+
+/* harmony default export */ const pxs_gift_card_recipient_form_dist_index_es = (RecipientForm);
+
 ;// CONCATENATED MODULE: ./source/scripts/components/MessageBanner.js
 
 
@@ -28984,9 +28605,7 @@ class MessageBanner {
 
   _close() {
     this.bannerAnimation.animateTo('closed').then(() => {
-      var _this$banner;
-
-      (_this$banner = this.banner) === null || _this$banner === void 0 ? void 0 : _this$banner.remove();
+      this.banner?.remove();
       this.banner = null;
       this.events.unregisterAll();
       this.bannerAnimation.unload();
@@ -29053,7 +28672,7 @@ class Images {
       return this.removeProtocol(src);
     }
 
-    const match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
+    const match = src.match(/\.(jpg|jpeg|gif|png|webp|avif|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
 
     if (match) {
       const prefix = src.split(match[0]);
@@ -30321,8 +29940,11 @@ class AddToCartFlyout {
     };
     this.atcButton = options.atcButton;
     this.header = document.querySelector('[data-site-header]');
+    this.announcementBar = document.querySelector('[data-announcement-bar]');
+    this.utilityBar = document.querySelector('[data-utility-bar]');
     this.flyOutSelector = '[data-atc-banner]';
     this.atcTemplate = document.querySelector(`[data-templates] ${this.flyOutSelector}`);
+    this.recipientForm = document.querySelector('[data-recipient-form]');
     this.activeElement = document.activeElement;
     this.itemId = null;
     this.flyOut = null;
@@ -30531,7 +30153,11 @@ class AddToCartFlyout {
 
       this._enableAtcButton();
 
-      this.callbacks.onError(errorText);
+      if (errorText.email) {
+        this.recipientForm.classList.add('recipient-form--has-errors');
+      } else {
+        this.callbacks.onError(errorText);
+      }
     });
   }
 
@@ -30542,6 +30168,14 @@ class AddToCartFlyout {
   _onInit() {
     if (this.messageBanner) {
       this.messageBanner.unload();
+    }
+
+    if (this.announcementBar) {
+      this.announcementBar.style.setProperty('--index-announcement-bar', '1100');
+    }
+
+    if (this.utilityBar) {
+      this.utilityBar.style.setProperty('--index-utility-bar', '1100');
     }
   }
 
@@ -30588,6 +30222,14 @@ class AddToCartFlyout {
     }
 
     this.atcAnimation.animateTo('closed').then(() => {
+      if (this.announcementBar) {
+        this.announcementBar.style.setProperty('--index-announcement-bar', '');
+      }
+
+      if (this.utilityBar) {
+        this.utilityBar.style.setProperty('--index-utility-bar', '');
+      }
+
       this.callbacks.onClose();
       this.flyOut.remove();
       this.flyOut = null;
@@ -32711,6 +32353,7 @@ class PaymentTerms {
 
 
 
+
 class ProductDetails {
   constructor(options) {
     this.$window = jquery_default()(window);
@@ -32728,8 +32371,13 @@ class ProductDetails {
     this.paymentTerms = new PaymentTerms(this.el);
     this.variantSelection = this.el.querySelector('[data-variant-selection]');
     this.select_first_available_variant = this.settings.select_first_available_variant;
+    this.recipientFormEl = this.el.querySelector('[data-recipient-form]');
     this.surfacePickUpEl = this.el.querySelector('[data-surface-pick-up]');
     this.requestFormEl = this.el.querySelector('[data-product-request-form]');
+
+    if (this.recipientFormEl) {
+      this.recipientForm = new pxs_gift_card_recipient_form_dist_index_es(this.el);
+    }
 
     if (this.surfacePickUpEl) {
       this.surfacePickUp = new shopify_surface_pick_up_dist_index_es(this.surfacePickUpEl);
@@ -33140,6 +32788,11 @@ class ProductDetails {
 
   _addToCartFlyout(event) {
     event.preventDefault();
+
+    if (this.recipientFormEl) {
+      this.recipientFormEl.classList.remove('recipient-form--has-errors');
+    }
+
     this.variantSelection.getVariant().then(variant => {
       if (!variant) {
         this.messageBanner = new MessageBanner(this.context.select_variant, 'error');
@@ -35236,7 +34889,7 @@ function shopify_cross_border_dist_index_es_classCallCheck(instance, Constructor
   }
 }
 
-function dist_index_es_defineProperties(target, props) {
+function shopify_cross_border_dist_index_es_defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -35246,9 +34899,9 @@ function dist_index_es_defineProperties(target, props) {
   }
 }
 
-function dist_index_es_createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) dist_index_es_defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) dist_index_es_defineProperties(Constructor, staticProps);
+function shopify_cross_border_dist_index_es_createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) shopify_cross_border_dist_index_es_defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) shopify_cross_border_dist_index_es_defineProperties(Constructor, staticProps);
   return Constructor;
 }
 
@@ -35256,12 +34909,12 @@ function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-function createCommonjsModule(fn) {
+function index_es_createCommonjsModule(fn) {
   var module = { exports: {} };
 	return fn(module, module.exports), module.exports;
 }
 
-var EventHandler_1 = createCommonjsModule(function (module, exports) {
+var index_es_EventHandler_1 = index_es_createCommonjsModule(function (module, exports) {
 
 exports.__esModule = true;
 
@@ -35319,7 +34972,7 @@ function () {
 exports["default"] = EventHandler;
 });
 
-var Events = /*@__PURE__*/getDefaultExportFromCjs(EventHandler_1);
+var Events = /*@__PURE__*/getDefaultExportFromCjs(index_es_EventHandler_1);
 
 var selectors = {
   disclosureList: '[data-disclosure-list]',
@@ -35349,7 +35002,7 @@ var Disclosure = /*#__PURE__*/function () {
     this._onFocusOut();
   }
 
-  dist_index_es_createClass(Disclosure, [{
+  shopify_cross_border_dist_index_es_createClass(Disclosure, [{
     key: "_cacheSelectors",
     value: function _cacheSelectors() {
       this.cache = {
@@ -35494,8 +35147,8 @@ class StaticFooter {
   constructor(section) {
     this.$el = jquery_default()(section.el);
     this.el = section.el;
-    this.countryDisclosureEl = this.el.querySelector('[data-disclosure-country]');
-    this.localeDisclosureEl = this.el.querySelector('[data-disclosure-locale]');
+    this.countryDisclosureEls = this.el.querySelectorAll('[data-disclosure-country]');
+    this.localeDisclosureEls = this.el.querySelectorAll('[data-disclosure-locale]');
     this.accordionTrigger = '[data-accordion-trigger]';
     this.disclosures = [];
     this.Accordion = new Accordion(this.el, {
@@ -35516,12 +35169,16 @@ class StaticFooter {
 
     this.forms = new Forms(this.$el);
 
-    if (this.countryDisclosureEl) {
-      this.disclosures.push(new shopify_cross_border_dist_index_es(this.countryDisclosureEl));
+    if (this.countryDisclosureEls.length > 0) {
+      this.countryDisclosureEls.forEach(disclosureEl => {
+        this.disclosures.push(new shopify_cross_border_dist_index_es(disclosureEl));
+      });
     }
 
-    if (this.localeDisclosureEl) {
-      this.disclosures.push(new shopify_cross_border_dist_index_es(this.localeDisclosureEl));
+    if (this.localeDisclosureEls.length > 0) {
+      this.localeDisclosureEls.forEach(disclosureEl => {
+        this.disclosures.push(new shopify_cross_border_dist_index_es(disclosureEl));
+      });
     } // Handle Accordion interaction when window size changes
 
 
@@ -35844,6 +35501,7 @@ class NavMobile {
     this.navPanel = this.el.querySelector('[data-mobile-nav-panel]');
     this.navOverlay = this.el.querySelector('[data-mobile-nav-overlay]');
     this.toggleClose = this.el.querySelector('[data-mobile-nav-close]');
+    this.announcementBar = document.querySelector('[data-announcement-bar]');
     this.isOpen = false;
     this.subMenus = null;
     this.events = new EventHandler/* default */.Z(); // Revert navigation to original state on breakpoint change
@@ -35881,6 +35539,11 @@ class NavMobile {
     }
 
     ScrollLock.lock(this.navPanel);
+
+    if (this.announcementBar) {
+      this.announcementBar.style.setProperty('--index-announcement-bar', '1100');
+    }
+
     this.isOpen = true; // Activate Submenu handler
 
     this.subMenus = new NavMobileSubMenus(this.navPanel);
@@ -35906,6 +35569,10 @@ class NavMobile {
       this.mobileNav.dataset.open = 'false';
       removeTrapFocus(this.mobileNav);
       this.toggleOpen.focus();
+
+      if (this.announcementBar) {
+        this.announcementBar.style.setProperty('--index-announcement-bar', '');
+      }
     });
     ScrollLock.unlock();
     this.isOpen = false; // Close any open drop down menus
@@ -36386,176 +36053,6 @@ class NavDesktopMenu {
   }
 
 }
-// EXTERNAL MODULE: ./node_modules/eventemitter2/lib/eventemitter2.js
-var eventemitter2 = __webpack_require__(387);
-var eventemitter2_default = /*#__PURE__*/__webpack_require__.n(eventemitter2);
-;// CONCATENATED MODULE: ./source/scripts/Search.js
-
-/**
- * Search API Class
- */
-
-class Search extends (eventemitter2_default()) {
-  /**
-   * Create a new Search instance, and override defaults
-   *
-   * @param options
-   * @property {string} options.type - Search restriction. Use 'article', 'page', 'product', or ''
-   * @property {string} options.view - Search template suffix. Specify different templates as needed
-   */
-  constructor() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    super();
-    this.searchType = options.type || '';
-    this.view = options.view || 'json';
-    this.inProgress = false;
-    this.xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    this._xhrLoad = this._xhrLoad.bind(this);
-    this._xhrError = this._xhrError.bind(this);
-    this._xhrAbort = this._xhrAbort.bind(this);
-
-    this._bindEvents();
-  }
-
-  _bindEvents() {
-    this.xhr.addEventListener('load', this._xhrLoad);
-    this.xhr.addEventListener('error', this._xhrError);
-    this.xhr.addEventListener('abort', this._xhrAbort);
-  }
-  /**
-   * XHR was successfull
-   *
-   * @description XHR completed successfully
-   * @param {object} event
-   * @fires Search#complete
-   * @private
-   */
-
-
-  _xhrLoad(event) {
-    let response = {};
-    const {
-      readyState,
-      status
-    } = event.target;
-
-    try {
-      if (readyState > 3 && status === 200) {
-        response = event.target.responseText;
-        const jsonData = JSON.parse(response);
-        this.emit('complete', jsonData);
-      } else {
-        const message = `Invalid readyState: ${readyState}, or status: ${status}.`;
-
-        this._xhrError(event, message);
-
-        return;
-      }
-    } catch (error) {
-      this._xhrError(event, 'Invalid JSON', error);
-
-      return;
-    }
-
-    this.inProgress = false;
-  }
-  /**
-   * XHR contains an error
-   *
-   * @description XHR has contained an error, and was unable to complete
-   * @param {object} event
-   * @param {object|string} message
-   * @param {object} error
-   * @fires Search#error
-   * @private
-   */
-
-
-  _xhrError(event) {
-    let message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    let error = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    this.inProgress = false;
-    this.emit('error', {
-      event,
-      message,
-      error
-    });
-  }
-  /**
-   * XHR has been aborted
-   *
-   * @description This event only fires if there is an active XHR request that has been terminated
-   * @fires Search#aborted
-   * @private
-   */
-
-
-  _xhrAbort() {
-    this.emit('aborted');
-  }
-  /**
-   * Perform the search
-   *
-   * @param {string} term - Search term(s)
-   * @fires Search#initialized
-   * @fires Search#cancelled
-   */
-
-
-  execute(term) {
-    this.emit('initialized', {
-      term
-    });
-
-    if (this.inProgress) {
-      this.emit('cancelled');
-      this.xhr.abort();
-    }
-
-    this.inProgress = true;
-    const url = window.Theme.routes.search_url;
-    const params = {
-      q: term,
-      type: this.searchType,
-      view: this.view
-    };
-    const searchParams = Object.keys(params).map(key => {
-      const value = params[key];
-      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-    }).join('&');
-    this.xhr.open('get', `${url}?${searchParams}`);
-    this.xhr.setRequestHeader('Accept', 'application/json');
-    this.xhr.send();
-  }
-
-}
-/**
- * @description XHR initialized
- * @event Search#initialized
- * @type {object}
- */
-
-/**
- * @description XHR completed
- * @event Search#complete
- * @property {object} response - JSON response from end point
- */
-
-/**
- * @description XHR had an error
- * @event Search#error
- */
-
-/**
- * @description XHR cancelled due to user interaction. If an XHR is being
- *        processed, this does not terminate it
- * @event Search#cancelled
- */
-
-/**
- * @description XHR aborted due to user interaction, terminating previously executed XHR.
- * @event Search#aborted
- */
 ;// CONCATENATED MODULE: ./source/scripts/components/search/SearchForm.js
 
 
@@ -36635,17 +36132,12 @@ class SearchForm {
 
     if (this.isLiveSearch && !terms) {
       return;
-    } // Adds `*` after each word in search terms, doesn't add to last word
+    } // Add field filter
+    // Filter should always come before the input terms,
+    // otherwise Shopify won't return the expected results.
 
 
-    if (terms.indexOf(' ') > 0) {
-      terms = terms.split(' ').join('* ').trim();
-    } // Adds `*` at the end of the search terms
-
-
-    terms = `${terms}*`; // Add field filter
-
-    terms = this.filter && this.filter.value ? `${terms} ${this.filter.value}` : terms; // Update value
+    terms = this.filter && this.filter.value ? `${this.filter.value} AND ${terms}` : terms; // Update value
 
     termsInput.value = terms; // Forms must be in the browser context in order to submit
 
@@ -36654,290 +36146,6 @@ class SearchForm {
   }
 
 }
-;// CONCATENATED MODULE: ./source/scripts/components/search/LiveSearchTemplates.js
-/**
- * Shows a list item component when result is an article, or a page
- *
- * @param contentItem
- * @returns {string}
- * @constructor
- */
-function ContentItem(contentItem) {
-  return `
-  <li class="search-flydown--content-item">
-    <a href="${contentItem.url}">${contentItem.title}</a>
-  </li>
-  `;
-}
-/**
- * Shows a header for the article and page results
- *
- * @param context
- * @returns {string}
- * @constructor
- */
-
-
-function ContentResultsHeader(context) {
-  return `
-    <h5 class="search-flydown--content-title">
-      ${context.content_results.title}
-    </h5>
-  `;
-}
-/**
- * Shows a list of results from articles, or pages
- *
- * @param props
- * @returns {jQuery|HTMLElement}
- * @constructor
- */
-
-
-function ContentResults(props) {
-  const {
-    content,
-    context
-  } = props;
-  const $title = ContentResultsHeader(context);
-  const contentItems = content.map(contentItem => ContentItem(contentItem));
-  return $(`
-    <div class="search-flydown--content-items">
-      ${$title}
-
-      <ul class="search-flydown--content-items-list">
-        ${contentItems.join('')}
-      </ul>
-    </div>
-  `);
-}
-/**
- * Shows a message when there are no article or page results
- *
- * @param props
- * @returns {jQuery|HTMLElement}
- * @constructor
- */
-
-
-function ContentNoResults(props) {
-  const {
-    context
-  } = props;
-  const $title = ContentResultsHeader(context);
-  return $(`
-    <div class="search-flydown--content-items">
-      ${$title}
-
-      <p class="search-flydown--content-items-none">
-        ${context.content_results.no_results}
-      </p>
-    </div>
-  `);
-}
-/**
- * Shows the product's compare_at_price, with connection for CurrencyConverter
- *
- * @param price
- * @returns {string}
- * @constructor
- */
-
-
-function ProductPriceCompareAt(price) {
-  return `
-  <span class="search-flydown--product-price--compare-at">
-    <span class="money">${price.compare_at_price}</span>
-  </span>
-  `;
-}
-/**
- * Shows the product's price, with connection for CurrencyConverter
- *
- * @param price
- * @returns {string}
- * @constructor
- */
-
-
-function ProductPriceMain(price) {
-  return `
-  <span class="search-flydown--product-price--main">
-    <span class="money">${price.price}</span>
-  </span>
-  `;
-}
-/**
- * Shows the product's prices
- *
- * @param props
- * @returns {string}
- * @constructor
- */
-
-
-function ProductPrice(props) {
-  const {
-    price,
-    onSale,
-    consistentSaved
-  } = props;
-  const $compareAt = onSale && consistentSaved ? ProductPriceCompareAt(price) : '';
-  const $price = ProductPriceMain(price);
-  return `
-    <span class="search-flydown--product-price ${onSale ? 'search-flydown--product-price-has-sale' : ''}">
-      ${$price}
-      ${$compareAt}
-    </span>
-  `;
-}
-/**
- * Shows a product's main content
- *
- * @param product
- * @returns {string}
- * @constructor
- */
-
-
-function ProductContent(product) {
-  const $price = ProductPrice({
-    price: product.price,
-    onSale: product.on_sale,
-    consistentSaved: product.consistent_saved
-  });
-  const stockLevel = product.stock_level ? `<div class="search-flydown--product-stock-level">${product.stock_level}</div>` : '';
-  const swatchCount = product.swatch_count ? `<span class="search-flydown--product-swatch-count">${product.swatch_count}</span>` : '';
-  return `
-    <div class="search-flydown--product-text">
-      <span class="search-flydown--product-title">
-        ${product.title}
-      </span>
-      ${$price}
-      ${stockLevel}
-      ${swatchCount}
-    </div>
-  `;
-}
-/**
- * Shows a product's image
- *
- * @param image
- * @returns {string}
- * @constructor
- */
-
-
-function ProductImage(image) {
-  return `
-    <div class="search-flydown--product-image">
-      ${image}
-    </div>
-  `;
-}
-/**
- * Shows a product list item component when result is a product
- *
- * @param product
- * @param enableImages
- * @returns {string}
- * @constructor
- */
-
-
-function ProductItem(product, enableImages) {
-  const $image = enableImages ? ProductImage(product.image) : '';
-  const $content = ProductContent(product);
-  return `
-    <a class="search-flydown--product search-flydown--product" href="${product.url}">
-      ${$image}
-      ${$content}
-    </a>
-  `;
-}
-/**
- * Shows a list of product results
- *
- * @param props
- * @returns {jQuery|HTMLElement}
- * @constructor
- */
-
-
-function ProductResults(props) {
-  const {
-    products,
-    enableImages
-  } = props;
-  const productItems = products.map(product => ProductItem(product, enableImages));
-  return $(`
-    <div class="search-flydown--product-items">
-      ${productItems.join('')}
-    </div>
-  `);
-}
-/**
- * Show a message when no product results are found
- *
- * @param props
- * @returns {jQuery|HTMLElement}
- * @constructor
- */
-
-
-function ProductNoResults(props) {
-  const {
-    context,
-    terms,
-    category
-  } = props;
-  let title = context.no_results_products.title.replace('*terms*', terms);
-
-  if (category) {
-    title = context.no_results_products.title_in_category.replace('*terms*', terms).replace('*category*', category);
-  }
-
-  return $(`
-    <div class="search-flydown--product-items--none" data-live-search-no-products>
-      <h5>
-        ${title}
-      </h5>
-      <p>
-        ${context.no_results_products.message}
-      </p>
-      <p>
-        <a class="search-flydown--continue" href="${window.Theme.routes.all_products_collection_url}">
-          ${context.view_all_products}
-        </a>
-      </p>
-    </div>
-  `);
-}
-/**
- * Show's the Results footer, directing customers to all products
- *
- * @param props
- * @returns {jQuery|HTMLElement}
- * @constructor
- */
-
-
-function ResultsFooter(props) {
-  const {
-    context,
-    terms,
-    type
-  } = props;
-  return $(`
-    <div class="search-flydown--footer">
-      <a class="search-flydown--continue" href="${window.Theme.routes.search_url}?q=${terms}&type=${type}">
-        ${context.view_all_results}
-      </a>
-    </div>
-  `);
-}
-
-
 ;// CONCATENATED MODULE: ./source/scripts/components/search/LiveSearch.js
 
 
@@ -36948,8 +36156,6 @@ function ResultsFooter(props) {
 
 
 
-
-const MAX_RESULTS = 7;
 class LiveSearch {
   constructor(els, settings) {
     this.$el = jquery_default()(els.el);
@@ -36957,15 +36163,12 @@ class LiveSearch {
     this.closeEvents = new EventHandler/* default */.Z();
     this.closeEventRequestors = new Set();
     this.settings = settings;
-    this.enableContent = this.settings.enable_content;
     this.enableImages = this.settings.enable_images;
     this.mobileSearchBar = this.settings.show_mobile_search_bar;
-    this.searchType = this.enableContent ? 'article,page,product' : 'product';
     this.category = '';
-    const $form = this.$el.find('[data-live-search-form]');
-    this.$input = $form.find('[data-live-search-input]');
-    this.$button = $form.find('[data-live-search-submit]');
-    this.$takeOverButton = $form.find('[data-live-search-takeover-cancel]');
+    this.$input = this.$el.find('[data-live-search-input]');
+    this.$button = this.$el.find('[data-live-search-submit]');
+    this.$takeOverButton = this.$el.find('[data-live-search-takeover-cancel]');
     this.$filter = this.$el.find('[data-live-search-filter]');
     this.$flyDown = this.$el.find('[data-live-search-flydown]');
     this.$searchResults = this.$flyDown.find('[data-live-search-results]');
@@ -37001,23 +36204,12 @@ class LiveSearch {
         this.category = category;
       }
     });
-    this.search = new Search({
-      view: 'header',
-      type: this.searchType
-    });
     this._search = this._search.bind(this);
     this._documentFocus = this._documentFocus.bind(this);
-    this._searchCancelled = this._searchCancelled.bind(this);
-    this._searchComplete = this._searchComplete.bind(this);
-    this._searchError = this._searchError.bind(this);
-    this.search.on('cancelled', this._searchCancelled);
-    this.search.on('complete', this._searchComplete);
-    this.search.on('error', this._searchError);
 
     this._closeEsc = e => {
       if (e.key === 'Escape') {
         e.stopPropagation();
-        this.$input.focus();
 
         this._closeFlyDown(true);
 
@@ -37028,7 +36220,7 @@ class LiveSearch {
     this.events = [this.$input.on('keyup.live-search', just_debounce_default()(this._search, 250)), this.$input.on('focus.live-search', event => {
       event.stopPropagation();
 
-      this._onSearchFocus();
+      this._onSearchFocus(event);
     }), this.$takeOverButton.on('click.live-search', event => {
       event.preventDefault();
 
@@ -37041,7 +36233,11 @@ class LiveSearch {
       if (!hasTerms) return;
 
       this._search(event);
-    })];
+    }), jquery_default()(window).on('resize', just_debounce_default()(() => {
+      // Only recalculate and open flydown if the flydown is already open.
+      // This helps to prevent quick links from opening on resize.
+      if (this._isFlydownOpen) this._openFlyDown();
+    }, 250))];
   }
 
   open() {
@@ -37063,9 +36259,6 @@ class LiveSearch {
     this.events.forEach($el => $el.off('.live-search'));
     this.closeEvents.unregisterAll();
     this.closeEventRequestors.clear();
-    this.search.off('cancelled', this._searchCancelled);
-    this.search.off('complete', this._searchComplete);
-    this.search.off('error', this._searchError);
 
     if (this.settings.use_dimmer) {
       clear(this);
@@ -37080,10 +36273,14 @@ class LiveSearch {
   }
 
   get _hasTerms() {
-    return this._terms.length > 0;
+    return this._terms.trim().length > 0;
   }
 
-  _onSearchFocus() {
+  get _isFlydownOpen() {
+    return this.$flyDown.attr('data-animation-state') === 'open';
+  }
+
+  _onSearchFocus(event) {
     this.$el.addClass('live-search--focused'); // If is XS, pop the search out into a Takeover screen
 
     if (Layout.isLessThanBreakpoint('S')) {
@@ -37092,7 +36289,7 @@ class LiveSearch {
       this._openTakeOver();
     }
 
-    this._openFlyDown();
+    this._search(event);
   }
 
   _search(event) {
@@ -37115,19 +36312,29 @@ class LiveSearch {
       // Clear previous results
       this.$searchResults.html('');
 
-      this._openFlyDown(true); // Adds `*` after each word in search terms, doesn't add to last word
+      this._openFlyDown(true);
 
+      const filter = this.$filter[0]; // Filter should always come before the input terms, otherwise Shopify won't
+      // return the expected results. Explicitly use an `AND` so splitting in Liquid becomes easier.
+      // https://help.shopify.com/en/manual/online-store/storefront-search#prefix-search
 
-      if (terms.indexOf(' ') > 0) {
-        terms = terms.split(' ').join('* ').trim();
-      } // Adds `*` at the end of the search terms
+      terms = filter && filter.value ? `${filter.value} AND ${terms}` : terms;
+      fetch(`${window.Theme.routes.predictive_search_url}?q=${encodeURIComponent(terms)}&section_id=predictive-search`).then(response => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
 
+        return response.text();
+      }).then(html => {
+        this.$searchResults.html(html);
+        dist_index_es.watch(this.$searchResults[0]);
 
-      terms = `${terms}*`;
-      const filter = this.$filter[0]; // Add field filter
+        this._openFlyDown();
 
-      terms = filter && filter.value ? `${terms} ${filter.value}` : terms;
-      this.search.execute(terms);
+        this._toggleButton(false);
+      }).catch(error => {
+        throw error;
+      });
     } else if (this.$quickLinks.length) {
       this._openFlyDown();
     } else {
@@ -37138,77 +36345,6 @@ class LiveSearch {
   _searchError(response) {
     console.warn('Search had error');
     console.log(response.message, response.error, response.event);
-
-    this._toggleButton(false);
-  }
-  /**
-   * Search has been cancelled due to new search being performed
-   *
-   * @private
-   */
-
-
-  _searchCancelled() {// Searches are canceled on user interaction, UI should remain unchanged
-  }
-
-  _searchComplete(response) {
-    let {
-      content,
-      products
-    } = response;
-    const {
-      terms,
-      sanitizedTerms
-    } = response;
-    content = content.slice(0, MAX_RESULTS);
-    products = products.slice(0, MAX_RESULTS);
-    const {
-      enable_images: enableImages,
-      context
-    } = this.settings;
-    const settings = {
-      products: {
-        results: {
-          products,
-          enableImages
-        },
-        noResults: {
-          context,
-          terms: sanitizedTerms,
-          category: this.category
-        }
-      },
-      content: {
-        results: {
-          context,
-          content
-        },
-        noResults: {
-          context
-        }
-      },
-      footer: {
-        context,
-        terms,
-        type: this.searchType
-      }
-    };
-    const $productResults = products.length ? ProductResults(settings.products.results) : ProductNoResults(settings.products.noResults);
-    const $contentResults = content.length ? ContentResults(settings.content.results) : ContentNoResults(settings.content.noResults);
-    $productResults.find('.money').each((i, el) => {
-      el.innerHTML = Shopify.formatMoney( // eslint-disable-line no-param-reassign
-      el.innerHTML, this.settings.money_format);
-    }); // Show results
-
-    this.$searchResults.html($productResults);
-
-    if (this.enableContent) {
-      this.$searchResults.append($contentResults);
-    }
-
-    this.$searchResults.append(ResultsFooter(settings.footer));
-
-    this._openFlyDown();
 
     this._toggleButton(false);
   }
@@ -37269,7 +36405,13 @@ class LiveSearch {
       // but the wrapper's scrollHeight is the height we want to transition to
       const container = el.querySelector(':scope > .visible');
       const scrollHeight = container ? container.scrollHeight : 0;
-      el.style.setProperty('--open-height', `${scrollHeight}px`);
+      el.style.setProperty('--open-height', `${scrollHeight}px`); // Ensure the flydown height doesn't exceed the viewport/body
+
+      const viewportHeight = el.closest('[data-site-header]') ? document.documentElement.clientHeight : document.documentElement.scrollHeight;
+      const topPos = container.getBoundingClientRect().top + (el.closest('[data-site-header]') ? 0 : window.scrollY);
+      const offset = 30;
+      const maxHeight = viewportHeight - topPos - offset;
+      el.style.setProperty('--flydown-max-height', `${maxHeight}px`);
     };
 
     this._updateFlyDown(placeholder);
@@ -37467,7 +36609,7 @@ class LiveSearch {
   _documentFocus(event) {
     const $closest = jquery_default()(event.target).closest('[data-live-search]');
 
-    if ($closest.length) {
+    if ($closest[0] === this.$el[0]) {
       return;
     }
 
@@ -37742,15 +36884,15 @@ function pxs_complementary_products_dist_index_es_createClass(Constructor, proto
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : typeof self !== 'undefined' ? self : {};
 
-function unwrapExports (x) {
+function index_es_unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-function index_es_createCommonjsModule(fn, module) {
+function dist_index_es_createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var index_es_EventHandler_1 = index_es_createCommonjsModule(function (module, exports) {
+var dist_index_es_EventHandler_1 = dist_index_es_createCommonjsModule(function (module, exports) {
 exports.__esModule = true;
 var EventHandler = /** @class */ (function () {
     function EventHandler() {
@@ -37784,7 +36926,7 @@ var EventHandler = /** @class */ (function () {
 exports["default"] = EventHandler;
 });
 
-var index_es_EventHandler = unwrapExports(index_es_EventHandler_1);
+var dist_index_es_EventHandler = index_es_unwrapExports(dist_index_es_EventHandler_1);
 
 /*!
    * @pixelunion/shopify-asyncview v2.0.5
@@ -38071,7 +37213,7 @@ var index_es_AsyncView = /*#__PURE__*/function () {
   return AsyncView;
 }();
 
-var evEmitter = index_es_createCommonjsModule(function (module) {
+var evEmitter = dist_index_es_createCommonjsModule(function (module) {
 /**
  * EvEmitter v1.1.0
  * Lil' event emitter
@@ -38181,7 +37323,7 @@ return EvEmitter;
 }));
 });
 
-var getSize = index_es_createCommonjsModule(function (module) {
+var getSize = dist_index_es_createCommonjsModule(function (module) {
 /*!
  * getSize v2.0.3
  * measure size of elements
@@ -38387,7 +37529,7 @@ return getSize;
 });
 });
 
-var matchesSelector = index_es_createCommonjsModule(function (module) {
+var matchesSelector = dist_index_es_createCommonjsModule(function (module) {
 /**
  * matchesSelector v2.0.2
  * matchesSelector( element, '.selector' )
@@ -38437,7 +37579,7 @@ var matchesSelector = index_es_createCommonjsModule(function (module) {
 }));
 });
 
-var utils = index_es_createCommonjsModule(function (module) {
+var utils = dist_index_es_createCommonjsModule(function (module) {
 /**
  * Fizzy UI utils v2.0.7
  * MIT license
@@ -38672,7 +37814,7 @@ return utils;
 }));
 });
 
-var cell = index_es_createCommonjsModule(function (module) {
+var cell = dist_index_es_createCommonjsModule(function (module) {
 // Flickity.Cell
 ( function( window, factory ) {
   // universal module definition
@@ -38776,7 +37918,7 @@ return Cell;
 } ) );
 });
 
-var slide = index_es_createCommonjsModule(function (module) {
+var slide = dist_index_es_createCommonjsModule(function (module) {
 // slide
 ( function( window, factory ) {
   // universal module definition
@@ -38848,7 +37990,7 @@ return Slide;
 } ) );
 });
 
-var animate = index_es_createCommonjsModule(function (module) {
+var animate = dist_index_es_createCommonjsModule(function (module) {
 // animate
 ( function( window, factory ) {
   // universal module definition
@@ -39044,7 +38186,7 @@ return proto;
 } ) );
 });
 
-var flickity = index_es_createCommonjsModule(function (module) {
+var flickity = dist_index_es_createCommonjsModule(function (module) {
 // Flickity main
 /* eslint-disable max-params */
 ( function( window, factory ) {
@@ -39968,7 +39110,7 @@ return Flickity;
 } ) );
 });
 
-var unipointer = index_es_createCommonjsModule(function (module) {
+var unipointer = dist_index_es_createCommonjsModule(function (module) {
 /*!
  * Unipointer v2.4.0
  * base class for doing one thing with pointer event
@@ -40264,7 +39406,7 @@ return Unipointer;
 }));
 });
 
-var unidragger = index_es_createCommonjsModule(function (module) {
+var unidragger = dist_index_es_createCommonjsModule(function (module) {
 /*!
  * Unidragger v2.4.0
  * Draggable base class
@@ -40541,7 +39683,7 @@ return Unidragger;
 }));
 });
 
-var drag = index_es_createCommonjsModule(function (module) {
+var drag = dist_index_es_createCommonjsModule(function (module) {
 // drag
 ( function( window, factory ) {
   // universal module definition
@@ -40921,7 +40063,7 @@ return Flickity;
 } ) );
 });
 
-var prevNextButton = index_es_createCommonjsModule(function (module) {
+var prevNextButton = dist_index_es_createCommonjsModule(function (module) {
 // prev/next buttons
 ( function( window, factory ) {
   // universal module definition
@@ -41124,7 +40266,7 @@ return Flickity;
 } ) );
 });
 
-var pageDots = index_es_createCommonjsModule(function (module) {
+var pageDots = dist_index_es_createCommonjsModule(function (module) {
 // page dots
 ( function( window, factory ) {
   // universal module definition
@@ -41301,7 +40443,7 @@ return Flickity;
 } ) );
 });
 
-var player = index_es_createCommonjsModule(function (module) {
+var player = dist_index_es_createCommonjsModule(function (module) {
 // player & autoPlay
 ( function( window, factory ) {
   // universal module definition
@@ -41483,7 +40625,7 @@ return Flickity;
 } ) );
 });
 
-var addRemoveCell = index_es_createCommonjsModule(function (module) {
+var addRemoveCell = dist_index_es_createCommonjsModule(function (module) {
 // add, remove cell
 ( function( window, factory ) {
   // universal module definition
@@ -41637,7 +40779,7 @@ return Flickity;
 } ) );
 });
 
-var lazyload = index_es_createCommonjsModule(function (module) {
+var lazyload = dist_index_es_createCommonjsModule(function (module) {
 // lazyload
 ( function( window, factory ) {
   // universal module definition
@@ -41766,7 +40908,7 @@ return Flickity;
 } ) );
 });
 
-var index_es_js = index_es_createCommonjsModule(function (module) {
+var index_es_js = dist_index_es_createCommonjsModule(function (module) {
 /*!
  * Flickity v2.3.0
  * Touch, responsive, flickable carousels
@@ -41804,7 +40946,7 @@ var ComplementaryProducts = /*#__PURE__*/function () {
 
     this.sectionEl = options.sectionEl;
     this.sectionId = options.sectionId;
-    this.events = new index_es_EventHandler();
+    this.events = new dist_index_es_EventHandler();
     this.productId = options.productId;
     this.includeIndicatorDots = options.includeIndicatorDots || false;
     this.recommendationsRoute = options.productRecommendationsRoute;
@@ -45099,15 +44241,15 @@ function pxs_slideshow_dist_index_es_createClass(Constructor, protoProps, static
 
 var index_es_commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : typeof self !== 'undefined' ? self : {};
 
-function index_es_unwrapExports (x) {
+function dist_index_es_unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-function dist_index_es_createCommonjsModule(fn, module) {
+function pxs_slideshow_dist_index_es_createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var index_es_evEmitter = dist_index_es_createCommonjsModule(function (module) {
+var index_es_evEmitter = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /**
  * EvEmitter v1.1.0
  * Lil' event emitter
@@ -45217,7 +44359,7 @@ return EvEmitter;
 }));
 });
 
-var index_es_getSize = dist_index_es_createCommonjsModule(function (module) {
+var index_es_getSize = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /*!
  * getSize v2.0.3
  * measure size of elements
@@ -45423,7 +44565,7 @@ return getSize;
 });
 });
 
-var index_es_matchesSelector = dist_index_es_createCommonjsModule(function (module) {
+var index_es_matchesSelector = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /**
  * matchesSelector v2.0.2
  * matchesSelector( element, '.selector' )
@@ -45473,7 +44615,7 @@ var index_es_matchesSelector = dist_index_es_createCommonjsModule(function (modu
 }));
 });
 
-var index_es_utils = dist_index_es_createCommonjsModule(function (module) {
+var index_es_utils = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /**
  * Fizzy UI utils v2.0.7
  * MIT license
@@ -45708,7 +44850,7 @@ return utils;
 }));
 });
 
-var index_es_cell = dist_index_es_createCommonjsModule(function (module) {
+var index_es_cell = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // Flickity.Cell
 ( function( window, factory ) {
   // universal module definition
@@ -45804,7 +44946,7 @@ return Cell;
 }));
 });
 
-var index_es_slide = dist_index_es_createCommonjsModule(function (module) {
+var index_es_slide = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // slide
 ( function( window, factory ) {
   // universal module definition
@@ -45877,7 +45019,7 @@ return Slide;
 }));
 });
 
-var index_es_animate = dist_index_es_createCommonjsModule(function (module) {
+var index_es_animate = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // animate
 ( function( window, factory ) {
   // universal module definition
@@ -46072,7 +45214,7 @@ return proto;
 }));
 });
 
-var index_es_flickity = dist_index_es_createCommonjsModule(function (module) {
+var index_es_flickity = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // Flickity main
 ( function( window, factory ) {
   // universal module definition
@@ -46990,7 +46132,7 @@ return Flickity;
 }));
 });
 
-var index_es_unipointer = dist_index_es_createCommonjsModule(function (module) {
+var index_es_unipointer = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /*!
  * Unipointer v2.3.0
  * base class for doing one thing with pointer event
@@ -47285,7 +46427,7 @@ return Unipointer;
 }));
 });
 
-var index_es_unidragger = dist_index_es_createCommonjsModule(function (module) {
+var index_es_unidragger = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /*!
  * Unidragger v2.3.0
  * Draggable base class
@@ -47558,7 +46700,7 @@ return Unidragger;
 }));
 });
 
-var index_es_drag = dist_index_es_createCommonjsModule(function (module) {
+var index_es_drag = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // drag
 ( function( window, factory ) {
   // universal module definition
@@ -47943,7 +47085,7 @@ return Flickity;
 }));
 });
 
-var index_es_prevNextButton = dist_index_es_createCommonjsModule(function (module) {
+var index_es_prevNextButton = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // prev/next buttons
 ( function( window, factory ) {
   // universal module definition
@@ -48147,7 +47289,7 @@ return Flickity;
 }));
 });
 
-var index_es_pageDots = dist_index_es_createCommonjsModule(function (module) {
+var index_es_pageDots = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // page dots
 ( function( window, factory ) {
   // universal module definition
@@ -48325,7 +47467,7 @@ return Flickity;
 }));
 });
 
-var index_es_player = dist_index_es_createCommonjsModule(function (module) {
+var index_es_player = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // player & autoPlay
 ( function( window, factory ) {
   // universal module definition
@@ -48508,7 +47650,7 @@ return Flickity;
 }));
 });
 
-var index_es_addRemoveCell = dist_index_es_createCommonjsModule(function (module) {
+var index_es_addRemoveCell = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // add, remove cell
 ( function( window, factory ) {
   // universal module definition
@@ -48662,7 +47804,7 @@ return Flickity;
 }));
 });
 
-var index_es_lazyload = dist_index_es_createCommonjsModule(function (module) {
+var index_es_lazyload = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 // lazyload
 ( function( window, factory ) {
   // universal module definition
@@ -48790,7 +47932,7 @@ return Flickity;
 }));
 });
 
-var dist_index_es_js = dist_index_es_createCommonjsModule(function (module) {
+var dist_index_es_js = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /*!
  * Flickity v2.2.1
  * Touch, responsive, flickable carousels
@@ -48824,7 +47966,7 @@ var dist_index_es_js = dist_index_es_createCommonjsModule(function (module) {
 });
 });
 
-var flickityFade = dist_index_es_createCommonjsModule(function (module) {
+var flickityFade = pxs_slideshow_dist_index_es_createCommonjsModule(function (module) {
 /**
  * Flickity fade v1.0.0
  * Fade between Flickity slides
@@ -49089,7 +48231,7 @@ return Flickity;
 }));
 });
 
-var dist_index_es_EventHandler_1 = dist_index_es_createCommonjsModule(function (module, exports) {
+var pxs_slideshow_dist_index_es_EventHandler_1 = pxs_slideshow_dist_index_es_createCommonjsModule(function (module, exports) {
 exports.__esModule = true;
 var EventHandler = /** @class */ (function () {
     function EventHandler() {
@@ -49123,7 +48265,7 @@ var EventHandler = /** @class */ (function () {
 exports["default"] = EventHandler;
 });
 
-var dist_index_es_EventHandler = index_es_unwrapExports(dist_index_es_EventHandler_1);
+var pxs_slideshow_dist_index_es_EventHandler = dist_index_es_unwrapExports(pxs_slideshow_dist_index_es_EventHandler_1);
 
 var Slideshow = /*#__PURE__*/function () {
   function Slideshow(section) {
@@ -49134,7 +48276,7 @@ var Slideshow = /*#__PURE__*/function () {
     this.el = section.el;
     this.settings = section.data;
     this.paginationClicked = false;
-    this.events = new dist_index_es_EventHandler();
+    this.events = new pxs_slideshow_dist_index_es_EventHandler();
     this.slideshowContainer = this.el.querySelector('[data-slideshow]');
     this.carousel = this.el.querySelector('[data-slideshow-wrapper]');
     this.slides = this.el.querySelectorAll('[data-slideshow-slide]');
@@ -49764,7 +48906,7 @@ function pxs_shoppable_image_dist_index_es_createClass(Constructor, protoProps, 
   return Constructor;
 }
 
-function dist_index_es_unwrapExports (x) {
+function pxs_shoppable_image_dist_index_es_unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
@@ -49806,7 +48948,7 @@ var EventHandler = /** @class */ (function () {
 exports["default"] = EventHandler;
 });
 
-var pxs_shoppable_image_dist_index_es_EventHandler = dist_index_es_unwrapExports(pxs_shoppable_image_dist_index_es_EventHandler_1);
+var pxs_shoppable_image_dist_index_es_EventHandler = pxs_shoppable_image_dist_index_es_unwrapExports(pxs_shoppable_image_dist_index_es_EventHandler_1);
 
 var ShoppableImage = /*#__PURE__*/function () {
   function ShoppableImage(section) {
@@ -50565,23 +49707,17 @@ class Order {
     const targetEl = el.parentElement;
 
     if (isChecked) {
-      var _el$closest;
-
       this.map.get(targetEl).unsetIndeterminate();
       this.map.get(targetEl).check();
-      (_el$closest = el.closest('[data-order-row]')) === null || _el$closest === void 0 ? void 0 : _el$closest.classList.add('checkbox-selected');
+      el.closest('[data-order-row]')?.classList.add('checkbox-selected');
     } else if (isIndeterminate) {
-      var _el$closest2;
-
       this.map.get(targetEl).uncheck();
       this.map.get(targetEl).setIndeterminate();
-      (_el$closest2 = el.closest('[data-order-row]')) === null || _el$closest2 === void 0 ? void 0 : _el$closest2.classList.add('checkbox-selected');
+      el.closest('[data-order-row]')?.classList.add('checkbox-selected');
     } else {
-      var _el$closest3;
-
       this.map.get(targetEl).uncheck();
       this.map.get(targetEl).unsetIndeterminate();
-      (_el$closest3 = el.closest('[data-order-row]')) === null || _el$closest3 === void 0 ? void 0 : _el$closest3.classList.remove('checkbox-selected');
+      el.closest('[data-order-row]')?.classList.remove('checkbox-selected');
     }
   }
 

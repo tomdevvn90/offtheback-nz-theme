@@ -1,0 +1,42 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcement-bar": {
+      "type": "static-announcement",
+      "settings": {
+      }
+    },
+    "utility-bar": {
+      "type": "static-utility-bar",
+      "settings": {
+      }
+    },
+    "header": {
+      "type": "static-header",
+      "blocks": {
+        "mega_menu": {
+          "type": "meganav_images",
+          "settings": {
+          }
+        },
+        "mega_menu_2": {
+          "type": "meganav_images",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu",
+        "mega_menu_2"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "utility-bar",
+    "header"
+  ]
+}

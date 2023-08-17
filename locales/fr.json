@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "par {{ vendor }}",
       "by_vendor_html": "par {{ vendor_link }}",
-      "sku_html": "<strong>UGC<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>UGC<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "Commentaires des clients",
       "zoom": "Cliquez ou faites défiler pour zoomer",
       "zoomTap": "Appuyez ou pincez pour zoomer",
@@ -223,6 +223,19 @@
       "now": "À présent",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "Voir le produit"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "Je souhaite envoyer ceci en cadeau",
+      "email_label": "Adresse e-mail du destinataire",
+      "email_placeholder": "Adresse e-mail du destinataire *",
+      "error_message": "L'adresse e-mail n'est pas valide",
+      "name_label": "Nom du destinataire (facultatif)",
+      "name_placeholder": "Nom du destinataire (facultatif)",
+      "message_label": "Message (facultatif)",
+      "message_placeholder": "Message (facultatif)",
+      "max_characters": "Maximum de {{ max_characters }} caractères"
     }
   },
   "age_gate": {
@@ -516,11 +529,7 @@
       "filter_all": "Toutes les catégories"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "Aucun résultat pour « {{ terms }} »",
-        "one": "Un résultat pour « {{ terms }} »",
-        "other": "Résultats pour la recherche « {{ terms }} » ({{ count }})"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} pour « {{ terms }} »",
       "breadcrumbs_count_when_filtered": {
         "zero": "Aucun résultat pour « {{ terms }} » dans {{ category }}",
         "one": "Un résultat pour « {{ terms  }} » dans {{  category }}",
@@ -529,16 +538,25 @@
       "view_all_results": "Afficher tous les résultats",
       "view_all_products": "Afficher tous les produits",
       "no_search_performed": "Utilisez la barre de recherche ci-dessus pour faire une recherche.",
-      "no_results_title": "Aucun résultat pour « {{ terms }} ».",
-      "no_results_products_title": "Aucun produit pour « {{ terms }} ».",
+      "no_results_title": "{{ count }} {{ results }} pour « {{ terms }} ». Vérifiez l'orthographe ou utilisez un mot ou une phrase différent.",
+      "results": {
+        "one": "résultat",
+        "other": "résultats"
+      },
       "no_results_products_title_in_category": "Aucun produit pour «{{ terms }}» dans {{ category }}.",
       "no_more_results_products_title": "Il n'y a plus de produits pour « {{ terms }} ».",
       "no_more_results_products_title_in_category": "Plus de produits pour « {{ terms }} » dans {{ category }}.",
-      "no_results_products_message": "Navrés, nous n'avons trouvé aucune correspondance.",
-      "pages_and_posts_no_results": "Aucun résultat.",
-      "pages_and_posts_title": "Posts et pages",
       "pages_title": "Pages",
       "posts_title": "Posts"
+    },
+    "predictive_search": {
+      "suggestions": "Suggestions",
+      "products_label": "Des produits",
+      "pages_title": "Pages",
+      "posts_title": "Posts",
+      "pages_and_posts_title": "Pages et Posts",
+      "view_all_results": "Recherche \"{{ terms }}\"",
+      "no_results": "Aucun résultat correspondant trouvé."
     }
   },
   "onboarding": {

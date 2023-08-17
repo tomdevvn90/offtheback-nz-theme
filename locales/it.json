@@ -130,6 +130,19 @@
       "ago": "fa"
     }
   },
+  "recipient": {
+    "form": {
+      "checkbox_label": "Voglio inviare questo come regalo",
+      "email_label": "Email del destinatario",
+      "email_placeholder": "Email del destinatario *",
+      "error_message": "L'email non è valida",
+      "name_label": "Nome del destinatario (opzionale)",
+      "name_placeholder": "Nome del destinatario (opzionale)",
+      "message_label": "Messaggio (opzionale)",
+      "message_placeholder": "Messaggio (opzionale)",
+      "max_characters": "Massimo {{ max_characters }} caratteri"
+    }
+  },
   "age_gate": {
     "form": {
       "confirm": "Conferma l'età e procedi a {{ shop }}",
@@ -409,7 +422,7 @@
     "general": {
       "by_vendor": " {{ vendor }}",
       "by_vendor_html": " {{ vendor_link }}",
-      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "Recensioni dei clienti",
       "zoom": "Fare clic per espandere",
       "zoomTap": "Tocca per ingrandire",
@@ -484,11 +497,7 @@
       "filter_all": "Tutte le categorie"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "Nessun risultato per '{{ terms }}'",
-        "one": "Un risultato per '{{ terms }}'",
-        "other": "Cerca risultati per '{{ terms }}' ({{ count }})"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} per \"{{ terms }}\"",
       "breadcrumbs_count_when_filtered": {
         "zero": "Nessun risultato per '{{ terms }}' in {{ category }}",
         "one": "Un risultato per '{{ terms }}' in {{ category }}",
@@ -497,16 +506,25 @@
       "view_all_results": "Visualizza tutti i risultati",
       "view_all_products": "Visualizza tutti i prodotti",
       "no_search_performed": "Usa la barra di ricerca in alto per eseguire una ricerca.",
-      "no_results_title": "Nessun risultato per '{{ terms }}'.",
-      "no_results_products_title": "Nessun prodotto per '{{ terms }}'.",
+      "no_results_title": "{{ count }} {{ results }} per \"{{ terms }}\". Controlla l'ortografia o utilizza una parola o frase diversa.",
+      "results": {
+        "one": "risultato",
+        "other": "risultati"
+      },
       "no_results_products_title_in_category": "Nessun prodotto per '{{ terms }}' nella {{ category }}.",
       "no_more_results_products_title": "Niente più prodotti per '{{ terms }}'.",
       "no_more_results_products_title_in_category": "Niente più prodotti per '{{ terms }}' nella {{ category }}.",
-      "no_results_products_message": "Spiacenti, non abbiamo trovato nessuna corrispondenza.",
-      "pages_and_posts_title": "Pagine e post",
-      "pages_and_posts_no_results": "Nessun risultato.",
       "pages_title": "Pagine",
       "posts_title": "Post"
+    },
+    "predictive_search": {
+      "suggestions": "Suggerimenti",
+      "products_title": "Prodotti",
+      "pages_title": "Pagine",
+      "posts_title": "Post",
+      "pages_and_posts_title": "Pagine e Post",
+      "view_all_results": "Cerca \"{{ terms }}\"",
+      "no_results": "Nessun risultato corrispondente trovato."
     }
   },
   "onboarding": {

@@ -37,7 +37,9 @@
       style="
         color: {{ section.settings.announcement_color }};
         background: {{ section.settings.announcement_background }};
-      ">
+      "
+      data-announcement-bar
+    >
       {% if section.settings.announcement_link != blank %}
         <a
           class="announcement-bar-link"
@@ -74,12 +76,14 @@
     {
       "type": "checkbox",
       "id": "show_announcement",
-      "label": "t:sections.announcement_bar.show_announcement.label"
+      "label": "t:sections.announcement_bar.show_announcement.label",
+      "default": true
     },
     {
       "type": "checkbox",
       "id": "homepage_announcement",
-      "label": "t:sections.announcement_bar.homepage_announcement.label"
+      "label": "t:sections.announcement_bar.homepage_announcement.label",
+      "default": false
     },
     {
       "id": "announcement_text",
@@ -108,8 +112,9 @@
       "id": "announcement_background",
       "type": "color",
       "label": "t:sections.announcement_bar.announcement_background.label",
-      "default": "#ffffff"
+      "default": "#f5f3ed"
     }
   ]
 }
+
 {% endschema %}

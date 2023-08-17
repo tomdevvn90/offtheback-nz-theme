@@ -16,7 +16,7 @@
       "select_variant": "Please select a variant",
       "by_vendor": "by {{ vendor }}",
       "by_vendor_html": "by {{ vendor_link }}",
-      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "Customer Reviews",
       "zoom": "Click to expand",
       "zoomTap": "Tap or pinch to zoom",
@@ -222,6 +222,19 @@
       "now": "now",
       "view_details": "View product",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "I want to send this as a gift",
+      "email_label": "Recipient email",
+      "email_placeholder": "Recipient email *",
+      "error_message": "Email is not valid",
+      "name_label": "Recipient name (optional)",
+      "name_placeholder": "Recipient name (optional)",
+      "message_label": "Message (optional)",
+      "message_placeholder": "Message (optional)",
+      "max_characters": "{{ max_characters }} characters max"
     }
   },
   "age_gate": {
@@ -539,11 +552,7 @@
       "filter_all": "All categories"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "No results for “{{ terms }}”",
-        "one": "One result for “{{ terms }}”",
-        "other": "Search results for “{{ terms }}” ({{ count }})"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} for \"{{ terms }}\"",
       "breadcrumbs_count_when_filtered": {
         "zero": "No results for “{{ terms }}” in {{ category }}",
         "one": "One result for “{{ terms }}” in {{ category }}",
@@ -552,16 +561,25 @@
       "view_all_results": "View all results",
       "view_all_products": "View all products",
       "no_search_performed": "Use the search bar above to perform a search.",
-      "no_results_title": "No results for “{{ terms }}”.",
-      "no_results_products_title": "No products for “{{ terms }}”.",
+      "no_results_title": "{{ count }} {{ results }} for \"{{ terms }}\". Check the spelling or use a different word or phrase.",
+      "results": {
+        "one": "result",
+        "other": "results"
+      },
       "no_results_products_title_in_category": "No products for “{{ terms }}” in {{ category }}.",
       "no_more_results_products_title": "No more products for “{{ terms }}”.",
       "no_more_results_products_title_in_category": "No more products for “{{ terms }}” in {{ category }}.",
-      "no_results_products_message": "Sorry, we couldn’t find any matches.",
-      "pages_and_posts_title": "Pages & Posts",
-      "pages_and_posts_no_results": "No results.",
       "pages_title": "Pages",
       "posts_title": "Posts"
+    },
+    "predictive_search": {
+      "suggestions": "Suggestions",
+      "products_title": "Products",
+      "pages_title": "Pages",
+      "posts_title": "Posts",
+      "pages_and_posts_title": "Pages & Posts",
+      "view_all_results": "Search for \"{{ terms }}\"",
+      "no_results": "No matching results found."
     }
   },
   "onboarding": {

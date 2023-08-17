@@ -52,6 +52,7 @@
     render 'product',
     layout: 'layout--three-col',
     is_product_modal: false,
+    show_recipient_form: section.settings.show_gift_card_recipient_form,
     show_dynamic_checkout_button: settings.show_dynamic_checkout_button,
     select_first_available_variant: settings.select_first_available_variant,
     gallery_aspect_ratio: section.settings.gallery_aspect_ratio,
@@ -205,6 +206,17 @@
     {
       "type": "paragraph",
       "content": "t:sections.product.paragraph_2.content"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.product.header_4.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_card_recipient_form",
+      "label": "t:sections.product.blocks.form.show_gift_card_recipient_form.label",
+      "info": "t:sections.product.blocks.form.show_gift_card_recipient_form.info",
+      "default": false
     }
   ],
   "blocks": [
@@ -265,7 +277,6 @@
     {
       "type": "custom-liquid",
       "name": "t:sections.product.blocks.custom_liquid.name",
-      "limit": 1,
       "settings": [
         {
           "type": "liquid",

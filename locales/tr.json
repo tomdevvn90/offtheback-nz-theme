@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "{{ vendor }} tarafından",
       "by_vendor_html": "{{ vendor_link }} tarafından",
-      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "Müşteri Değerlendirmeleri",
       "zoom": "Yakınlaştırmak için tıklayın veya kaydırın",
       "zoomTap": "Yakınlaştırmak için dokunun veya sıkıştırın",
@@ -223,6 +223,19 @@
       "now": "Şimdi",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "Ürünü görüntüle"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "Bunu hediye olarak göndermek istiyorum",
+      "email_label": "Alıcı e-posta adresi",
+      "email_placeholder": "Alıcı e-posta adresi *",
+      "error_message": "E-posta geçerli değil",
+      "name_label": "Alıcı adı (isteğe bağlı)",
+      "name_placeholder": "Alıcı adı (isteğe bağlı)",
+      "message_label": "Mesaj (isteğe bağlı)",
+      "message_placeholder": "Mesaj (isteğe bağlı)",
+      "max_characters": "Maksimum {{ max_characters }} karakter"
     }
   },
   "age_gate": {
@@ -516,11 +529,7 @@
       "filter_all": "Tüm kategoriler"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "“{{ terms }}” için sonuç bulunamadı",
-        "one": "“{{ terms }}” için bir sonuç",
-        "other": "“{{ terms }}” ({{ count }}) İçin arama sonuçları"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} için \"{{ terms }}\"",
       "breadcrumbs_count_when_filtered": {
         "zero": "{{ category }} içinde \"{{ terms }}\" için sonuç yok",
         "one": "{{ category }} içinde \"{{ terms }}\" için bir sonuç",
@@ -529,16 +538,25 @@
       "view_all_results": "Tüm sonuçları görüntüle",
       "view_all_products": "Tüm ürünleri görüntüle",
       "no_search_performed": "Bir arama yapmak için yukarıdaki arama çubuğunu kullanın.",
-      "no_results_title": "“{{ terms }}” için sonuç bulunamadı.",
-      "no_results_products_title": "“{{ terms }}” için ürün bulunamadı.",
+      "no_results_title": "{{ count }} {{ results }} için \"{{ terms }}\". Yazımı kontrol edin veya farklı bir kelime veya cümle kullanın.",
+      "results": {
+        "one": "sonuç",
+        "other": "sonuçlar"
+      },
       "no_results_products_title_in_category": "{{ category }} 'de “{{ terms }}” için ürün yok.",
       "no_more_results_products_title": "“{{ terms }}” için daha fazla ürün yok.",
       "no_more_results_products_title_in_category": "{{ category }} içinde \"{{ terms }}\" için daha fazla ürün yok.",
-      "no_results_products_message": "Üzgünüz, eşleşme bulamadık.",
-      "pages_and_posts_no_results": "Sonuç yok.",
-      "pages_and_posts_title": "Mesajlar ve sayfalar",
       "pages_title": "Sayfalar",
       "posts_title": "Mesajlar"
+    },
+    "predictive_search": {
+      "suggestions": "Öneriler",
+      "products_title": "Ürünler",
+      "pages_title": "Sayfalar",
+      "posts_title": "Yazıları",
+      "pages_and_posts_title": "Sayfalar ve Yazıları",
+      "view_all_results": "\"{{ terms }}\" adını arayın",
+      "no_results": "Eşleşen sonuç bulunamadı."
     }
   },
   "onboarding": {

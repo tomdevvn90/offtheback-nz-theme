@@ -5,9 +5,6 @@
   @param enable_images {Bool}
     Display images in flydown
 
-  @param enable_content {Bool}
-    Display Articles and Pages results
-
   @param placeholder {String|Nil}
     Add a custom placeholder string
 {% endcomment %}
@@ -18,14 +15,6 @@
 {% if quick_links.links.size > 0 %}
   {% assign has_quick_links = true %}
 {% endif %}
-
-{%- capture search_type -%}
-  {% if enable_content %}
-    article,page,product
-  {% else %}
-    product
-  {% endif %}
-{%- endcapture -%}
 
 {%- assign placeholder_text = blank -%}
 {%- if placeholder != blank -%}
@@ -42,7 +31,12 @@
     {%- if search.performed -%}
       {%- assign field_prefix = filter_search_by | append: ':' -%}
       {%- if search.terms contains field_prefix -%}
-        {%- assign filter = search.terms | split: field_prefix | last -%}
+        {%- comment -%}
+          Everything after the first ' AND ', which is for the Shopify API (see SearchForm.js), is the user input.
+          There is a possibility a user may use `AND` in their search term, so it should be kept as-is.
+        {%- endcomment -%}
+        {%- assign search_term = search.terms | replace_first: ' AND ', ' _ANDtoremove_ ' -%}
+        {%- assign filter = search_term | split: ' _ANDtoremove_ ' | first | split: field_prefix | last -%}
       {%- endif -%}
     {%- endif -%}
   {%- endunless -%}
@@ -59,7 +53,6 @@
     aria-label="Product"
     data-live-search-form
   >
-    <input type="hidden" name="type" value="{{ search_type | replace: '  ', '' | strip_newlines }}">
     <div class="form-field no-label">
       {%- unless section.settings.filter_search_by == 'disabled' -%}
         {%- assign search_filter_content_first = blank -%}
@@ -133,7 +126,8 @@
           value="{{ sanitized_terms }}"
         {% endif %}
         autocomplete="off"
-        data-live-search-input>
+        data-live-search-input
+      >
       <button
         class="live-search-takeover-cancel"
         type="button"
@@ -176,7 +170,13 @@
         </div>
       </div>
 
-      <div class="search-flydown--results {% if enable_content %}search-flydown--results--content-enabled{% endif %}" data-live-search-results></div>
+      <div
+        class="
+          search-flydown--results
+          {% if enable_images == false %}search-flydown--results--no-images{% endif %}
+        "
+        data-live-search-results
+      ></div>
 
       {% if has_quick_links %}
         <div class="search-flydown--quicklinks" data-live-search-quick-links>

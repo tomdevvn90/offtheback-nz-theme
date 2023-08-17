@@ -7,23 +7,7 @@
     "settings": {
       "live_search": {
         "enable": {{ section.settings.enable_live_search | json }},
-        "enable_images": {{ section.settings.enable_live_search_images | json }},
-        "enable_content": {{ section.settings.enable_live_search_articles_pages | json }},
-        "money_format": {{ shop.money_format | strip_html | json }},
-        "show_mobile_search_bar": true,
-        "context": {
-          "view_all_results": {{ 'search.general.view_all_results' | t | json }},
-          "view_all_products": {{ 'search.general.view_all_products' | t | json }},
-          "content_results": {
-            "title": {{ 'search.general.pages_and_posts_title' | t | json }},
-            "no_results": {{ 'search.general.pages_and_posts_no_results' | t | json }}
-          },
-          "no_results_products": {
-            "title": {{ 'search.general.no_results_products_title' | t: terms: '*terms*' | json }},
-            "title_in_category": {{ 'search.general.no_results_products_title_in_category' | t: terms: '*terms*', category: '*category*' | json }},
-            "message": {{ 'search.general.no_results_products_message' | t | json }}
-          }
-        }
+        "show_mobile_search_bar": true
       }
     }
   }
@@ -94,7 +78,6 @@
     {%
       render 'live-search-form',
       enable_images: section.settings.enable_live_search_images,
-      enable_content: section.settings.enable_live_search_articles_pages,
       placeholder: section.settings.placeholder,
       quick_links: nil,
     %}
@@ -160,11 +143,6 @@
       "label": "t:sections.search.enable_live_search_images.label"
     },
     {
-      "type": "checkbox",
-      "id": "enable_live_search_articles_pages",
-      "label": "t:sections.search.enable_live_search_articles_pages.label"
-    },
-    {
       "type": "header",
       "content": "t:sections.search.header_2.content"
     },
@@ -211,6 +189,9 @@
       "name": "t:sections.search.presets.search.name",
       "category": "t:sections.search.presets.search.category"
     }
-  ]
+  ],
+  "disabled_on": {
+    "groups": ["*"]
+  }
 }
 {% endschema %}

@@ -7,9 +7,6 @@
 
   @param results_type {String}
     Type of search result to display
-
-  @param results_count {Number}
-    How many search results for given type have been found
 {% endcomment %}
 
 {% capture sanitized_terms %}
@@ -27,19 +24,15 @@
   </h2>
 
   <ul class="productgrid--footer-results-list">
-    {% if results_count > 0 %}
-      {% for item in results %}
-        {% if item.object_type != results_type %}{% continue %}{% endif %}
-        <li>
-          <a href="{{ item.url }}">
-            {{ item.title }}
-          </a>
-        </li>
-      {% endfor %}
-    {% else %}
-      <li>
-        {{ 'search.general.no_results_title' | t: terms: sanitized_terms }}
-      </li>
+    {% for item in results %}
+    {% if item.object_type != results_type %}
+      {% continue %}
     {% endif %}
+    <li>
+      <a href="{{ item.url }}">
+        {{ item.title }}
+      </a>
+    </li>
+  {% endfor %}
   </ul>
 </div>

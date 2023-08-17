@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "来自 {{ vendor }}",
       "by_vendor_html": "来自 {{ vendor_link }}",
-      "sku_html": "<strong>库存量单位<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>库存量单位<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "顾客评价",
       "zoom": "点击或滚动来放大或缩小",
       "zoomTap": "点击或开合手指来放大或缩小",
@@ -223,6 +223,19 @@
       "now": "现在",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "查看产品"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "我想将此作为礼物发送",
+      "email_label": "收件人邮箱",
+      "email_placeholder": "收件人邮箱 *",
+      "error_message": "电子邮件无效",
+      "name_label": "收件人姓名（可选）",
+      "name_placeholder": "收件人姓名（可选）",
+      "message_label": "留言（可选）",
+      "message_placeholder": "留言（可选）",
+      "max_characters": "最多{{ max_characters }}个字符"
     }
   },
   "header": {
@@ -495,11 +508,7 @@
       "filter_all": "所有类别"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "未找到“{{ terms }}”相关结果",
-        "one": "找到一条 “{{ terms }}”相关结果",
-        "other": "“{{ terms }}” ({{ count }})相关搜索结果"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} 对于 \"{{ terms }}\"",
       "breadcrumbs_count_when_filtered": {
         "zero": "在{{ category }}中没有“{{ terms }}”的搜索结果 ",
         "one": "在{{ category }}有一个“{{ terms }}” 的搜索结果",
@@ -508,16 +517,25 @@
       "view_all_results": "查看所有结果",
       "view_all_products": "查看所有产品",
       "no_search_performed": "使用上面的搜索框进行搜索。",
-      "no_results_title": "未找到与“{{ terms }}”相关的结果",
-      "no_results_products_title": "未找到与“{{ terms }}”相关的产品",
+      "no_results_title": "{{ count }} {{ results }} 对于 \"{{ terms }}\". 检查拼写或使用其他单词或短语。",
+      "results": {
+        "one": "结果",
+        "other": "结果"
+      },
       "no_results_products_title_in_category": "在{{ category }}中没有“{{ terms }}”的更多产品",
       "no_more_results_products_title": "未找到与“{{ terms }}”相关的更多产品。",
       "no_more_results_products_title_in_category": "在{{ category }}中没有“{{ terms }}”的更多产品",
-      "no_results_products_message": "抱歉，我们未能找到任何匹配结果。",
-      "pages_and_posts_no_results": "没有相关结果。",
-      "pages_and_posts_title": "帖子和页面",
       "pages_title": "页面",
       "posts_title": "帖子"
+    },
+    "predictive_search": {
+      "suggestions": "建议",
+      "products_label": "产品",
+      "pages_title": "页面",
+      "posts_title": "帖子",
+      "pages_and_posts_title": "页面和帖子",
+      "view_all_results": "搜索 \"{{ terms }}\"",
+      "no_results": "找不到匹配结果。"
     }
   },
   "onboarding": {

@@ -1,11 +1,3 @@
-{%- capture search_type -%}
-  {% if enable_content %}
-    article,page,product
-  {% else %}
-    product
-  {% endif %}
-{%- endcapture -%}
-
 <div class="productgrid--search" data-live-search>
   <form
     class="productgrid--search-form"
@@ -15,7 +7,6 @@
     aria-label="Product"
     data-live-search-form
   >
-    <input type="hidden" name="type" value="{{ search_type | replace: '  ', '' | strip_newlines }}">
     <div class="form-field no-label">
       {% if search_filter_string != blank %}
         <input
@@ -41,8 +32,8 @@
           {% assign sanitized_terms = sanitized_terms | strip %}
           value="{{ sanitized_terms }}"
         {% endif %}
-        data-live-search-input>
-
+        data-live-search-input
+      >
       <button
         class="productgrid--search-button"
         type="submit"

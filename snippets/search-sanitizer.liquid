@@ -7,17 +7,15 @@
   {% assign sanitized_terms = search_terms %}
 
   {% comment %}
-    Remove tag filtering
+    Remove tag filtering or product_type filtering
   {% endcomment %}
-  {% if sanitized_terms contains 'tag:' %}
-    {% assign sanitized_terms = sanitized_terms | split: 'tag:' | first %}
-  {% endif %}
-
-  {% comment %}
-    Remove product_type filtering
-  {% endcomment %}
-  {% if sanitized_terms contains 'product_type:' %}
-    {% assign sanitized_terms = sanitized_terms | split: 'product_type:' | first %}
+  {% if sanitized_terms contains 'tag:' or sanitized_terms contains 'product_type:' %}
+    {%- liquid
+      # Everything after the first ' AND ', which is for the Shopify API (see SearchForm.js), is the user input.
+      # There is a possibility a user may use `AND` in their search term, so it should be kept as-is.
+      assign sanitized_terms = sanitized_terms | replace_first: ' AND ', ' _ANDtoremove_ '
+      assign sanitized_terms = sanitized_terms | split: ' _ANDtoremove_ ' | last
+    -%}
   {% endif %}
 
   {% comment %}

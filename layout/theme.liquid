@@ -79,7 +79,7 @@
     {% comment %}Inject theme-object begin{% endcomment %}
     <script>
       window.Theme = window.Theme || {};
-      window.Theme.version = '8.1.0';
+      window.Theme.version = '9.1.1';
       window.Theme.name = 'Empire';
       window.Theme.routes = {
         "root_url": "{{ routes.root_url }}",
@@ -91,6 +91,7 @@
         "collections_url": "{{ routes.collections_url }}",
         "all_products_collection_url": "{{ routes.all_products_collection_url }}",
         "search_url": "{{ routes.search_url }}",
+        "predictive_search_url": "{{ routes.predictive_search_url }}",
         "cart_url": "{{ routes.cart_url }}",
         "cart_add_url": "{{ routes.cart_add_url }}",
         "cart_change_url": "{{ routes.cart_change_url }}",
@@ -103,14 +104,6 @@
   </head>
 
   <body class="template-{{ template.name }}" data-instant-allow-query-string {% if settings.reduce_animations %}data-reduce-animations{% endif %}>
-    <div style="--background-color: {{ settings.color_background }}">
-      {% 
-        render 'age-gate', 
-        id: 'page', 
-        sections: content_for_layout,
-      %}
-    </div>
-
     <script>
       document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
       if(window.Shopify&&window.Shopify.designMode)document.documentElement.className+=' in-theme-editor';
@@ -138,24 +131,23 @@
 
     <a class="skip-to-main" href="#site-main">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
-    {% section 'static-announcement' %}
+    {% sections 'header-group' %}
 
-    {% section 'static-utility-bar' %}
+    <div style="--background-color: {{ settings.color_background }}">
+      {% 
+        render 'age-gate', 
+        id: 'page', 
+        sections: content_for_layout,
+      %}
+    </div>
 
-    <header
-      class="site-header site-header-nav--open"
-      role="banner"
-      data-site-header
-    >
-      {% section 'static-header' %}
-    </header>
     <div class="intersection-target" data-header-intersection-target></div>
     <div class="site-main-dimmer" data-site-main-dimmer></div>
     <main id="site-main" class="site-main" aria-label="Main content" tabindex="-1">
       {{ content_for_layout }}
     </main>
 
-    {% section 'static-footer' %}
+    {% sections 'footer-group' %}
 
     {% comment %}
       Below are various templates used in JavaScript

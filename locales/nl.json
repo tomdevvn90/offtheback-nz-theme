@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "door {{ vendor }}",
       "by_vendor_html": "door {{ vendor_link }}",
-      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "Klantbeoordelingen",
       "zoom": "Klik of scrol om in te zoomen",
       "zoomTap": "Tik of knijp om in te zoomen",
@@ -223,6 +223,19 @@
       "now": "nutsvoorzieningen",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "Bekijk product"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "Ik wil dit als cadeau versturen",
+      "email_label": "E-mailadres ontvanger",
+      "email_placeholder": "E-mailadres ontvanger *",
+      "error_message": "E-mailadres is niet geldig",
+      "name_label": "Naam ontvanger (optioneel)",
+      "name_placeholder": "Naam ontvanger (optioneel)",
+      "message_label": "Bericht (optioneel)",
+      "message_placeholder": "Bericht (optioneel)",
+      "max_characters": "Maximaal {{ max_characters }} tekens"
     }
   },
   "age_gate": {
@@ -516,11 +529,7 @@
       "filter_all": "Alle categorieën"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "Geen resultaten voor  “{{ terms }}”",
-        "one": "Eén resultaat voor  “{{ terms }}”",
-        "other": "Zoekresultaten voor “{{ terms }}” ({{ count }})"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} voor \"{{ terms }}\"",
       "breadcrumbs_count_when_filtered": {
         "zero": "Geen resultaten voor “{{ terms }}” in {{ category }}",
         "one": "Een resultaat voor “{{ terms }}” in {{ category }}",
@@ -529,16 +538,25 @@
       "view_all_results": "Alle resultaten bekijken",
       "view_all_products": "Alle producten bekijken",
       "no_search_performed": "Gebruik bovenstaande zoekbalk om een zoekopdracht uit te voeren",
-      "no_results_title": "Geen resultaten voor “{{ terms }}”.",
-      "no_results_products_title": "Geen producten voor “{{ terms }}”.",
+      "no_results_title": "{{ count }} {{ results }} voor \"{{ terms }}\". Controleer de spelling of gebruik een ander woord of zin.",
+      "results": {
+        "one": "resultaat",
+        "other": "resultaten"
+      },
       "no_results_products_title_in_category": "Geen producten voor '{{ terms }}' in {{ category }}.",
       "no_more_results_products_title": "Geen producten meer voor “{{ terms }}”.",
       "no_more_results_products_title_in_category": "Geen producten meer voor “[[[ terms ]]]” in [[[ category ]]].",
-      "no_results_products_message": "Sorry, we konden geen overeenkomsten vinden. ",
-      "pages_and_posts_no_results": "Geen resultaten. ",
-      "pages_and_posts_title": "Berichten en pagina's",
       "pages_title": "Pagina's",
       "posts_title": "Berichten"
+    },
+    "predictive_search": {
+      "suggestions": "Suggesties",
+      "products_title": "Producten",
+      "pages_title": "Pagina's",
+      "posts_title": "Berichten",
+      "pages_and_posts_title": "Pagina's en Berichten",
+      "view_all_results": "Zoek naar \"{{ terms }}\"",
+      "no_results": "Geen bijpassende resultaten gevonden."
     }
   },
   "onboarding": {

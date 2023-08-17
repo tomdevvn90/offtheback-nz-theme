@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "podle {{ vendor }}",
       "by_vendor_html": "podle {{ vendor_link }}",
-      "sku_html": "<strong>skladová jednotka<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>skladová jednotka<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "Recenze zákazníků",
       "zoom": "Klikněte nebo otočte kolečkem pro přiblížení",
       "zoomTap": "Klepněte nebo přibližte dva prsty pro přiblížení",
@@ -223,6 +223,19 @@
       "now": "Nyní",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "Zobrazit produkt"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "Chci to poslat jako dárek",
+      "email_label": "E-mail příjemce",
+      "email_placeholder": "E-mail příjemce *",
+      "error_message": "E-mail není platný",
+      "name_label": "Jméno příjemce (volitelné)",
+      "name_placeholder": "Jméno příjemce (volitelné)",
+      "message_label": "Zpráva (volitelné)",
+      "message_placeholder": "Zpráva (volitelné)",
+      "max_characters": "Maximálně {{ max_characters }} znaků"
     }
   },
   "age_gate": {
@@ -516,11 +529,7 @@
       "filter_all": "Všechny kategorie"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "Žádné výsledky pro „{{ terms }}”",
-        "one": "Jeden výsledek pro „{{ terms }}”",
-        "other": "Výsledky hledání pro „{{ terms }}” ({{ count }})"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} pro „{{ terms }}”",
       "breadcrumbs_count_when_filtered": {
         "zero": "Žádné výsledky pro „{{ terms }}” v {{ category }}",
         "one": "Jeden výsledek pro „{{ terms }}” v {{ category }}”的一个结果",
@@ -529,16 +538,25 @@
       "view_all_results": "Zobrazit všechny výsledky",
       "view_all_products": "Zobrazit všechny produkty",
       "no_search_performed": "Pro hledání použijte vyhledávací pole výše. ",
-      "no_results_title": "Žádné výsledky pro „{{ terms }}”.",
-      "no_results_products_title": "Žádné produkty pro „{{ terms }}”.",
+      "no_results_title": "{{ count }} {{ results }} pro \"{{ terms }}\". Zkontrolujte pravopis nebo použijte jiné slovo nebo frázi.",
+      "results": {
+        "one": "výsledek",
+        "other": "výsledek"
+      },
       "no_results_products_title_in_category": "Žádné produkty pro „{{ terms }}” v {{ category }}.",
       "no_more_results_products_title": "Žádné další produkty pro „{{ terms }}”.",
       "no_more_results_products_title_in_category": "Žádné další produkty pro „{{ terms }}” v {{ category }}.",
-      "no_results_products_message": "Omlouváme se, nepodařilo se nám najít nic odpovídajícího. ",
-      "pages_and_posts_no_results": "Žádné výsledky.",
-      "pages_and_posts_title": "Příspěvky a stránky",
       "pages_title": "Stránky",
       "posts_title": "Příspěvky"
+    },
+    "predictive_search": {
+      "suggestions": "Návrhy",
+      "products_title": "Produkty",
+      "pages_title": "Stránky",
+      "posts_title": "Příspěvky",
+      "pages_and_posts_title": "Stránky a příspěvky",
+      "view_all_results": "Vyhledejte \"{{ terms }}\"",
+      "no_results": "Nebyly nalezeny žádné výsledky odpovídajících."
     }
   },
   "onboarding": {

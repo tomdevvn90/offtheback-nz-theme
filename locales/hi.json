@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "{{ vendor }} द्वारा\n",
       "by_vendor_html": "{{ vendor_link }} द्वारा\n",
-      "sku_html": "<strong> SKU <\/strong> <span data-product-sku> {{ sku }}\n",
+      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "ग्राहक समीक्षा\n",
       "zoom": "ज़ूम करने के लिए क्लिक करें या स्क्रॉल करें\n",
       "zoomTap": "ज़ूम करने के लिए टैप या पिंच करें\n",
@@ -223,6 +223,19 @@
       "now": "अब",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "उत्पाद देखें"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "मुझे इसे उपहार के रूप में भेजना है",
+      "email_label": "प्राप्तकर्ता ईमेल",
+      "email_placeholder": "प्राप्तकर्ता ईमेल *",
+      "error_message": "ईमेल मान्य नहीं है",
+      "name_label": "प्राप्तकर्ता का नाम (वैकल्पिक)",
+      "name_placeholder": "प्राप्तकर्ता का नाम (वैकल्पिक)",
+      "message_label": "संदेश (वैकल्पिक)",
+      "message_placeholder": "संदेश (वैकल्पिक)",
+      "max_characters": "{{ max_characters }} वर्णों की अधिकतम सीमा"
     }
   },
   "age_gate": {
@@ -512,33 +525,38 @@
     "form": {
       "cancel": "रद्द करना\n",
       "label": "खोज\n",
-      "placeholder": "तुम क्या ढूंढ रहे हो?\n",
+      "placeholder": "तुम क्या ढूंढ रहे हो?",
       "filter_all": "सभी श्रेणियाँ"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "\"{{ terms }}\" के लिए कोई परिणाम नहीं\n",
-        "one": "\"{{ terms }}\" के लिए एक परिणाम\n",
-        "other": "\"{{ terms }}\" ({{ count }}) के लिए खोज परिणाम\n"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} \"{{ terms }}\"",
       "breadcrumbs_count_when_filtered": {
         "zero": "{{ category }} में “{{ terms }}” के लिए कोई परिणाम नहीं मिला",
         "one": "{{ category }} में “{{ terms }}” के लिए एक परिणाम मिला",
         "other": "{{ category }} में “{{ terms }}” के लिए खोज के परिणामों की ({{ count }})"
       },
-      "view_all_results": "सभी परिणाम देखें\n",
-      "view_all_products": "सभी उत्पाद देखें\n",
+      "view_all_results": "सभी परिणाम देखें",
+      "view_all_products": "सभी उत्पाद देखें",
       "no_search_performed": "खोज करने के लिए ऊपर दिए गए खोज बार का उपयोग करें।\n",
-      "no_results_title": "\"{{ terms }}\" के लिए कोई परिणाम नहीं\n",
-      "no_results_products_title": "\"{{ terms }}\" के लिए कोई उत्पाद नहीं\n",
+      "no_results_title": "{{ count }} {{ results }} \"{{ terms }}\" के लिए।वर्तनी की जाँच करें या एक अलग शब्द या वाक्यांश का उपयोग करें।",
+      "results": {
+        "one": "परिणाम",
+        "other": "परिणाम"
+      },
       "no_results_products_title_in_category": "{{ category }} में \"{{ terms }}\" के लिए कोई उत्पाद नहीं।",
-      "no_more_results_products_title": "\"{{ terms }}\" के लिए और अधिक उत्पाद नहीं\n",
+      "no_more_results_products_title": "\"{{ terms }}\" के लिए और अधिक उत्पाद नहीं",
       "no_more_results_products_title_in_category": "{{ category }} में “{{ terms }}” के लिए और कोई उत्पाद नहीं हैं।",
-      "no_results_products_message": "क्षमा करें, हमें कोई मैच नहीं मिला\n",
-      "pages_and_posts_no_results": "कोई परिणाम नहीं हैं ",
-      "pages_and_posts_title": "पोस्ट्स और पेज \n",
       "pages_title": "पेज",
       "posts_title": "पोस्ट्स"
+    },
+    "predictive_search": {
+      "suggestions": "सुझाव",
+      "products_title": "उत्पादों",
+      "pages_title": "पृष्ठों",
+      "posts_title": "पदों",
+      "pages_and_posts_title": "पोस्ट्स और पेज",
+      "view_all_results": "\"{{ terms }}\" के लिए खोजें",
+      "no_results": "कोई मिलान परिणाम नहीं मिला।"
     }
   },
   "onboarding": {

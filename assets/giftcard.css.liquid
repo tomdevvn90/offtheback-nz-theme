@@ -1413,8 +1413,8 @@ body .mdc-ripple-surface:hover:before {
 
 @media (prefers-reduced-motion: reduce) {
   *,
-*::before,
-*::after {
+  *::before,
+  *::after {
     animation-duration: 0.001s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001s !important;
@@ -1445,7 +1445,7 @@ body .mdc-ripple-surface:hover:before {
     widows: 3;
   }
   .giftcard__print-link,
-.giftcard__apple-wallet {
+  .giftcard__apple-wallet {
     display: none;
   }
 }
@@ -1653,7 +1653,7 @@ body .mdc-ripple-surface:hover:before {
 /*================ Small width ================*/
 @media screen and (max-width: 400px) {
   .giftcard-image::before,
-.giftcard-image::after {
+  .giftcard-image::after {
     display: none;
   }
   .giftcard-code {
@@ -1671,8 +1671,8 @@ body .mdc-ripple-surface:hover:before {
 ==============================================================================*/
 @media print {
   .giftcard-image::before,
-.giftcard-image::after,
-.giftcard-tooltip {
+  .giftcard-image::after,
+  .giftcard-tooltip {
     display: none;
   }
   .giftcard-actions {

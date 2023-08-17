@@ -456,15 +456,16 @@
       </div>
       <div class="product-compare__no-products" data-compare-empty>
         <p>{{ 'product_compare.no_products_selected' | t }}</p>
-        {% assign continue_url = routes.all_products_collection_url %}
-        {% if settings.continue_shopping_url != blank %}
-          {% assign continue_url = settings.continue_shopping_url %}
-        {% endif %}
-
-        <a class="button-primary product-compare__continue-shopping" href="{{ continue_url }}">
-          {% render 'icon-library', id: 'icon-cart' %}
-          {{ 'cart.general.continue_shopping' | t }}
-        </a>
+        {%- if settings.continue_url_compare -%}
+          {% assign continue_url = routes.all_products_collection_url %}
+          {% if settings.continue_shopping_url != blank %}
+            {% assign continue_url = settings.continue_shopping_url %}
+          {% endif %}
+          <a class="button-primary product-compare__continue-shopping" href="{{ continue_url }}">
+            {% render 'icon-library', id: 'icon-cart' %}
+            {{ 'cart.general.continue_shopping' | t }}
+          </a>
+        {%- endif -%}
       </div>
     </div>
   </div>

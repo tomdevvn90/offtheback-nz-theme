@@ -36,34 +36,35 @@
     This is the click to zoom setting, which is either 'disabled', 'mobile', 'desktop', or 'always'
 {% endcomment %}
 
-{% assign onboarding = onboarding | default: false %}
-{% assign layout = layout | default: nil %}
-{% assign is_featured_product = is_featured_product | default: false %}
-
-{% if layout == 'layout--three-col' %}
-  {% assign product_form = true %}
-{% else %}
-  {% assign product_form = false %}
-  {% for block in section.blocks %}
-    {% case block.type %}
-      {% when 'form' %}
-        {% assign product_form = true %}
-    {% endcase %}
-  {% endfor %}
-{% endif %}
-
 {% liquid
+  assign onboarding = onboarding | default: false
+  assign layout = layout | default: nil
+  assign is_featured_product = is_featured_product | default: false
+
+  if layout == 'layout--three-col'
+    assign product_form = true
+  else
+    assign product_form = false
+    for block in section.blocks
+      case block.type
+        when 'form'
+          assign product_form = true
+          assign show_recipient_form = block.settings.show_gift_card_recipient_form
+      endcase
+    endfor
+  endif
+
   assign selected_variant = product.selected_variant
 
   if product.variants.size == 1 or select_first_available_variant or product_form == false
     assign selected_variant = product.selected_or_first_available_variant
   endif
-%}
 
-{% assign compare_at_price = selected_variant.compare_at_price %}
-{% assign price = selected_variant.price %}
-{% assign sku = selected_variant.sku %}
-{% assign product_available = product.available %}
+  assign compare_at_price = selected_variant.compare_at_price
+  assign price = selected_variant.price
+  assign sku = selected_variant.sku
+  assign product_available = product.available
+%}
 
 {% comment %}For a potential divider in the product.description we need to split the content{% endcomment %}
 {% assign readmore_split = product.description | split: '<!-- more -->' %}
@@ -349,6 +350,7 @@
                       render 'product-form',
                       product: product,
                       enable_local_pickup: enable_local_pickup,
+                      show_recipient_form: show_recipient_form,
                       show_dynamic_checkout_button: show_dynamic_checkout_button,
                       selected_variant: selected_variant,
                       is_product_modal: is_product_modal,
@@ -516,6 +518,7 @@
                 render 'product-form',
                 product: product,
                 enable_local_pickup: enable_local_pickup,
+                show_recipient_form: show_recipient_form,
                 show_dynamic_checkout_button: show_dynamic_checkout_button,
                 selected_variant: selected_variant,
                 is_product_modal: is_product_modal,

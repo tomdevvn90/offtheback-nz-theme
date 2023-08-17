@@ -15,7 +15,7 @@
     "general": {
       "by_vendor": "{{ vendor }}による",
       "by_vendor_html": "{{ vendor_link }}による",
-      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}",
+      "sku_html": "<strong>SKU<\/strong> <span data-product-sku>{{ sku }}<\/span>",
       "customer_reviews_title": "カスタマーレビュー",
       "zoom": "クリックまたはスクロールしてズーム",
       "zoomTap": "タップまたはピンチしてズーム",
@@ -223,6 +223,19 @@
       "now": "今",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} \/ {{ unit_measure }}",
       "view_details": "製品を表示します"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "ギフトとして送信したいです",
+      "email_label": "受信者のメールアドレス",
+      "email_placeholder": "受信者のメールアドレス *",
+      "error_message": "メールアドレスが無効です",
+      "name_label": "受信者の名前（任意）",
+      "name_placeholder": "受信者の名前（任意）",
+      "message_label": "メッセージ（任意）",
+      "message_placeholder": "メッセージ（任意）",
+      "max_characters": "最大{{ max_characters }}文字"
     }
   },
   "age_gate": {
@@ -517,11 +530,7 @@
       "filter_all": "全カテゴリー"
     },
     "general": {
-      "breadcrumbs_count": {
-        "zero": "「{{ terms }}」の結果はありません",
-        "one": "「{{ terms }}」の結果が1つあります",
-        "other": "「{{ terms }}」の検索結果（{{ count }}"
-      },
+      "breadcrumbs_count": "{{ count }} {{ results }} 「{{ terms }}」",
       "breadcrumbs_count_when_filtered": {
         "zero": "{{ category }}では、 「{{ terms }}」の検索結果はありません",
         "one": "{{ category }}では、1件の 「{{ terms }}」の検索結果が見つかりました",
@@ -530,16 +539,25 @@
       "view_all_results": "すべての結果を見る",
       "view_all_products": "すべての製品を見る",
       "no_search_performed": "検索を実行するには、上の検索バーを使用してください。",
-      "no_results_title": "「{{ terms }}」の結果はありません。",
-      "no_results_products_title": "「{{ terms }}」の製品はありません。",
+      "no_results_title": "{{ count }} {{ results }} 「{{ terms }}」. スペルを確認するか、別の単語またはフレーズを使用してください。",
+      "results": {
+        "one": "結果",
+        "other": "活動成果"
+      },
       "no_results_products_title_in_category": "{{ categories }}に「{{ terms }}」の商品はありません。",
       "no_more_results_products_title": "「{{ terms }}」の製品はこれ以上ありません。",
       "no_more_results_products_title_in_category": "{{ category }}に 「{{ terms }}」の製品はこれ以上ありません。",
-      "no_results_products_message": "申し訳ありませんが、一致するものが見つかりませんでした。",
-      "pages_and_posts_no_results": "結果がありません。",
-      "pages_and_posts_title": "投稿とページ",
       "pages_title": "ページ",
       "posts_title": "投稿"
+    },
+    "predictive_search": {
+      "suggestions": "提案",
+      "products_title": "製品",
+      "pages_title": "ページ",
+      "posts_title": "投稿",
+      "pages_and_posts_title": "ページと投稿",
+      "view_all_results": "「{{ terms }}」を検索",
+      "no_results": "一致する結果は見つかりませんでした。"
     }
   },
   "onboarding": {

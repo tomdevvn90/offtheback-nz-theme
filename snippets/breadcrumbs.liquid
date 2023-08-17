@@ -106,7 +106,7 @@
           }}
         </span>
       {% else %}
-        <span>{{ 'search.general.breadcrumbs_count' | t: terms: sanitized_terms, count: search.results_count }}</span>
+        <span>{{ 'search.general.breadcrumbs_count' | t: terms: sanitized_terms, count: search.results_count, results: results }}</span>
       {% endif %}
 
     {% else %}

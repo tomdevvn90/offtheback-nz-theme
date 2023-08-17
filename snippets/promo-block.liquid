@@ -80,8 +80,11 @@
         {{ block.settings.button_text | escape }}
       </span>
     {% endif %}
-
   </div>
+
+  <span class="promo-block--expander">
+    {% render 'icon-chevron-down' %}
+  </span>
 
   {% if has_link %}
     </a>

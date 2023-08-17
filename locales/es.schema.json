@@ -170,6 +170,278 @@
         "name": "Imagen con superposición de texto"
       }
     },
+    "product": {
+      "blocks": {
+        "form": {
+          "show_gift_card_recipient_form": {
+            "label": "Mostrar formulario de información del destinatario para productos de tarjetas de regalo",
+            "info": "Los productos de tarjetas de regalo se pueden enviar opcionalmente directamente al destinatario junto con un mensaje personal. [Más información](https:\/\/help.shopify.com\/es\/manual\/online-store\/themes\/customizing-themes\/add-gift-card-recipient-fields)"
+          },
+          "name": "Forma",
+          "paragraph_1": {
+            "content": "Personaliza las características de la forma del producto en la sección de productos de la configuración del tema."
+          },
+          "header_1": {
+            "content": "Recogida local"
+          },
+          "enable_local_pickup": {
+            "label": "Habilitar la recogida local",
+            "info": "Incluye el indicador de disponibilidad para la recogida local. Deshabilita para excluir la información para el inventario de ubicación. [Obtener más información](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
+          }
+        },
+        "complementary_products": {
+          "name": "Productos complementarios",
+          "settings": {
+            "paragraph": {
+              "content": "Para seleccionar productos complementarios, agrega la aplicación Search & Discovery. [Más información](https:\/\/shopify.dev\/themes\/product-merchandising\/recommendations)"
+            },
+            "heading": {
+              "label": "Encabezado"
+            },
+            "product_recommendation_limit": {
+              "label": "Número máximo de productos para mostrar"
+            },
+            "products_per_slide": {
+              "label": "Cantidad de productos por página"
+            }
+          }
+        },
+        "collapsible_tab": {
+          "name": "Pestaña plegable",
+          "collapsible_tab_heading": {
+            "label": "Título"
+          },
+          "collapsible_tab_text": {
+            "label": "Texto"
+          }
+        },
+        "custom_liquid": {
+          "name": "Liquid personalizado",
+          "custom_liquid": {
+            "label": "Liquid personalizado",
+            "info": "Añade fragmentos de aplicaciones u otro código de Liquid para crear personalizaciones avanzadas."
+          }
+        },
+        "description": {
+          "name": "Descripción"
+        },
+        "key_details": {
+          "name": "Detalles importantes",
+          "icon": {
+            "label": "Icono",
+            "option_1": "Sin icono",
+            "option_2": "Trofeo",
+            "option_3": "Coche",
+            "option_4": "Teléfono móvil",
+            "option_5": "Chat",
+            "option_6": "Chat alternativo",
+            "option_7": "Tarjeta de crédito",
+            "option_8": "Entrega",
+            "option_9": "Carro de entrega",
+            "option_10": "Puerta de entrega",
+            "option_11": "Entrega de la mercancía",
+            "option_12": "Paquete de entrega",
+            "option_13": "Descuento",
+            "option_14": "Correo electrónico",
+            "option_15": "Envoltorio",
+            "option_16": "Tarjeta de regalo",
+            "option_17": "Corazón",
+            "option_18": "Información",
+            "option_19": "Etiqueta",
+            "option_20": "Candado",
+            "option_21": "Número 14",
+            "option_22": "Número 24",
+            "option_23": "Número 30",
+            "option_24": "Gente",
+            "option_25": "Pin",
+            "option_26": "Signo de interrogación",
+            "option_27": "Calificación de 5 estrellas",
+            "option_28": "Calificación de estrellas",
+            "option_29": "Sonrisa",
+            "option_30": "Tienda",
+            "option_31": "Cinta métrica",
+            "option_32": "Pulgares arriba",
+            "option_33": "Transferencia"
+          },
+          "image": {
+            "label": "Imagen",
+            "info": "50 x 50px recomendado. Subir una imagen anulará cualquier icono seleccionado anteriormente."
+          },
+          "title": {
+            "label": "Título"
+          },
+          "text": {
+            "label": "Texto"
+          },
+          "text_color": {
+            "label": "Color del texto"
+          },
+          "icon_color": {
+            "label": "Color del icono"
+          },
+          "background_color": {
+            "label": "Color del fondo"
+          }
+        },
+        "inventory_status": {
+          "name": "Estado del inventario",
+          "inventory_display": {
+            "label": "Mostrar la cantidad del inventario",
+            "info": "Umbral de existencias bajo establecido en la parte de productos de la configuración del tema.",
+            "option_1": "Cantidad del inventario exacta",
+            "option_2": "Bajas existencias y en el umbral de existencias",
+            "option_3": "Solo bajas existencias",
+            "option_4": "Ocultar la cantidad exacta"
+          },
+          "inventory_transfer_notice": {
+            "label": "Mostrar aviso de transferencia del inventario",
+            "info": "[Obtener más información](https:\/\/help.shopify.com\/en\/manual\/products\/inventory\/transfers\/create-transfer) sobre las transferencias de inventario."
+          }
+        },
+        "price": {
+          "name": "Precio"
+        },
+        "product_rating": {
+          "name": "Valoración del producto",
+          "paragraph_1": {
+            "content": "Para mostrar una valoración, añade una aplicación de valoración de productos. [Obtener más información](https:\/\/apps.shopify.com\/product-reviews)"
+          }
+        },
+        "request_quote": {
+          "name": "Solicitud de cotización",
+          "paragraph_1": {
+            "content": "Reciba mensajes de los clientes sobre el precio del producto y otros detalles de compra."
+          },
+          "title": {
+            "label": "Bóveda"
+          },
+          "quantity": {
+            "label": "Mostrar entrada de cantidad"
+          },
+          "message": {
+            "label": "Mostrar entrada de mensaje"
+          }
+        },
+        "share": {
+          "name": "Compartir"
+        },
+        "tabs": {
+          "name": "Pestañas",
+          "show_product_description": {
+            "label": "Mostrar la descripción del producto"
+          },
+          "show_tabs_below_product_gallery": {
+            "label": "Mostrar las pestañas debajo de la galería de productos",
+            "info": "Solo escritorio"
+          },
+          "header_1": {
+            "content": "Pestaña"
+          },
+          "tab_heading_1": {
+            "label": "Título"
+          },
+          "tab_text_1": {
+            "label": "Texto"
+          },
+          "header_2": {
+            "content": "Pestaña"
+          },
+          "tab_heading_2": {
+            "label": "Título"
+          },
+          "tab_text_2": {
+            "label": "Texto"
+          },
+          "header_3": {
+            "content": "Pestaña"
+          },
+          "tab_heading_3": {
+            "label": "Título"
+          },
+          "tab_text_3": {
+            "label": "Texto"
+          }
+        },
+        "text": {
+          "name": "Texto",
+          "text": {
+            "label": "Texto"
+          }
+        },
+        "title": {
+          "name": "Título"
+        },
+        "vendor": {
+          "name": "Proveedor"
+        },
+        "sku": {
+          "name": "Número de referencia"
+        }
+      },
+      "header_1": {
+        "content": "Medios"
+      },
+      "paragraph_1": {
+        "content": "Obtener más información sobre los [tipos de medios](https:\/\/help.shopify.com\/en\/manual\/products\/product-media\/product-media-types)"
+      },
+      "gallery_aspect_ratio": {
+        "label": "Relación de aspecto",
+        "option_1": "Natural",
+        "option_2": "Bajo (4:3)",
+        "option_3": "Cuadrado (1:1)",
+        "option_4": "Alto (2:3)"
+      },
+      "gallery_image_crop": {
+        "label": "Habilitar el recorte de imagen",
+        "info": "Si se deshabilita, se aplicará un espacio blanco alrededor de la imagen. No tendrá efecto cuando la relación de aspecto del medio se fije en natural"
+      },
+      "gallery_thumbnail_position": {
+        "label": "Posición de las miniaturas",
+        "info": "Solo escritorio.",
+        "option_1": "Debajo de la imagen principal",
+        "option_2": "A la izquierda de la imagen principal"
+      },
+      "gallery_video_autoplay": {
+        "label": "Habilitar la reproducción automática del vídeo"
+      },
+      "gallery_video_looping": {
+        "label": "Habilitar el bucle de vídeo"
+      },
+      "gallery_hover_zoom": {
+        "label": "Ampliación de la imagen",
+        "info": "Solo se aplica a los tamaños de pantalla del escritorio.",
+        "option_1": "Deshabilitado",
+        "option_2": "Habilitado (cuadro separado)",
+        "option_3": "Habilitado (reemplaza a la imagen principal)"
+      },
+      "gallery_click_to_zoom": {
+        "label": "Haz clic para ampliar la imagen",
+        "info": "Cambia a «Tocar para ampliar» en el móvil.",
+        "option_1": "Deshabilitado",
+        "option_2": "Habilitado",
+        "option_3": "Habilitado solo en el escritorio",
+        "option_4": "Habilitado solo en el móvil"
+      },
+      "paragraph_2": {
+        "content": "Para obtener los mejores resultados de amplicación de imagen, asegúrate de que tus imágenes sean más grandes de 1600px."
+      },
+      "header_2": {
+        "content": "Recogida local"
+      },
+      "enable_local_pickup": {
+        "label": "Habilitar la recogida local",
+        "info": "Incluye el indicador de disponibilidad para la recogida local. Deshabilita para excluir la información para el inventario de ubicación. [Obtener más información](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
+      },
+      "social_share": {
+        "label": "Mostrar iconos de compartir"
+      },
+      "header_3": {
+        "content": "Cuota"
+      },
+      "header_4": {
+        "content": "Tarjetas de regalo"
+      }
+    },
     "countdown_timer": {
       "name": "Temporizador de cuenta regresiva",
       "full_width": {
@@ -394,271 +666,6 @@
         "countdown_timer": {
           "name": "Temporizador de cuenta regresiva"
         }
-      }
-    },
-    "product": {
-      "blocks": {
-        "complementary_products": {
-          "name": "Productos complementarios",
-          "settings": {
-            "paragraph": {
-              "content": "Para seleccionar productos complementarios, agrega la aplicación Search & Discovery. [Más información](https:\/\/shopify.dev\/themes\/product-merchandising\/recommendations)"
-            },
-            "heading": {
-              "label": "Encabezado"
-            },
-            "product_recommendation_limit": {
-              "label": "Número máximo de productos para mostrar"
-            },
-            "products_per_slide": {
-              "label": "Cantidad de productos por página"
-            }
-          }
-        },
-        "collapsible_tab": {
-          "name": "Pestaña plegable",
-          "collapsible_tab_heading": {
-            "label": "Título"
-          },
-          "collapsible_tab_text": {
-            "label": "Texto"
-          }
-        },
-        "custom_liquid": {
-          "name": "Liquid personalizado",
-          "custom_liquid": {
-            "label": "Liquid personalizado",
-            "info": "Añade fragmentos de aplicaciones u otro código de Liquid para crear personalizaciones avanzadas."
-          }
-        },
-        "description": {
-          "name": "Descripción"
-        },
-        "form": {
-          "name": "Forma",
-          "paragraph_1": {
-            "content": "Personaliza las características de la forma del producto en la sección de productos de la configuración del tema."
-          },
-          "header_1": {
-            "content": "Recogida local"
-          },
-          "enable_local_pickup": {
-            "label": "Habilitar la recogida local",
-            "info": "Incluye el indicador de disponibilidad para la recogida local. Deshabilita para excluir la información para el inventario de ubicación. [Obtener más información](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
-          }
-        },
-        "key_details": {
-          "name": "Detalles importantes",
-          "icon": {
-            "label": "Icono",
-            "option_1": "Sin icono",
-            "option_2": "Trofeo",
-            "option_3": "Coche",
-            "option_4": "Teléfono móvil",
-            "option_5": "Chat",
-            "option_6": "Chat alternativo",
-            "option_7": "Tarjeta de crédito",
-            "option_8": "Entrega",
-            "option_9": "Carro de entrega",
-            "option_10": "Puerta de entrega",
-            "option_11": "Entrega de la mercancía",
-            "option_12": "Paquete de entrega",
-            "option_13": "Descuento",
-            "option_14": "Correo electrónico",
-            "option_15": "Envoltorio",
-            "option_16": "Tarjeta de regalo",
-            "option_17": "Corazón",
-            "option_18": "Información",
-            "option_19": "Etiqueta",
-            "option_20": "Candado",
-            "option_21": "Número 14",
-            "option_22": "Número 24",
-            "option_23": "Número 30",
-            "option_24": "Gente",
-            "option_25": "Pin",
-            "option_26": "Signo de interrogación",
-            "option_27": "Calificación de 5 estrellas",
-            "option_28": "Calificación de estrellas",
-            "option_29": "Sonrisa",
-            "option_30": "Tienda",
-            "option_31": "Cinta métrica",
-            "option_32": "Pulgares arriba",
-            "option_33": "Transferencia"
-          },
-          "image": {
-            "label": "Imagen",
-            "info": "50 x 50px recomendado. Subir una imagen anulará cualquier icono seleccionado anteriormente."
-          },
-          "title": {
-            "label": "Título"
-          },
-          "text": {
-            "label": "Texto"
-          },
-          "text_color": {
-            "label": "Color del texto"
-          },
-          "icon_color": {
-            "label": "Color del icono"
-          },
-          "background_color": {
-            "label": "Color del fondo"
-          }
-        },
-        "inventory_status": {
-          "name": "Estado del inventario",
-          "inventory_display": {
-            "label": "Mostrar la cantidad del inventario",
-            "info": "Umbral de existencias bajo establecido en la parte de productos de la configuración del tema.",
-            "option_1": "Cantidad del inventario exacta",
-            "option_2": "Bajas existencias y en el umbral de existencias",
-            "option_3": "Solo bajas existencias",
-            "option_4": "Ocultar la cantidad exacta"
-          },
-          "inventory_transfer_notice": {
-            "label": "Mostrar aviso de transferencia del inventario",
-            "info": "[Obtener más información](https:\/\/help.shopify.com\/en\/manual\/products\/inventory\/transfers\/create-transfer) sobre las transferencias de inventario."
-          }
-        },
-        "price": {
-          "name": "Precio"
-        },
-        "product_rating": {
-          "name": "Valoración del producto",
-          "paragraph_1": {
-            "content": "Para mostrar una valoración, añade una aplicación de valoración de productos. [Obtener más información](https:\/\/apps.shopify.com\/product-reviews)"
-          }
-        },
-        "request_quote": {
-          "name": "Solicitud de cotización",
-          "paragraph_1": {
-            "content": "Reciba mensajes de los clientes sobre el precio del producto y otros detalles de compra."
-          },
-          "title": {
-            "label": "Bóveda"
-          },
-          "quantity": {
-            "label": "Mostrar entrada de cantidad"
-          },
-          "message": {
-            "label": "Mostrar entrada de mensaje"
-          }
-        },
-        "share": {
-          "name": "Compartir"
-        },
-        "tabs": {
-          "name": "Pestañas",
-          "show_product_description": {
-            "label": "Mostrar la descripción del producto"
-          },
-          "show_tabs_below_product_gallery": {
-            "label": "Mostrar las pestañas debajo de la galería de productos",
-            "info": "Solo escritorio"
-          },
-          "header_1": {
-            "content": "Pestaña"
-          },
-          "tab_heading_1": {
-            "label": "Título"
-          },
-          "tab_text_1": {
-            "label": "Texto"
-          },
-          "header_2": {
-            "content": "Pestaña"
-          },
-          "tab_heading_2": {
-            "label": "Título"
-          },
-          "tab_text_2": {
-            "label": "Texto"
-          },
-          "header_3": {
-            "content": "Pestaña"
-          },
-          "tab_heading_3": {
-            "label": "Título"
-          },
-          "tab_text_3": {
-            "label": "Texto"
-          }
-        },
-        "text": {
-          "name": "Texto",
-          "text": {
-            "label": "Texto"
-          }
-        },
-        "title": {
-          "name": "Título"
-        },
-        "vendor": {
-          "name": "Proveedor"
-        },
-        "sku": {
-          "name": "Número de referencia"
-        }
-      },
-      "header_1": {
-        "content": "Medios"
-      },
-      "paragraph_1": {
-        "content": "Obtener más información sobre los [tipos de medios](https:\/\/help.shopify.com\/en\/manual\/products\/product-media\/product-media-types)"
-      },
-      "gallery_aspect_ratio": {
-        "label": "Relación de aspecto",
-        "option_1": "Natural",
-        "option_2": "Bajo (4:3)",
-        "option_3": "Cuadrado (1:1)",
-        "option_4": "Alto (2:3)"
-      },
-      "gallery_image_crop": {
-        "label": "Habilitar el recorte de imagen",
-        "info": "Si se deshabilita, se aplicará un espacio blanco alrededor de la imagen. No tendrá efecto cuando la relación de aspecto del medio se fije en natural"
-      },
-      "gallery_thumbnail_position": {
-        "label": "Posición de las miniaturas",
-        "info": "Solo escritorio.",
-        "option_1": "Debajo de la imagen principal",
-        "option_2": "A la izquierda de la imagen principal"
-      },
-      "gallery_video_autoplay": {
-        "label": "Habilitar la reproducción automática del vídeo"
-      },
-      "gallery_video_looping": {
-        "label": "Habilitar el bucle de vídeo"
-      },
-      "gallery_hover_zoom": {
-        "label": "Ampliación de la imagen",
-        "info": "Solo se aplica a los tamaños de pantalla del escritorio.",
-        "option_1": "Deshabilitado",
-        "option_2": "Habilitado (cuadro separado)",
-        "option_3": "Habilitado (reemplaza a la imagen principal)"
-      },
-      "gallery_click_to_zoom": {
-        "label": "Haz clic para ampliar la imagen",
-        "info": "Cambia a «Tocar para ampliar» en el móvil.",
-        "option_1": "Deshabilitado",
-        "option_2": "Habilitado",
-        "option_3": "Habilitado solo en el escritorio",
-        "option_4": "Habilitado solo en el móvil"
-      },
-      "paragraph_2": {
-        "content": "Para obtener los mejores resultados de amplicación de imagen, asegúrate de que tus imágenes sean más grandes de 1600px."
-      },
-      "header_2": {
-        "content": "Recogida local"
-      },
-      "enable_local_pickup": {
-        "label": "Habilitar la recogida local",
-        "info": "Incluye el indicador de disponibilidad para la recogida local. Deshabilita para excluir la información para el inventario de ubicación. [Obtener más información](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
-      },
-      "social_share": {
-        "label": "Mostrar iconos de compartir"
-      },
-      "header_3": {
-        "content": "Cuota"
       }
     },
     "age_gate": {
@@ -1394,9 +1401,6 @@
       "enable_live_search_images": {
         "label": "Mostrar imágenes de los productos en los resultados de la búsqueda en tiempo real"
       },
-      "enable_live_search_articles_pages": {
-        "label": "Mostrar las publicaciones y páginas del blog en los resultados de la búsqueda en tiempo real"
-      },
       "header_2": {
         "content": "Fondo"
       },
@@ -1986,6 +1990,13 @@
         "label": "Menú",
         "info": "Este menú no mostrará los elementos desplegables."
       },
+      "header_5": {
+        "content": "Seguir en Shop",
+        "info": "Muestra el botón de seguimiento de tu tienda en la aplicación Shop. [Más información](https:\/\/help.shopify.com\/es\/manual\/online-store\/themes\/customizing-themes\/follow-on-shop)"
+      },
+      "show_follow_on_shop": {
+        "label": "Activar Seguir en Shop"
+      },
       "blocks": {
         "menu": {
           "name": "Menú",
@@ -2057,9 +2068,6 @@
       },
       "enable_live_search_images": {
         "label": "Mostrar imágenes del producto en los resultados de la búsqueda en tiempo real"
-      },
-      "enable_live_search_articles_pages": {
-        "label": "Mostrar las publicaciones y las páginas del blog en los resultados de la búsqueda en tiempo real"
       },
       "quick_links": {
         "label": "Enlaces rápidos",
@@ -2306,9 +2314,6 @@
         "option_1": "3",
         "option_2": "4"
       },
-      "enable_search_articles_pages": {
-        "label": "Mostrar las publicaciones y las páginas del blog en los resultados de búsqueda"
-      },
       "blocks": {
         "filters": {
           "name": "Filtros",
@@ -2464,9 +2469,6 @@
     },
     "utility_bar": {
       "name": "Barra de utilidad",
-      "enable": {
-        "label": "Habilitar"
-      },
       "use_full_width": {
         "label": "Usar la anchura total"
       },
@@ -2917,11 +2919,8 @@
         "label": "Mostrar el icono del candado en los botones de compra"
       }
     },
-    "advanced": {
-      "name": "Avanzado",
-      "header_1": {
-        "content": "Enlace de «Continuar comprando»"
-      },
+    "continue_shopping_link": {
+      "name": "Enlace de «Continuar comprando»",
       "continue_shopping_url": {
         "label": "Continuar al enlace de compra",
         "info": "Donde se redirige a los clientes tras hacer clic en «Continuar comprando»"
@@ -2932,7 +2931,13 @@
       "continue_url_404": {
         "label": "Mostrar en la página 404"
       },
-      "header_2": {
+      "continue_url_compare": {
+        "label": "Mostrar en la página comparar"
+      }
+    },
+    "advanced": {
+      "name": "Avanzado",
+      "header_1": {
         "content": "Tarjeta de regalo"
       },
       "gift_card_logo": {

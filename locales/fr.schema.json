@@ -170,6 +170,276 @@
         "name": "Image avec texte superposé"
       }
     },
+    "product": {
+      "blocks": {
+        "form": {
+          "show_gift_card_recipient_form": {
+            "label": "Afficher le formulaire d'informations sur le destinataire pour les produits de cartes-cadeaux",
+            "info": "Les produits de cartes-cadeaux peuvent être envoyés en option directement au destinataire avec un message personnel. [En savoir plus](https:\/\/help.shopify.com\/fr\/manual\/online-store\/themes\/customizing-themes\/add-gift-card-recipient-fields)"
+          },
+          "name": "Formulaire",
+          "paragraph_1": {
+            "content": "Personnalisez les fonctionnalités du formulaire pour le produit dans la partie produits des paramètres du thème."
+          },
+          "header_1": {
+            "content": "Collecte locale"
+          },
+          "enable_local_pickup": {
+            "label": "Activer l'enlèvement local",
+            "info": "Inclure l'indicateur de disponibilité pour l'enlèvement local. Désactiver pour exclure les informations pour l'inventaire local. [En savoir plus](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
+          }
+        },
+        "complementary_products": {
+          "name": "Produits complémentaires",
+          "settings": {
+            "paragraph": {
+              "content": "Pour sélectionner des produits complémentaires, ajoutez l'application Search & Discovery. [En savoir plus](https:\/\/shopify.dev\/themes\/product-merchandising\/recommendations)"
+            },
+            "heading": {
+              "label": "En-tête"
+            },
+            "product_recommendation_limit": {
+              "label": "Quantité maximale de produits à afficher"
+            },
+            "products_per_slide": {
+              "label": "Nombre de produits par page"
+            }
+          }
+        },
+        "collapsible_tab": {
+          "name": "Onglet pliable",
+          "collapsible_tab_heading": {
+            "label": "En-tête"
+          },
+          "collapsible_tab_text": {
+            "label": "Texte"
+          }
+        },
+        "custom_liquid": {
+          "name": "Liquid personnalisé",
+          "custom_liquid": {
+            "label": "Liquid personnalisé",
+            "info": "Ajoutez des extraits d'applications ou d'autres codes Liquid pour créer des personnalisations avancées."
+          }
+        },
+        "description": {
+          "name": "Description"
+        },
+        "key_details": {
+          "name": "Principaux détails",
+          "icon": {
+            "label": "Icône",
+            "option_1": "Pas d'icône",
+            "option_2": "Trophée de récompense",
+            "option_3": "Voiture",
+            "option_4": "Téléphone portable",
+            "option_5": "Chat",
+            "option_6": "Chat alternatif",
+            "option_7": "Carte de crédit",
+            "option_8": "Livraison",
+            "option_9": "Panier de livraison",
+            "option_10": "Porte de livraison",
+            "option_11": "Paquet de livraison",
+            "option_12": "Email",
+            "option_13": "Enveloppe",
+            "option_14": "Carte cadeau",
+            "option_15": "Cœur",
+            "option_16": "Information",
+            "option_17": "Étiquette",
+            "option_18": "Verrou",
+            "option_19": "Numéro 14",
+            "option_20": "Numéro 24",
+            "option_21": "Numéro 30",
+            "option_22": "Personnes",
+            "option_23": "Épingle",
+            "option_24": "Point d'interrogation",
+            "option_25": "Classement 5 étoiles",
+            "option_26": "Étoile de classement",
+            "option_27": "Sourire",
+            "option_28": "Magasin",
+            "option_29": "Mètre à ruban",
+            "option_30": "Pouces en l'air",
+            "option_31": "Transfert"
+          },
+          "image": {
+            "label": "Image",
+            "info": "50 x 50px recommandé. Le téléchargement d'une image remplacera toute icône sélectionnée ci-dessus."
+          },
+          "title": {
+            "label": "En-tête"
+          },
+          "text": {
+            "label": "Texte"
+          },
+          "text_color": {
+            "label": "Couleur du texte"
+          },
+          "icon_color": {
+            "label": "Couleur de l'icône"
+          },
+          "background_color": {
+            "label": "Couleur de fond"
+          }
+        },
+        "inventory_status": {
+          "name": "Statut de l'inventaire",
+          "inventory_display": {
+            "label": "Afficher la quantité de l'inventaire",
+            "info": "Seuil de stock bas défini dans la partie produits des paramètres du thème",
+            "option_1": "Quantité exacte de l'inventaire",
+            "option_2": "Seuil de bas de stock et de stock",
+            "option_3": "Stock réduit uniquement",
+            "option_4": "Cacher la quantité exacte"
+          },
+          "inventory_transfer_notice": {
+            "label": "Afficher l'avis de transfert d'inventaire",
+            "info": "[En savoir plus](https:\/\/help.shopify.com\/en\/manual\/products\/inventory\/transfers\/create-transfer) sur les transferts de stocks."
+          }
+        },
+        "price": {
+          "name": "Prix"
+        },
+        "product_rating": {
+          "name": "Évaluation du produit",
+          "paragraph_1": {
+            "content": "Pour afficher une évaluation, ajoutez une application d'évaluation de produit. [En savoir plus](https:\/\/apps.shopify.com\/product-reviews)"
+          }
+        },
+        "request_quote": {
+          "name": "Citation requise",
+          "paragraph_1": {
+            "content": "Recevez des messages des clients sur le prix du produit et d'autres détails d'achat."
+          },
+          "title": {
+            "label": "Titre"
+          },
+          "quantity": {
+            "label": "Afficher l'entrée de quantité"
+          },
+          "message": {
+            "label": "Afficher la saisie du message"
+          }
+        },
+        "share": {
+          "name": "Partager"
+        },
+        "tabs": {
+          "name": "Onglets",
+          "show_product_description": {
+            "label": "Afficher la description du produit"
+          },
+          "show_tabs_below_product_gallery": {
+            "label": "Afficher les onglets sous la galerie de produits",
+            "info": "Bureau uniquement"
+          },
+          "header_1": {
+            "content": "Onglet"
+          },
+          "tab_heading_1": {
+            "label": "En-tête"
+          },
+          "tab_text_1": {
+            "label": "Texte"
+          },
+          "header_2": {
+            "content": "Onglet"
+          },
+          "tab_heading_2": {
+            "label": "En-tête"
+          },
+          "tab_text_2": {
+            "label": "Texte"
+          },
+          "header_3": {
+            "content": "Onglet"
+          },
+          "tab_heading_3": {
+            "label": "En-tête"
+          },
+          "tab_text_3": {
+            "label": "Texte"
+          }
+        },
+        "text": {
+          "name": "Texte",
+          "text": {
+            "label": "Texte"
+          }
+        },
+        "title": {
+          "name": "Titre"
+        },
+        "vendor": {
+          "name": "Vendeur"
+        },
+        "sku": {
+          "name": "UGS"
+        }
+      },
+      "header_1": {
+        "content": "Media"
+      },
+      "paragraph_1": {
+        "content": "En savoir plus sur les [types de médias](https:\/\/help.shopify.com\/en\/manual\/products\/product-media\/product-media-types)"
+      },
+      "gallery_aspect_ratio": {
+        "label": "Ratio d'aspect",
+        "option_1": "Naturel",
+        "option_2": "Court (4:3)",
+        "option_3": "Carré (1:1)",
+        "option_4": "Grand (2:3)"
+      },
+      "gallery_image_crop": {
+        "label": "Activer le recadrage de l'image",
+        "info": "S'il est désactivé, un espace blanc sera appliqué autour de l'image. Il n'a aucun effet lorsque le rapport d'aspect du média est défini sur naturel."
+      },
+      "gallery_thumbnail_position": {
+        "label": "Position des vignettes",
+        "info": "Ordinateur de bureau uniquement.",
+        "option_1": "Sous l'image principale",
+        "option_2": "À gauche de l'image principale"
+      },
+      "gallery_video_autoplay": {
+        "label": "Activer la lecture automatique des vidéos"
+      },
+      "gallery_video_looping": {
+        "label": "Activer le bouclage vidéo"
+      },
+      "gallery_hover_zoom": {
+        "label": "Zoom de l'image en survol",
+        "info": "Ne s'applique qu'aux tailles d'écran de bureau.",
+        "option_1": "Désactivé",
+        "option_2": "Activé (case séparée)",
+        "option_3": "Activé (remplace l'image principale)"
+      },
+      "gallery_click_to_zoom": {
+        "label": "Cliquez pour agrandir l'image",
+        "info": "Modifications de l'option «Taper pour zoomer» sur mobile.",
+        "option_1": "Désactivé",
+        "option_2": "Activé",
+        "option_3": "Activé sur le bureau uniquement",
+        "option_4": "Activé sur mobile uniquement"
+      },
+      "paragraph_2": {
+        "content": "Pour obtenir les meilleurs résultats de zoom, assurez-vous que vos images ont une taille supérieure à 1600px."
+      },
+      "header_2": {
+        "content": "Collecte locale"
+      },
+      "enable_local_pickup": {
+        "label": "Activer l'enlèvement local",
+        "info": "Inclure l'indicateur de disponibilité pour l'enlèvement local. Désactiver pour exclure les informations pour l'inventaire local. [En savoir plus](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
+      },
+      "social_share": {
+        "label": "Afficher les icônes de partage"
+      },
+      "header_3": {
+        "content": "Partager"
+      },
+      "header_4": {
+        "content": "Cartes-cadeaux"
+      }
+    },
     "countdown_timer": {
       "name": "Compte à rebours",
       "full_width": {
@@ -394,269 +664,6 @@
         "countdown_timer": {
           "name": "Compte à rebours"
         }
-      }
-    },
-    "product": {
-      "blocks": {
-        "complementary_products": {
-          "name": "Produits complémentaires",
-          "settings": {
-            "paragraph": {
-              "content": "Pour sélectionner des produits complémentaires, ajoutez l'application Search & Discovery. [En savoir plus](https:\/\/shopify.dev\/themes\/product-merchandising\/recommendations)"
-            },
-            "heading": {
-              "label": "En-tête"
-            },
-            "product_recommendation_limit": {
-              "label": "Quantité maximale de produits à afficher"
-            },
-            "products_per_slide": {
-              "label": "Nombre de produits par page"
-            }
-          }
-        },
-        "collapsible_tab": {
-          "name": "Onglet pliable",
-          "collapsible_tab_heading": {
-            "label": "En-tête"
-          },
-          "collapsible_tab_text": {
-            "label": "Texte"
-          }
-        },
-        "custom_liquid": {
-          "name": "Liquid personnalisé",
-          "custom_liquid": {
-            "label": "Liquid personnalisé",
-            "info": "Ajoutez des extraits d'applications ou d'autres codes Liquid pour créer des personnalisations avancées."
-          }
-        },
-        "description": {
-          "name": "Description"
-        },
-        "form": {
-          "name": "Formulaire",
-          "paragraph_1": {
-            "content": "Personnalisez les fonctionnalités du formulaire pour le produit dans la partie produits des paramètres du thème."
-          },
-          "header_1": {
-            "content": "Collecte locale"
-          },
-          "enable_local_pickup": {
-            "label": "Activer l'enlèvement local",
-            "info": "Inclure l'indicateur de disponibilité pour l'enlèvement local. Désactiver pour exclure les informations pour l'inventaire local. [En savoir plus](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
-          }
-        },
-        "key_details": {
-          "name": "Principaux détails",
-          "icon": {
-            "label": "Icône",
-            "option_1": "Pas d'icône",
-            "option_2": "Trophée de récompense",
-            "option_3": "Voiture",
-            "option_4": "Téléphone portable",
-            "option_5": "Chat",
-            "option_6": "Chat alternatif",
-            "option_7": "Carte de crédit",
-            "option_8": "Livraison",
-            "option_9": "Panier de livraison",
-            "option_10": "Porte de livraison",
-            "option_11": "Paquet de livraison",
-            "option_12": "Email",
-            "option_13": "Enveloppe",
-            "option_14": "Carte cadeau",
-            "option_15": "Cœur",
-            "option_16": "Information",
-            "option_17": "Étiquette",
-            "option_18": "Verrou",
-            "option_19": "Numéro 14",
-            "option_20": "Numéro 24",
-            "option_21": "Numéro 30",
-            "option_22": "Personnes",
-            "option_23": "Épingle",
-            "option_24": "Point d'interrogation",
-            "option_25": "Classement 5 étoiles",
-            "option_26": "Étoile de classement",
-            "option_27": "Sourire",
-            "option_28": "Magasin",
-            "option_29": "Mètre à ruban",
-            "option_30": "Pouces en l'air",
-            "option_31": "Transfert"
-          },
-          "image": {
-            "label": "Image",
-            "info": "50 x 50px recommandé. Le téléchargement d'une image remplacera toute icône sélectionnée ci-dessus."
-          },
-          "title": {
-            "label": "En-tête"
-          },
-          "text": {
-            "label": "Texte"
-          },
-          "text_color": {
-            "label": "Couleur du texte"
-          },
-          "icon_color": {
-            "label": "Couleur de l'icône"
-          },
-          "background_color": {
-            "label": "Couleur de fond"
-          }
-        },
-        "inventory_status": {
-          "name": "Statut de l'inventaire",
-          "inventory_display": {
-            "label": "Afficher la quantité de l'inventaire",
-            "info": "Seuil de stock bas défini dans la partie produits des paramètres du thème",
-            "option_1": "Quantité exacte de l'inventaire",
-            "option_2": "Seuil de bas de stock et de stock",
-            "option_3": "Stock réduit uniquement",
-            "option_4": "Cacher la quantité exacte"
-          },
-          "inventory_transfer_notice": {
-            "label": "Afficher l'avis de transfert d'inventaire",
-            "info": "[En savoir plus](https:\/\/help.shopify.com\/en\/manual\/products\/inventory\/transfers\/create-transfer) sur les transferts de stocks."
-          }
-        },
-        "price": {
-          "name": "Prix"
-        },
-        "product_rating": {
-          "name": "Évaluation du produit",
-          "paragraph_1": {
-            "content": "Pour afficher une évaluation, ajoutez une application d'évaluation de produit. [En savoir plus](https:\/\/apps.shopify.com\/product-reviews)"
-          }
-        },
-        "request_quote": {
-          "name": "Citation requise",
-          "paragraph_1": {
-            "content": "Recevez des messages des clients sur le prix du produit et d'autres détails d'achat."
-          },
-          "title": {
-            "label": "Titre"
-          },
-          "quantity": {
-            "label": "Afficher l'entrée de quantité"
-          },
-          "message": {
-            "label": "Afficher la saisie du message"
-          }
-        },
-        "share": {
-          "name": "Partager"
-        },
-        "tabs": {
-          "name": "Onglets",
-          "show_product_description": {
-            "label": "Afficher la description du produit"
-          },
-          "show_tabs_below_product_gallery": {
-            "label": "Afficher les onglets sous la galerie de produits",
-            "info": "Bureau uniquement"
-          },
-          "header_1": {
-            "content": "Onglet"
-          },
-          "tab_heading_1": {
-            "label": "En-tête"
-          },
-          "tab_text_1": {
-            "label": "Texte"
-          },
-          "header_2": {
-            "content": "Onglet"
-          },
-          "tab_heading_2": {
-            "label": "En-tête"
-          },
-          "tab_text_2": {
-            "label": "Texte"
-          },
-          "header_3": {
-            "content": "Onglet"
-          },
-          "tab_heading_3": {
-            "label": "En-tête"
-          },
-          "tab_text_3": {
-            "label": "Texte"
-          }
-        },
-        "text": {
-          "name": "Texte",
-          "text": {
-            "label": "Texte"
-          }
-        },
-        "title": {
-          "name": "Titre"
-        },
-        "vendor": {
-          "name": "Vendeur"
-        },
-        "sku": {
-          "name": "UGS"
-        }
-      },
-      "header_1": {
-        "content": "Media"
-      },
-      "paragraph_1": {
-        "content": "En savoir plus sur les [types de médias](https:\/\/help.shopify.com\/en\/manual\/products\/product-media\/product-media-types)"
-      },
-      "gallery_aspect_ratio": {
-        "label": "Ratio d'aspect",
-        "option_1": "Naturel",
-        "option_2": "Court (4:3)",
-        "option_3": "Carré (1:1)",
-        "option_4": "Grand (2:3)"
-      },
-      "gallery_image_crop": {
-        "label": "Activer le recadrage de l'image",
-        "info": "S'il est désactivé, un espace blanc sera appliqué autour de l'image. Il n'a aucun effet lorsque le rapport d'aspect du média est défini sur naturel."
-      },
-      "gallery_thumbnail_position": {
-        "label": "Position des vignettes",
-        "info": "Ordinateur de bureau uniquement.",
-        "option_1": "Sous l'image principale",
-        "option_2": "À gauche de l'image principale"
-      },
-      "gallery_video_autoplay": {
-        "label": "Activer la lecture automatique des vidéos"
-      },
-      "gallery_video_looping": {
-        "label": "Activer le bouclage vidéo"
-      },
-      "gallery_hover_zoom": {
-        "label": "Zoom de l'image en survol",
-        "info": "Ne s'applique qu'aux tailles d'écran de bureau.",
-        "option_1": "Désactivé",
-        "option_2": "Activé (case séparée)",
-        "option_3": "Activé (remplace l'image principale)"
-      },
-      "gallery_click_to_zoom": {
-        "label": "Cliquez pour agrandir l'image",
-        "info": "Modifications de l'option «Taper pour zoomer» sur mobile.",
-        "option_1": "Désactivé",
-        "option_2": "Activé",
-        "option_3": "Activé sur le bureau uniquement",
-        "option_4": "Activé sur mobile uniquement"
-      },
-      "paragraph_2": {
-        "content": "Pour obtenir les meilleurs résultats de zoom, assurez-vous que vos images ont une taille supérieure à 1600px."
-      },
-      "header_2": {
-        "content": "Collecte locale"
-      },
-      "enable_local_pickup": {
-        "label": "Activer l'enlèvement local",
-        "info": "Inclure l'indicateur de disponibilité pour l'enlèvement local. Désactiver pour exclure les informations pour l'inventaire local. [En savoir plus](https:\/\/support.pixelunion.net\/hc\/en-us\/articles\/360056378914)"
-      },
-      "social_share": {
-        "label": "Afficher les icônes de partage"
-      },
-      "header_3": {
-        "content": "Partager"
       }
     },
     "age_gate": {
@@ -1392,9 +1399,6 @@
       "enable_live_search_images": {
         "label": "Afficher les images des produits dans les résultats de recherche en direct"
       },
-      "enable_live_search_articles_pages": {
-        "label": "Afficher les articles et les pages du blog dans les résultats de recherche en direct"
-      },
       "header_2": {
         "content": "Fond d'écran"
       },
@@ -1984,6 +1988,13 @@
         "label": "Menu",
         "info": "Ce menu n'affichera pas les éléments de la liste déroulante"
       },
+      "header_5": {
+        "content": "Suivre sur Shop",
+        "info": "Affichez le bouton de suivi de votre boutique en ligne sur l'application Shop. [En savoir plus](https:\/\/help.shopify.com\/fr\/manual\/online-store\/themes\/customizing-themes\/follow-on-shop)"
+      },
+      "show_follow_on_shop": {
+        "label": "Activer Suivre sur Shop"
+      },
       "blocks": {
         "menu": {
           "name": "Menu",
@@ -2055,9 +2066,6 @@
       },
       "enable_live_search_images": {
         "label": "Afficher les images des produits dans les résultats de recherche en direct"
-      },
-      "enable_live_search_articles_pages": {
-        "label": "Afficher les articles et les pages du blog dans les résultats de recherche en direct"
       },
       "quick_links": {
         "label": "Liens rapides",
@@ -2302,9 +2310,6 @@
         "option_1": "3",
         "option_2": "4"
       },
-      "enable_search_articles_pages": {
-        "label": "Afficher les articles et les pages du blog dans les résultats de recherche"
-      },
       "blocks": {
         "filters": {
           "name": "Filtres",
@@ -2460,9 +2465,6 @@
     },
     "utility_bar": {
       "name": "Barre d'utilité",
-      "enable": {
-        "label": "Activer"
-      },
       "use_full_width": {
         "label": "Utiliser la pleine largeur"
       },
@@ -2913,11 +2915,8 @@
         "label": "Afficher l'icône du cadenas sur les boutons de paiement"
       }
     },
-    "advanced": {
-      "name": "Avancé",
-      "header_1": {
-        "content": "Lien «Continuer mes achats»"
-      },
+    "continue_shopping_link": {
+      "name": "Lien Continuer mes achats",
       "continue_shopping_url": {
         "label": "Continuer le lien d'achat",
         "info": "Où diriger les clients après avoir cliqué sur «Continuer les achats»"
@@ -2928,7 +2927,13 @@
       "continue_url_404": {
         "label": "Afficher sur la page «404»"
       },
-      "header_2": {
+      "continue_url_compare": {
+        "label": "Afficher sur la page «Comparer»"
+      }
+    },
+    "advanced": {
+      "name": "Avancé",
+      "header_1": {
         "content": "Carte cadeau"
       },
       "gift_card_logo": {

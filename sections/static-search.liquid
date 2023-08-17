@@ -32,7 +32,6 @@
 {% assign show_sidebar = false %}
 {% assign show_filters = true %}
 {% assign show_filter_trigger = false %}
-{% assign enable_content = section.settings.enable_search_articles_pages %}
 
 {% if filter_block == nil %}
     {% assign show_filters = false %}
@@ -76,16 +75,18 @@
       {% assign product_count = product_count | plus: 1 %}
     {% endif %}
 
-    {% if enable_content %}
-      {% if item.object_type == 'article' %}
-        {% assign article_count = article_count | plus: 1 %}
-      {% endif %}
+    {% if item.object_type == 'article' %}
+      {% assign article_count = article_count | plus: 1 %}
+    {% endif %}
 
-      {% if item.object_type == 'page' %}
-        {% assign page_count = page_count | plus: 1 %}
-      {% endif %}
+    {% if item.object_type == 'page' %}
+      {% assign page_count = page_count | plus: 1 %}
     {% endif %}
   {% endfor %}
+
+  {% capture results %}
+    {{ 'search.general.results' | t: count: search.results_count }}
+  {% endcapture %}
 
   {% comment %}
     Calculate the number of result types.
@@ -101,7 +102,12 @@
     {% assign field_prefixes = 'product_type: tag:' | split: ' ' %}
     {% for field_prefix in field_prefixes %}
       {% if search.terms contains field_prefix %}
-        {% assign search_filter = search.terms | split: field_prefix | last %}
+        {%- comment -%}
+          Everything after the first ' AND ', which is for the Shopify API (see SearchForm.js), is the user input.
+          There is a possibility a user may use `AND` in their search term, so it should be kept as-is.
+        {%- endcomment -%}
+        {% assign search_term = search.terms | replace_first: ' AND ', ' _ANDtoremove_ ' %}
+        {% assign search_filter = search_term | split: ' _ANDtoremove_ ' | first | split: field_prefix | last %}
         {% assign search_category = search_filter | remove: 'searchfilter_' %}
         {% assign search_filter_string = field_prefix | append: search_filter %}
         {% break %}
@@ -112,6 +118,7 @@
   {%
     render 'breadcrumbs',
     search_category: search_category,
+    results: results,
   %}
 
   <div
@@ -138,7 +145,6 @@
         <h1 class="visually-hidden">{{ page_title }}</h1>
         {%
           render 'page-search-form',
-          enable_content: enable_content,
           search_filter_string: search_filter_string,
           sanitized_terms: sanitized_terms,
         %}
@@ -242,7 +248,7 @@
                   | t: terms: sanitized_terms, category: search_category
                 %}
               {%- else -%}
-                {% assign title = 'search.general.no_results_products_title' | t: terms: sanitized_terms %}
+                {% assign title = 'search.general.no_results_title' | t: terms: sanitized_terms, count: search.results_count, results: results %}
               {%- endif -%}
 
               {% if paginate.current_page > 1 %}
@@ -270,25 +276,27 @@
         {% endif %}
       </div>
 
-      {% if enable_content and search.performed and search_category == blank %}
+      {%- if search.performed and search_category == blank and article_count > 0 or page_count > 0 -%}
         <div class="productgrid--footer">
-          {%
-            render 'results-search-content',
-            title: 'search.general.posts_title',
-            results: search.results,
-            results_type: 'article',
-            results_count: article_count
-          %}
+          {%- if article_count > 0 -%}
+            {%
+              render 'results-search-content',
+              title: 'search.general.posts_title',
+              results: search.results,
+              results_type: 'article',
+            %}
+          {%- endif -%}
 
-          {%
-            render 'results-search-content',
-            title: 'search.general.pages_title',
-            results: search.results,
-            results_type: 'page',
-            results_count: page_count
-          %}
+          {%- if page_count > 0 -%}
+            {%
+              render 'results-search-content',
+              title: 'search.general.pages_title',
+              results: search.results,
+              results_type: 'page',
+            %}
+          {%- endif -%}
         </div>
-      {% endif %}
+      {%- endif -%}
 
       {% render 'pagination', paginate: paginate %}
     </div>
@@ -325,12 +333,6 @@
         }
       ],
       "default": "4"
-    },
-    {
-      "id": "enable_search_articles_pages",
-      "type": "checkbox",
-      "label": "t:sections.search_results.enable_search_articles_pages.label",
-      "default": true
     }
   ],
   "blocks": [
