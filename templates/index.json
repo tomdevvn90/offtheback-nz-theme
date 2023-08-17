@@ -42,51 +42,11 @@
             "overlay_color": "#000000",
             "overlay_opacity": 4
           }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "title": "Slide",
-            "text": "Introduce customers to your shop with lifestyle and product imagery",
-            "color": "#ffffff",
-            "link": "",
-            "text_alignment": "center",
-            "button_one_label": "Button",
-            "button_one_link": "",
-            "button_one_style": "primary",
-            "button_two_label": "",
-            "button_two_link": "",
-            "button_two_style": "secondary",
-            "show_overlay": true,
-            "overlay_color": "#000000",
-            "overlay_opacity": 20
-          }
-        },
-        "slide-4": {
-          "type": "slide",
-          "settings": {
-            "title": "Slide",
-            "text": "Introduce customers to your shop with lifestyle and product imagery",
-            "color": "#1d1d1d",
-            "link": "",
-            "text_alignment": "left",
-            "button_one_label": "Button",
-            "button_one_link": "",
-            "button_one_style": "primary",
-            "button_two_label": "",
-            "button_two_link": "",
-            "button_two_style": "secondary",
-            "show_overlay": true,
-            "overlay_color": "#000000",
-            "overlay_opacity": 5
-          }
         }
       },
       "block_order": [
         "slide-1",
-        "slide-2",
-        "slide-3",
-        "slide-4"
+        "slide-2"
       ],
       "settings": {
         "enable_autoplay": true,
