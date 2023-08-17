@@ -149,6 +149,7 @@
         "promotion-3": {
           "type": "promotion",
           "settings": {
+            "image": "shopify:\/\/shop_images\/jamie-street-Zqy-x7K5Qcg-unsplash.jpg",
             "title": "Pets",
             "text": "Use this section to welcome customers to your store",
             "color": "#ffffff",
@@ -157,21 +158,22 @@
             "button_style": "primary",
             "show_overlay": true,
             "background": "#000000",
-            "opacity": 3
+            "opacity": 30
           }
         },
         "promotion-4": {
           "type": "promotion",
           "settings": {
+            "image": "shopify:\/\/shop_images\/trinh-minh-th-h4cM5JQmxoQ-unsplash.jpg",
             "title": "Health & Beauty",
             "text": "Use this section to welcome customers to your store",
             "color": "#ffffff",
             "block_link": "",
             "button_text": "",
             "button_style": "primary",
-            "show_overlay": false,
-            "background": "",
-            "opacity": 50
+            "show_overlay": true,
+            "background": "#000000",
+            "opacity": 30
           }
         }
       },
