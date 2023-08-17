@@ -127,8 +127,8 @@
             "button_text": "",
             "button_style": "primary",
             "show_overlay": false,
-            "background": "rgba(0,0,0,0)",
-            "opacity": 50
+            "background": "#000000",
+            "opacity": 30
           }
         },
         "promotion-2": {
@@ -143,7 +143,7 @@
             "button_style": "primary",
             "show_overlay": true,
             "background": "#000000",
-            "opacity": 5
+            "opacity": 30
           }
         },
         "promotion-3": {
