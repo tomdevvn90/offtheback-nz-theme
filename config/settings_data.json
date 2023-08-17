@@ -22,7 +22,7 @@
     "color_overlay": "#000000",
     "overlay_opacity": 50,
     "type_size_base": 16,
-    "type_heading": "montserrat_n8",
+    "type_heading": "nunito_sans_n7",
     "type_heading_size": "1",
     "type_heading_capitalize": false,
     "type_heading_spacing": 0,
@@ -33,7 +33,7 @@
     "type_button": "nunito_sans_n7",
     "type_button_capitalize": false,
     "type_button_spacing": 0,
-    "type_section": "montserrat_n8",
+    "type_section": "nunito_sans_n7",
     "type_section_capitalize": false,
     "type_section_spacing": 0,
     "layout_max_width": 1400,
@@ -86,7 +86,10 @@
     "quickshop_enable_social_sharing": true,
     "product_cart_redirect": false,
     "show_breadcrumbs": true,
-    "quickshop_show_vendor": true
+    "quickshop_show_vendor": true,
+    "content_for_index": [
+
+    ]
   },
   "presets": {
     "Supply": {
