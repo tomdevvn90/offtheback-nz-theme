@@ -252,71 +252,6 @@
         "cta_button_style": "primary"
       }
     },
-    "dynamic_featured_product": {
-      "type": "dynamic-featured-product",
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {
-          }
-        },
-        "price": {
-          "type": "price",
-          "settings": {
-          }
-        },
-        "view-product-link": {
-          "type": "view-product-link",
-          "settings": {
-            "text": "View full details"
-          }
-        }
-      },
-      "block_order": [
-        "title",
-        "price",
-        "view-product-link"
-      ],
-      "settings": {
-        "product": "",
-        "gallery_aspect_ratio": "natural",
-        "gallery_image_crop": false,
-        "gallery_thumbnail_position": "left",
-        "gallery_video_autoplay": false,
-        "gallery_video_looping": true,
-        "gallery_hover_zoom": "replace"
-      }
-    },
-    "dynamic_featured_collection-2": {
-      "type": "dynamic-featured-collection",
-      "blocks": {
-        "title-card": {
-          "type": "title_card",
-          "settings": {
-            "horizontal_size": "3",
-            "vertical_size": "2",
-            "text_alignment": "center-center",
-            "pre_heading": "Featured",
-            "heading": "Collection",
-            "text_color": "#ffffff",
-            "cta_label": "See more",
-            "overlay_color": "#000000",
-            "overlay_opacity": 10
-          }
-        }
-      },
-      "block_order": [
-        "title-card"
-      ],
-      "settings": {
-        "title": "Featured collection",
-        "layout": "grid",
-        "collection": "",
-        "product_count": 4,
-        "cta_label": "",
-        "cta_button_style": "primary"
-      }
-    },
     "dynamic_testimonials": {
       "type": "dynamic-testimonials",
       "blocks": {
@@ -404,8 +339,6 @@
     "dynamic_highlights_banner",
     "dynamic_promo_mosaic",
     "dynamic_featured_collection",
-    "dynamic_featured_product",
-    "dynamic_featured_collection-2",
     "dynamic_testimonials",
     "dynamic_search"
   ]
