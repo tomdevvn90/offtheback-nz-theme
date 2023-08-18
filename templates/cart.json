@@ -2,7 +2,22 @@
   "sections": {
     "main": {
       "type": "static-cart",
+      "blocks": {
+        "c8d944e2-32cc-4bcc-aabc-70dbb5d2374a": {
+          "type": "page",
+          "settings": {
+            "page": "cart-sidebar"
+          }
+        }
+      },
+      "block_order": [
+        "c8d944e2-32cc-4bcc-aabc-70dbb5d2374a"
+      ],
       "settings": {
+        "show_sku": false,
+        "enable_order_notes": false,
+        "enable_shipping_calc": true,
+        "shipping_calc_default_country": "United States"
       }
     }
   },
