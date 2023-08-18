@@ -19,9 +19,9 @@
       "type": "static-utility-bar",
       "settings": {
         "use_full_width": false,
-        "background_color": "#1b175d",
-        "link_color": "#ffffff",
-        "link_hover_color": "#ffffff",
+        "background_color": "#fac20e",
+        "link_color": "#1d1d1d",
+        "link_hover_color": "#1d1d1d",
         "border_color": "rgba(0,0,0,0)",
         "menu": "",
         "show_menu_mobile": true,
