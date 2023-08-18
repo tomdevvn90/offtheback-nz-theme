@@ -86,22 +86,12 @@
             "text": "<p>15 Years<\/p>",
             "link": ""
           }
-        },
-        "highlight-4": {
-          "type": "highlight",
-          "settings": {
-            "icon": "icon-credit-card",
-            "title": "SECURED PAYMENT",
-            "text": "<p>Safe & Fast<\/p>",
-            "link": ""
-          }
         }
       },
       "block_order": [
         "highlight-1",
         "highlight-2",
-        "highlight-3",
-        "highlight-4"
+        "highlight-3"
       ],
       "settings": {
         "section_spacing": false,
@@ -276,6 +266,10 @@
     },
     "8097d0ce-e0ad-4e8e-ae22-ce7f7a685b8c": {
       "type": "pxs-newsletter",
+      "custom_css": [
+        ".pxs-newsletter {margin-top: 0 !important; background-color: #ff5602; padding: 2em;}",
+        ".pxs-newsletter h2, .pxs-newsletter p {color: white;}"
+      ],
       "settings": {
         "title": "NEVER MISS ANOTHER DEAL",
         "text": "<p>GET EM' FRESH. GET EM' IN YOUR INBOX.<\/p>",
