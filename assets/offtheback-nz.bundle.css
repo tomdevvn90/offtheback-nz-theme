@@ -87,6 +87,10 @@
   border-radius: 5px;
 }
 
+.site-footer-item--information .site-footer__row--first {
+  border-top: 1px solid #FFF;
+}
+
 .site-navigation .navmenu-link-depth-1,
 .site-navigation .site-header-account-link a {
   padding: 0.5em;
