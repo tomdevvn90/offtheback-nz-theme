@@ -5,13 +5,6 @@
     "footer": {
       "type": "static-footer",
       "blocks": {
-        "219ab33c-6e90-4683-a791-45f0f6de4532": {
-          "type": "rich_text",
-          "settings": {
-            "title": "Off The Black",
-            "text": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>"
-          }
-        },
         "43aa9299-88da-4c74-a4bd-fbd7a5f2fc50": {
           "type": "menu",
           "settings": {
@@ -38,7 +31,6 @@
         }
       },
       "block_order": [
-        "219ab33c-6e90-4683-a791-45f0f6de4532",
         "43aa9299-88da-4c74-a4bd-fbd7a5f2fc50",
         "82800d48-6993-4720-9e8d-d2a291fbf13d",
         "e897f1a1-65b6-4c6a-940e-2cc78c5fbf92",
