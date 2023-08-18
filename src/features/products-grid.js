@@ -49,6 +49,7 @@
         currentPaged += 1;
         const $products = await getProducts(currentPaged);
         $elem.append($products);
+        fixProductActions(document.querySelectorAll('.products-grid__js-selector [data-product-item]:not(.__fixProductActions)'));
         fixImageLazyLoad($products)
 
         setTimeout(() => {
@@ -63,8 +64,21 @@
     })
   }
 
+  const fixProductActions = (product_items) => {
+    [...product_items].forEach((productItem) => {
+      productItem.classList.add('__fixProductActions')
+      new w.__ProductGridItem({
+        el: productItem,
+      })
+
+      // productItem.classList.remove('__product-load-by-ajax-item')
+    });
+  }
+
   $(() => {
     $('.products-grid__js-selector').each(function() {
+      let product_items = document.querySelectorAll('.products-grid__js-selector [data-product-item]');
+      fixProductActions(product_items);
       loadMoreProductsScrolling($(this));
     })
   })

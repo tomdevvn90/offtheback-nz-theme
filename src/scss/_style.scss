@@ -50,7 +50,7 @@
     } 
   }
 
-  .productgrid--item {
+  .productgrid--item__ {
 
     .productitem--actions {
       position: absolute;
@@ -109,4 +109,8 @@
 
 .site-footer-item--information .site-footer__row--first {
   border-top: 1px solid #FFF;
+}
+
+.quickshop-button {
+  display: none;
 }
