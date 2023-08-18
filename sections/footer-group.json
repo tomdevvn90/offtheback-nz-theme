@@ -24,6 +24,13 @@
             "menu": "off-the-back"
           }
         },
+        "e897f1a1-65b6-4c6a-940e-2cc78c5fbf92": {
+          "type": "newsletter",
+          "settings": {
+            "title": "BE THE FIRST TO KNOW",
+            "text": "<p>Get all the latest information on Sales Events and New Products.<\/p>"
+          }
+        },
         "44d2dca5-d0a5-4f14-97c5-f7566a26bd65": {
           "type": "social_accounts",
           "settings": {
@@ -34,6 +41,7 @@
         "219ab33c-6e90-4683-a791-45f0f6de4532",
         "43aa9299-88da-4c74-a4bd-fbd7a5f2fc50",
         "82800d48-6993-4720-9e8d-d2a291fbf13d",
+        "e897f1a1-65b6-4c6a-940e-2cc78c5fbf92",
         "44d2dca5-d0a5-4f14-97c5-f7566a26bd65"
       ],
       "settings": {

@@ -267,8 +267,8 @@
     "8097d0ce-e0ad-4e8e-ae22-ce7f7a685b8c": {
       "type": "pxs-newsletter",
       "custom_css": [
-        ".pxs-newsletter {margin-top: 0 !important; background-color: #ff5602; padding: 2em;}",
-        ".pxs-newsletter h2, .pxs-newsletter p {color: white;}"
+        ".pxs-newsletter {margin-top: 0 !important; background-color: #ff5602; padding: 2em; margin-top: 2em;}",
+        ".pxs-newsletter h2,.pxs-newsletter p {color: white;}"
       ],
       "settings": {
         "title": "NEVER MISS ANOTHER DEAL",
@@ -314,12 +314,12 @@
         "7ae80238-d449-4078-8318-afc009a05047"
       ],
       "settings": {
-        "section_spacing": false,
-        "section_width": "content-width",
+        "section_spacing": true,
+        "section_width": "full-width",
         "icon_layout": "center",
         "color": "#1d1d1d",
         "icon_color": "#046e82",
-        "background_color": "#ffffff",
+        "background_color": "#f9ce21",
         "mobile_layout": "grid"
       }
     }
