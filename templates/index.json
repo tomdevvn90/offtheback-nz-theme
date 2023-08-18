@@ -119,9 +119,9 @@
         "promotion-1": {
           "type": "promotion",
           "settings": {
-            "image": "shopify:\/\/shop_images\/spacejoy-7fX2YfJIrOQ-unsplash.jpg",
-            "title": "Home & Living",
-            "text": "Use this section to welcome customers to your store, say a bit about your brand, or share news.",
+            "image": "shopify:\/\/shop_images\/20__Banner_580x290_v2A.jpg",
+            "title": "20% Off Over 1500 Deals",
+            "text": "3 days only",
             "color": "#ffffff",
             "block_link": "",
             "button_text": "",
