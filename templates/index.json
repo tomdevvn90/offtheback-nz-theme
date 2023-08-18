@@ -48,6 +48,7 @@
         "slide-1",
         "slide-2"
       ],
+      "disabled": true,
       "settings": {
         "enable_autoplay": true,
         "autoplay_duration": 9,
