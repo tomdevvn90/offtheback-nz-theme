@@ -70,7 +70,7 @@
         const $products = await getProducts();
         $elem.find('ul.productgrid--items').append($products);
 
-        $(w).scrollTop(scrollTopAfterLoad + 300);
+        $(w).scrollTop(scrollTopAfterLoad + 150);
 
         setTimeout(() => {
           fixProductHoverAction();

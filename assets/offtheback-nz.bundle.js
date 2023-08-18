@@ -104,7 +104,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 6:
               $products = _context2.sent;
               $elem.find('ul.productgrid--items').append($products);
-              $(w).scrollTop(scrollTopAfterLoad + 300);
+              $(w).scrollTop(scrollTopAfterLoad + 150);
               setTimeout(function () {
                 fixProductHoverAction();
                 fixImageLazyLoad($products);

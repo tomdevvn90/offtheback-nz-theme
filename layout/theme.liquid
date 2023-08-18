@@ -108,7 +108,7 @@
       };
     </script>
     {% comment %}Inject theme-object end{% endcomment %}
-
+    {% render 'redirect-helpers' %}
   </head>
 
   <body
@@ -120,6 +120,8 @@
       if (window.Shopify && window.Shopify.designMode) 
         document.documentElement.className += ' in-theme-editor';
       
+
+
 
       if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) 
         document.documentElement.className = document.documentElement.className.replace(/\bno-touch\b/, 'has-touch');
@@ -495,10 +497,10 @@
           <div class="product-compare-drawer__actions">
             <a
               class="
-                                                product-compare-drawer__link
-                                                button-primary
-                                                disabled
-                                              "
+                                                                                product-compare-drawer__link
+                                                                                button-primary
+                                                                                disabled
+                                                                              "
               href="{{ routes.root_url }}"
               data-product-compare-drawer-link
               data-product-compare-drawer-link-text="{{ 'product_compare.compare' | t }}">

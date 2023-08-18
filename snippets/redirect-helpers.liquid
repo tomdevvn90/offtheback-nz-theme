@@ -1,0 +1,12 @@
+{% if template contains 'collection' %}
+  {% comment %} {{ collection | json }} {% endcomment %}
+{% endif %}
+
+<script>
+  let _URL = window.location.href;
+  let segment = _URL.split('/');
+
+  if (segment[3] == 'bgd') {
+    window.location.href = '/collections/books-gifts-direct/';
+  }
+</script>
