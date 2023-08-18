@@ -1,6 +1,7 @@
 .site-navigation .navmenu-link-depth-1, 
 .site-navigation .site-header-account-link a {
   padding: 0.5em;
+  color: white;
 }
 
 .site-navigation .navmenu-depth-1>li {
@@ -18,4 +19,9 @@
 .site-navigation summary, 
 .site-header-actions {
   font-size: .9em;
+}
+
+.site-navigation-wrapper,
+.site-navigation {
+  background: #4c71ab!important;
 }
