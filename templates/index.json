@@ -119,7 +119,8 @@
         "template--15387056898107__49dfe952-b3f4-4748-af5e-f664f9dd41a5-slide-1": {
           "type": "slide",
           "settings": {
-            "background_image": "shopify:\/\/shop_images\/20__Banner_580x290_v2B.jpg",
+            "background_image": "shopify:\/\/shop_images\/20__Banner_2880x800_v2B.jpg",
+            "mobile_background_image": "shopify:\/\/shop_images\/20__Banner_580x290_v2B.jpg",
             "title": "",
             "text": "",
             "color": "#FFFFFF",
@@ -236,85 +237,13 @@
         "button_link": "shopify:\/\/collections\/all"
       }
     },
-    "dynamic_testimonials": {
-      "type": "dynamic-testimonials",
-      "blocks": {
-        "testimonial-1": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.5",
-            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.<\/p>",
-            "author": "<p>Author's name<\/p>"
-          }
-        },
-        "testimonial-2": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.5",
-            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.<\/p>",
-            "author": "<p>Author's name<\/p>"
-          }
-        },
-        "testimonial-3": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.5",
-            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.<\/p>",
-            "author": "<p>Author's name<\/p>"
-          }
-        },
-        "testimonial-4": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.5",
-            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.<\/p>",
-            "author": "<p>Author's name<\/p>"
-          }
-        },
-        "testimonial-5": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.5",
-            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.<\/p>",
-            "author": "<p>Author's name<\/p>"
-          }
-        },
-        "testimonial-6": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.5",
-            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.<\/p>",
-            "author": "<p>Author's name<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial-1",
-        "testimonial-2",
-        "testimonial-3",
-        "testimonial-4",
-        "testimonial-5",
-        "testimonial-6"
-      ],
+    "8097d0ce-e0ad-4e8e-ae22-ce7f7a685b8c": {
+      "type": "pxs-newsletter",
       "settings": {
-        "title": "Testimonials",
-        "image_crop": "circle",
-        "text_size": "large"
-      }
-    },
-    "dynamic_search": {
-      "type": "dynamic-search",
-      "settings": {
-        "title": "Search",
-        "text": "Find the products you're looking for.",
-        "placeholder": "What are you looking for?",
-        "filter_search_by": "disabled",
-        "enable_live_search": true,
-        "enable_live_search_images": false,
-        "show-overlay": false,
-        "color": "#ffffff",
-        "background": "#000000",
-        "opacity": 50
+        "title": "NEVER MISS ANOTHER DEAL",
+        "text": "<p>GET EM' FRESH. GET EM' IN YOUR INBOX.<\/p>",
+        "desktop_alignment": "left",
+        "mobile_alignment": "top"
       }
     },
     "4c01b90d-4922-4aa8-8c52-d6c93e034ba0": {
@@ -370,8 +299,7 @@
     "49dfe952-b3f4-4748-af5e-f664f9dd41a5",
     "dynamic_promo_mosaic",
     "db75e0da-1755-4915-96c1-c7ad7694cadd",
-    "dynamic_testimonials",
-    "dynamic_search",
+    "8097d0ce-e0ad-4e8e-ae22-ce7f7a685b8c",
     "4c01b90d-4922-4aa8-8c52-d6c93e034ba0"
   ]
 }

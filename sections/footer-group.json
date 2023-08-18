@@ -24,11 +24,9 @@
             "menu": "off-the-back"
           }
         },
-        "newsletter": {
-          "type": "newsletter",
+        "44d2dca5-d0a5-4f14-97c5-f7566a26bd65": {
+          "type": "social_accounts",
           "settings": {
-            "title": "Subscribe",
-            "text": "<p>Never miss another dealget em' fresh. Get em' in your inbox.<\/p>"
           }
         }
       },
@@ -36,7 +34,7 @@
         "219ab33c-6e90-4683-a791-45f0f6de4532",
         "43aa9299-88da-4c74-a4bd-fbd7a5f2fc50",
         "82800d48-6993-4720-9e8d-d2a291fbf13d",
-        "newsletter"
+        "44d2dca5-d0a5-4f14-97c5-f7566a26bd65"
       ],
       "settings": {
         "show_follow_on_shop": true,
