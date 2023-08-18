@@ -74,6 +74,19 @@
   font-weight: bold;
 }
 
+.productgrid--sidebar-button {
+  background-color: #ffc40c;
+  padding: 8px 8px 5px 15px;
+  border-radius: 5px;
+}
+
+.cart-sidebar-item--text h5 {
+  font-size: 13.5px !important;
+  background-color: #ffc40c;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
 .site-navigation .navmenu-link-depth-1,
 .site-navigation .site-header-account-link a {
   padding: 0.5em;
