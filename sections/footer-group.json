@@ -18,6 +18,12 @@
             "menu": "your-account"
           }
         },
+        "82800d48-6993-4720-9e8d-d2a291fbf13d": {
+          "type": "menu",
+          "settings": {
+            "menu": "off-the-back"
+          }
+        },
         "newsletter": {
           "type": "newsletter",
           "settings": {
@@ -29,6 +35,7 @@
       "block_order": [
         "219ab33c-6e90-4683-a791-45f0f6de4532",
         "43aa9299-88da-4c74-a4bd-fbd7a5f2fc50",
+        "82800d48-6993-4720-9e8d-d2a291fbf13d",
         "newsletter"
       ],
       "settings": {
