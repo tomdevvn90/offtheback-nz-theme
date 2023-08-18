@@ -97,7 +97,7 @@
       "settings": {
         "section_spacing": false,
         "section_width": "content-width",
-        "icon_layout": "center",
+        "icon_layout": "left",
         "color": "#1d1d1d",
         "icon_color": "#046e82",
         "background_color": "#ffffff",
