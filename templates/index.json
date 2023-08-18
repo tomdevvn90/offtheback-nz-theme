@@ -269,7 +269,7 @@
       "type": "dynamic-search",
       "settings": {
         "title": "Search",
-        "text": "Use this section to help customers find the products they're looking for.",
+        "text": "Find the products you're looking for.",
         "placeholder": "What are you looking for?",
         "filter_search_by": "disabled",
         "enable_live_search": true,
@@ -279,6 +279,52 @@
         "background": "#000000",
         "opacity": 50
       }
+    },
+    "4c01b90d-4922-4aa8-8c52-d6c93e034ba0": {
+      "type": "dynamic-highlights-banner",
+      "blocks": {
+        "d15a1a78-bf6e-41e5-b16a-603b4ef2b6e4": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-chat",
+            "title": "Customer Support",
+            "text": "<p>Need Assistance?<br\/>Our New Zealand based customer support will be happy to help!<\/p>",
+            "link": ""
+          }
+        },
+        "03c92c4a-7f9e-4bf4-9a75-05228eeee88d": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-credit-card",
+            "title": "Secured Payment",
+            "text": "<p>Safe & Fast<br\/>Payment options to suit you<\/p>",
+            "link": ""
+          }
+        },
+        "7ae80238-d449-4078-8318-afc009a05047": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-thumbs-up",
+            "title": "Returns",
+            "text": "<p>Buy with confidence, we'll be here to help if anything goes wrong!<\/p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "d15a1a78-bf6e-41e5-b16a-603b4ef2b6e4",
+        "03c92c4a-7f9e-4bf4-9a75-05228eeee88d",
+        "7ae80238-d449-4078-8318-afc009a05047"
+      ],
+      "settings": {
+        "section_spacing": false,
+        "section_width": "content-width",
+        "icon_layout": "center",
+        "color": "#1d1d1d",
+        "icon_color": "#046e82",
+        "background_color": "#ffffff",
+        "mobile_layout": "grid"
+      }
     }
   },
   "order": [
@@ -287,6 +333,7 @@
     "dynamic_promo_mosaic",
     "db75e0da-1755-4915-96c1-c7ad7694cadd",
     "dynamic_testimonials",
-    "dynamic_search"
+    "dynamic_search",
+    "4c01b90d-4922-4aa8-8c52-d6c93e034ba0"
   ]
 }
