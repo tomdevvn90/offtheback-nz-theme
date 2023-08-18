@@ -267,7 +267,7 @@
     "8097d0ce-e0ad-4e8e-ae22-ce7f7a685b8c": {
       "type": "pxs-newsletter",
       "custom_css": [
-        ".pxs-newsletter {margin-top: 0 !important; background-color: #ff5602; padding: 2em; margin-top: 2em;}",
+        ".pxs-newsletter {margin-top: 0 !important; background-color: #ff5602; padding: 2em; margin-top: 2em !important;}",
         ".pxs-newsletter h2,.pxs-newsletter p {color: white;}"
       ],
       "settings": {
