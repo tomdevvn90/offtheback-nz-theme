@@ -1,5 +1,10 @@
 {
   "sections": {
+    "4f8fe091-2e78-4854-a21a-7763af958039": {
+      "type": "banner-otb",
+      "settings": {
+      }
+    },
     "main": {
       "type": "static-collection",
       "blocks": {
@@ -44,6 +49,7 @@
     }
   },
   "order": [
+    "4f8fe091-2e78-4854-a21a-7763af958039",
     "main",
     "static-recently-viewed"
   ]
