@@ -1,0 +1,96 @@
+{% liquid 
+  assign logo_img = 'banner-logo.png' | asset_url
+  assign logo_otb_img = 'banner-logo-otb.png' | asset_url
+
+  assign background = 'banner-background-blue.jpg' | asset_url
+  assign people_img = 'banner-people.png' | asset_url
+  assign items_img = 'banner-items.png' | asset_url
+
+  assign feature_list = 'banner-icon-cart.png | Same | GREAT PRODUCTS, banner-icon-dolla.png | Same | GREAT PRICES, banner-icon-like.png | Same | GREAT SERVICES' | split: ", "
+%}
+
+{% capture people_layer_temp %}
+  <div class="block-item__people">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ people_img }}"
+      alt="#people">
+  </div>
+{% endcapture %}
+
+{% capture feature_list_temp %}
+  <div class="block-item__feature-list">
+    {% for f_item in feature_list %}
+      {% assign f = f_item | split: ' | ' %}
+      <div class="block-item__feature-list-item">
+        <span class="__icon">
+          <img
+            loading="lazy"
+            width=""
+            height=""
+            src="{{ f[0] | asset_url }}"
+            alt="#icon">
+        </span>
+        <span class="__text-1 font-pacifico">{{ f[1] }}</span>
+        <span class="__text-2">{{ f[2] }}</span>
+      </div>
+    {% endfor %}
+  </div>
+{% endcapture %}
+
+{% capture items_temp %}
+  <div class="block-item__product-items">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ items_img }}"
+      alt="#product-items">
+  </div>
+{% endcapture %}
+
+{% capture heading_temp %}
+  <div class="block-item__heading">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ logo_img }}"
+      alt="#logo">
+    <span class="font-pacifico __text">is now brought to you by</span>
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ logo_otb_img }}"
+      alt="#logo">
+  </div>
+{% endcapture %}
+
+<section id="shopify-section--{{ section.id }}" class="custom-block__banner-otb featured-collection__container">
+  <div class="custom-block__banner-otb-background-layer" style="background: url({{ background }}) no-repeat center center / cover, #000;"></div>
+  <div class="custom-block__banner-otb-entry">
+    {{ heading_temp }}
+    {{ people_layer_temp }}
+    {{ feature_list_temp }}
+    {{ items_temp }}
+  </div>
+</section>
+<!-- .custom-block__banner-otb -->
+
+{% schema %}
+  {
+    "name": {
+      "en": "Banner OTB"
+    },
+    "settings": [],
+    "presets": [
+      {
+        "name": "Banner OTB",
+        "category": "Banner OTB"
+      }
+    ]
+  }
+{% endschema %}
