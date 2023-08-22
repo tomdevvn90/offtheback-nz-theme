@@ -1,0 +1,154 @@
+{% liquid 
+  assign logo_img = 'banner-logo.png' | asset_url
+  assign logo_otb_img = 'banner-logo-otb.png' | asset_url
+
+  assign background = 'banner3-background.jpg' | asset_url
+  assign people_img = 'banner3-people.png' | asset_url
+  assign items_img = 'banner3-items.png' | asset_url
+
+  if section.settings.logo_1
+    assign logo_img = section.settings.logo_1 | image_url
+  endif
+
+  if section.settings.logo_2
+    assign logo_otb_img = section.settings.logo_2 | image_url
+  endif
+
+  if section.settings.people_img
+    assign people_img = section.settings.people_img | image_url
+  endif
+
+  if section.settings.product_img
+    assign items_img = section.settings.product_img | image_url
+  endif
+%}
+
+{% capture feature_list_string %}banner-icon-cart.png | {{ section.settings.text_line_1 }}, banner3-icon-start.png | {{ section.settings.text_line_2 }}, banner-icon-dolla.png | {{ section.settings.text_line_3 }}{% endcapture %}
+
+{% assign feature_list = feature_list_string | split: ", " %}
+
+{% capture feature_list_temp %}
+  <div class="block-item__feature-list">
+    {% for f_item in feature_list %}
+      {% assign f = f_item | split: ' | ' %}
+      <div class="block-item__feature-list-item">
+        <span class="__icon">
+          <img
+            loading="lazy"
+            width=""
+            height=""
+            src="{{ f[0] | asset_url }}"
+            alt="#icon">
+        </span>
+        <span class="__text-1 font-pacifico">{{ f[1] }}</span>
+        <span class="__text-2">{{ f[2] }}</span>
+      </div>
+    {% endfor %}
+  </div>
+{% endcapture %}
+
+{% capture heading_temp %}
+  <div class="block-item__heading">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ logo_img }}"
+      alt="#logo">
+    <span class="font-pacifico __text">{{ section.settings.heading_text }}</span>
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ logo_otb_img }}"
+      alt="#logo">
+  </div>
+{% endcapture %}
+
+{% capture items_temp %}
+  <div class="block-item__product-items">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ items_img }}"
+      alt="#product-items">
+  </div>
+{% endcapture %}
+
+{% capture people_layer_temp %}
+  <div class="block-item__people">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ people_img }}"
+      alt="#people">
+  </div>
+{% endcapture %}
+
+<section id="shopify-section--{{ section.id }}" class="custom-block__banner-otb3 featured-collection__container">
+  <div class="custom-block__banner-otb3-background-layer" style="background: url({{ background }}) no-repeat center center / cover, #000;"></div>
+  <div class="custom-block__banner-otb3-entry">
+    {{ heading_temp }}
+    {{ items_temp }}
+    {{ people_layer_temp }}
+    {{ feature_list_temp }}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Banner OTB 3"
+    },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo_1",
+        "label": "Logo 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_2",
+        "label": "Logo 2"
+      },
+      {
+        "type": "textarea",
+        "id": "heading_text",
+        "label": "Heading Text",
+        "default": "is now brought to you by"
+      },
+      {
+        "type": "image_picker",
+        "id": "people_img",
+        "label": "People Image"
+      }, {
+        "type": "image_picker",
+        "id": "product_img",
+        "label": "Product Image"
+      }, {
+        "type": "text",
+        "id": "text_line_1",
+        "label": "Text Line 1",
+        "default": "Same | GREAT PRODUCTS"
+      }, {
+        "type": "text",
+        "id": "text_line_2",
+        "label": "Text Line 2",
+        "default": "Same | GREAT SERVICES"
+      }, {
+        "type": "text",
+        "id": "text_line_3",
+        "label": "Text Line 3",
+        "default": "Same | GREAT PRICES"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner OTB 3",
+        "category": "Banner OTB 3"
+      }
+    ]
+  }
+{% endschema %}
