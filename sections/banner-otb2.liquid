@@ -2,8 +2,8 @@
   assign logo_img = 'banner-logo.png' | asset_url
   assign logo_otb_img = 'banner-logo-otb.png' | asset_url
 
-  assign background = 'banner-background-blue.jpg' | asset_url
-  assign people_img = 'banner-people.png' | asset_url
+  assign background = 'banner2-background.jpg' | asset_url
+  assign people_img = 'banner2-people.png' | asset_url
   assign items_img = 'banner-items.png' | asset_url
 
   if section.settings.logo_1
@@ -24,50 +24,7 @@
 %}
 
 {% capture feature_list_string %}banner-icon-cart.png | {{ section.settings.text_line_1 }}, banner-icon-dolla.png | {{ section.settings.text_line_2 }}, banner-icon-like.png | {{ section.settings.text_line_3 }}{% endcapture %}
-
 {% assign feature_list = feature_list_string | split: ", " %}
-
-{% capture people_layer_temp %}
-  <div class="block-item__people">
-    <img
-      loading="lazy"
-      width=""
-      height=""
-      src="{{ people_img }}"
-      alt="#people">
-  </div>
-{% endcapture %}
-
-{% capture feature_list_temp %}
-  <div class="block-item__feature-list">
-    {% for f_item in feature_list %}
-      {% assign f = f_item | split: ' | ' %}
-      <div class="block-item__feature-list-item">
-        <span class="__icon">
-          <img
-            loading="lazy"
-            width=""
-            height=""
-            src="{{ f[0] | asset_url }}"
-            alt="#icon">
-        </span>
-        <span class="__text-1 font-pacifico">{{ f[1] }}</span>
-        <span class="__text-2">{{ f[2] }}</span>
-      </div>
-    {% endfor %}
-  </div>
-{% endcapture %}
-
-{% capture items_temp %}
-  <div class="block-item__product-items">
-    <img
-      loading="lazy"
-      width=""
-      height=""
-      src="{{ items_img }}"
-      alt="#product-items">
-  </div>
-{% endcapture %}
 
 {% capture heading_temp %}
   <div class="block-item__heading">
@@ -87,22 +44,62 @@
   </div>
 {% endcapture %}
 
-<section id="shopify-section--{{ section.id }}" class="custom-block__banner-otb featured-collection__container">
-  <div class="custom-block__banner-otb-background-layer" style="background: url({{ background }}) no-repeat center center / cover, #000;"></div>
-  <div class="custom-block__banner-otb-entry">
+{% capture people_layer_temp %}
+  <div class="block-item__people">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ people_img }}"
+      alt="#people">
+  </div>
+{% endcapture %}
+
+{% capture items_temp %}
+  <div class="block-item__product-items">
+    <img
+      loading="lazy"
+      width=""
+      height=""
+      src="{{ items_img }}"
+      alt="#product-items">
+  </div>
+{% endcapture %}
+
+{% capture feature_list_temp %}
+  <div class="block-item__feature-list">
+    <span class="vertical-text font-pacifico">{{ section.settings.text_vertical }}</span>
+    {% for f_item in feature_list %}
+      {% assign f = f_item | split: ' | ' %}
+      <div class="block-item__feature-list-item">
+        <span class="__text">{{ f[1] }}</span>
+        <span class="__icon">
+          <img
+            loading="lazy"
+            width=""
+            height=""
+            src="{{ f[0] | asset_url }}"
+            alt="#icon">
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+{% endcapture %}
+
+<section id="shopify-section--{{ section.id }}" class="custom-block__banner-otb2 featured-collection__container">
+  <div class="custom-block__banner-otb2-background-layer" style="background: url({{ background }}) no-repeat center center / cover, #000;"></div>
+  <div class="custom-block__banner-otb2-entry">
     {{ heading_temp }}
     {{ people_layer_temp }}
-    {{ feature_list_temp }}
     {{ items_temp }}
+    {{ feature_list_temp }}
   </div>
 </section>
-<!-- .custom-block__banner-otb -->
+<!-- .custom-block__banner-otb2 -->
 
 {% schema %}
   {
-    "name": {
-      "en": "Banner OTB"
-    },
+    "name": "Banner OTB 2",
     "settings": [
       {
         "type": "image_picker",
@@ -130,25 +127,30 @@
         "label": "Product Image"
       }, {
         "type": "text",
+        "id": "text_vertical",
+        "label": "Text Vertical",
+        "default": "Same"
+      }, {
+        "type": "text",
         "id": "text_line_1",
         "label": "Text Line 1",
-        "default": "Same | GREAT PRODUCTS"
+        "default": "GREAT PRODUCTS"
       }, {
         "type": "text",
         "id": "text_line_2",
         "label": "Text Line 2",
-        "default": "Same | GREAT PRICES"
+        "default": "GREAT PRICES"
       }, {
         "type": "text",
         "id": "text_line_3",
         "label": "Text Line 3",
-        "default": "Same | GREAT SERVICES"
+        "default": "GREAT SERVICES"
       }
     ],
     "presets": [
       {
-        "name": "Banner OTB",
-        "category": "Banner OTB"
+        "name": "Banner OTB 2",
+        "category": "Banner OTB 2"
       }
     ]
   }

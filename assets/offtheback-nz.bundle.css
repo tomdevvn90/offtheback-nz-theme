@@ -298,3 +298,174 @@
 .font-pacifico {
   font-family: "Pacifico", cursive;
 }
+
+.custom-block__banner-otb2 {
+  position: relative;
+  height: 380px;
+  padding: 0;
+  overflow: hidden;
+  margin-top: 3em;
+}
+.custom-block__banner-otb2 .custom-block__banner-otb2-background-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.custom-block__banner-otb2 .custom-block__banner-otb2-entry {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+}
+.custom-block__banner-otb2 .block-item__heading {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+.custom-block__banner-otb2 .block-item__heading img {
+  max-width: 30vw;
+}
+.custom-block__banner-otb2 .block-item__heading .__text {
+  color: white;
+  font-size: 1.5em;
+  margin: 0.5em;
+  min-width: 200px;
+}
+.custom-block__banner-otb2 .block-item__people {
+  position: absolute;
+  bottom: 0;
+  right: 2.5%;
+  line-height: 0;
+  width: 350px;
+}
+@media (max-width: 1231px) {
+  .custom-block__banner-otb2 .block-item__people {
+    right: 0.5%;
+  }
+}
+@media (max-width: 1175px) {
+  .custom-block__banner-otb2 .block-item__people {
+    right: -2.5%;
+  }
+}
+@media (max-width: 1014px) {
+  .custom-block__banner-otb2 .block-item__people {
+    right: auto;
+    left: 73%;
+  }
+}
+.custom-block__banner-otb2 .block-item__people img {
+  width: 100%;
+}
+.custom-block__banner-otb2 .block-item__product-items {
+  position: absolute;
+  left: 3%;
+  bottom: 3%;
+  width: 22%;
+}
+.custom-block__banner-otb2 .block-item__product-items img {
+  width: 100%;
+}
+.custom-block__banner-otb2 .block-item__feature-list {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  text-align: left;
+  display: inline-block;
+  font-size: 1.2em;
+}
+.custom-block__banner-otb2 .block-item__feature-list .vertical-text {
+  position: absolute;
+  left: -31%;
+  transform: translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateY(-50%) rotate(-90deg);
+  top: 103%;
+  font-size: 2.3em;
+  color: #fff;
+  transform-origin: top left;
+}
+.custom-block__banner-otb2 .block-item__feature-list .block-item__feature-list-item {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  color: white;
+}
+.custom-block__banner-otb2 .block-item__feature-list .block-item__feature-list-item .__icon {
+  display: inline-block;
+  width: 40px;
+  margin-left: 10px;
+  text-align: center;
+}
+.custom-block__banner-otb2 .block-item__feature-list .block-item__feature-list-item .__icon img {
+  width: 100%;
+}
+.custom-block__banner-otb2 .block-item__feature-list .block-item__feature-list-item:last-child .__icon img {
+  width: 60%;
+}
+@media (max-width: 973px) {
+  .custom-block__banner-otb2 .block-item__heading {
+    transform: none;
+    left: 4%;
+    width: 75%;
+  }
+  .custom-block__banner-otb2 .block-item__heading .__text {
+    font-size: 1em;
+    min-width: auto;
+  }
+  .custom-block__banner-otb2 .block-item__heading img:first-child {
+    width: 20%;
+  }
+  .custom-block__banner-otb2 .block-item__heading img:last-child {
+    width: 30%;
+  }
+}
+@media (max-width: 884px) {
+  .custom-block__banner-otb2 .block-item__people {
+    right: auto;
+    left: 69%;
+    width: 392px;
+  }
+}
+@media (max-width: 697px) {
+  .custom-block__banner-otb2 .block-item__people {
+    left: 63%;
+  }
+  .custom-block__banner-otb2 .block-item__feature-list {
+    bottom: 30%;
+  }
+  .custom-block__banner-otb2 .block-item__product-items {
+    width: 32%;
+  }
+}
+@media (max-width: 518px) {
+  .custom-block__banner-otb2 .block-item__people {
+    left: 53%;
+    width: 326px;
+  }
+  .custom-block__banner-otb2 .block-item__heading {
+    left: 50%;
+    transform: translate(-50%);
+    -webkit-transform: translateX(-50%);
+    justify-content: center;
+    z-index: 5;
+  }
+  .custom-block__banner-otb2 .block-item__heading img {
+    width: auto !important;
+    height: 36px;
+  }
+  .custom-block__banner-otb2 .block-item__feature-list .__text {
+    white-space: nowrap;
+    font-size: 0.8em;
+  }
+  .custom-block__banner-otb2 .block-item__feature-list .__icon {
+    width: 29px;
+  }
+}
