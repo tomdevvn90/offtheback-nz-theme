@@ -3,6 +3,20 @@
     "4f8fe091-2e78-4854-a21a-7763af958039": {
       "type": "banner-otb",
       "settings": {
+        "heading_text": "is now brought to you by",
+        "text_line_1": "Same | GREAT PRODUCTS",
+        "text_line_2": "Same | GREAT PRICES",
+        "text_line_3": "Same | GREAT SERVICES"
+      }
+    },
+    "f107e30b-fec8-45c6-b3fc-5119b5551eed": {
+      "type": "banner-otb2",
+      "settings": {
+        "heading_text": "is now brought to you by",
+        "text_vertical": "Same",
+        "text_line_1": "GREAT PRODUCTS",
+        "text_line_2": "GREAT PRICES",
+        "text_line_3": "GREAT SERVICES"
       }
     },
     "main": {
@@ -50,6 +64,7 @@
   },
   "order": [
     "4f8fe091-2e78-4854-a21a-7763af958039",
+    "f107e30b-fec8-45c6-b3fc-5119b5551eed",
     "main",
     "static-recently-viewed"
   ]
