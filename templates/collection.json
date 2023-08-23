@@ -19,6 +19,15 @@
         "text_line_3": "GREAT SERVICES"
       }
     },
+    "5a359309-b126-4f4b-ad00-3b88be7fd993": {
+      "type": "banner-otb3",
+      "settings": {
+        "heading_text": "is now brought to you by",
+        "text_line_1": "Same | GREAT PRODUCTS",
+        "text_line_2": "Same | GREAT SERVICES",
+        "text_line_3": "Same | GREAT PRICES"
+      }
+    },
     "main": {
       "type": "static-collection",
       "blocks": {
@@ -65,6 +74,7 @@
   "order": [
     "4f8fe091-2e78-4854-a21a-7763af958039",
     "f107e30b-fec8-45c6-b3fc-5119b5551eed",
+    "5a359309-b126-4f4b-ad00-3b88be7fd993",
     "main",
     "static-recently-viewed"
   ]
