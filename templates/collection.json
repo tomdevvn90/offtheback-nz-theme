@@ -2,6 +2,7 @@
   "sections": {
     "4f8fe091-2e78-4854-a21a-7763af958039": {
       "type": "banner-otb",
+      "disabled": true,
       "settings": {
         "heading_text": "is now brought to you by",
         "text_line_1": "Same | GREAT PRODUCTS",
@@ -11,6 +12,7 @@
     },
     "f107e30b-fec8-45c6-b3fc-5119b5551eed": {
       "type": "banner-otb2",
+      "disabled": true,
       "settings": {
         "heading_text": "is now brought to you by",
         "text_vertical": "Same",
@@ -21,6 +23,7 @@
     },
     "5a359309-b126-4f4b-ad00-3b88be7fd993": {
       "type": "banner-otb3",
+      "disabled": true,
       "settings": {
         "heading_text": "is now brought to you by",
         "text_line_1": "Same | GREAT PRODUCTS",
