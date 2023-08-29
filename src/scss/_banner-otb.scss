@@ -30,6 +30,7 @@
 
     img {
       width: 100%;
+      margin: 0;
     }
   }
 
@@ -41,6 +42,7 @@
     text-align: left;
     display: inline-block;
     font-size: 1.2em;
+    list-style: normal;
 
     .block-item__feature-list-item {
       display: flex;
@@ -55,6 +57,7 @@
 
         img {
           width: 100%;
+          margin: 0;
         }
       }
 
@@ -286,6 +289,7 @@
 
     img {
       width: 100%;
+      margin: 0;
     }
   }
 
@@ -297,6 +301,7 @@
 
     img {
       width: 100%;
+      margin: 0; 
     }
   }
 
@@ -334,6 +339,7 @@
 
         img {
           width: 100%;
+          margin: 0;
         }
       }
 
@@ -503,6 +509,7 @@
 
     img {
       width: 100%;
+      margin: 0;
     }
 
     @media(max-width:768px){
@@ -526,6 +533,13 @@
       font-size: 1.3em;
       line-height: 1.7em;
       width: 130px;
+
+      .__icon {
+
+        img {
+          margin: 0;
+        }
+      }
 
       &:nth-child(1) {
         position: absolute;
