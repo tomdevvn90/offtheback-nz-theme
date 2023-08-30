@@ -39,6 +39,7 @@
     "layout_max_width": 1400,
     "product_sales_badge": true,
     "product_sales_badge_style": "percent",
+    "product_image_label": true,
     "product_option_style": "select",
     "swatches_enable": true,
     "swatches_product_card_size": 32,

@@ -448,6 +448,12 @@
       },
       {
         "type": "checkbox",
+        "id": "product_image_label",
+        "label": "t:settings_schema.products.product_image_label.label",
+        "default": false
+      },
+      {
+        "type": "checkbox",
         "id": "inventory_status",
         "label": "t:settings_schema.products.inventory_status.label",
         "info": "t:settings_schema.products.inventory_status.info",

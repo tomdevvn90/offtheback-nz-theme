@@ -1,27 +1,27 @@
 {% comment %}
-  @param class_root {String}
-    Base class root
+@param class_root {String}
+Base class root
 
-  @param product_available {Bool}
+@param product_available {Bool}
 
-  @param on_sale {Bool}
-    If a product, or one of it's variants is on sale
+@param on_sale {Bool}
+If a product, or one of it's variants is on sale
 
-  @param show_saved {Bool}
-    Show amount saved if is consistent across variants
+@param show_saved {Bool}
+Show amount saved if is consistent across variants
 
-  @param price {Number}
-    product.price
+@param price {Number}
+product.price
 
-  @param compare_at_price {Number}
-    product.compare_at_price_max
+@param compare_at_price {Number}
+product.compare_at_price_max
 
-  @param sales_badge {Bool}
-    False: Sold out badge only
-    True: Show sale badge
+@param sales_badge {Bool}
+False: Sold out badge only
+True: Show sale badge
 
-  @param sales_badge_style {String}
-    'percentage' or 'money'
+@param sales_badge_style {String}
+'percentage' or 'money'
 {% endcomment %}
 
 {% if product.template_suffix contains 'pre-order' %}
@@ -34,37 +34,35 @@
 
 {% comment %}Inject @pixelunion/shopify-price-ui/sale-badge begin{% endcomment %}
 {% comment %}
-  @param product {Product}
+@param product {Product}
 
-  @param class_root {String}
-    Base class root
+@param class_root {String}
+Base class root
 
-  @param price_varies {Boolean}
-    If true, the variant price varies
+@param price_varies {Boolean}
+If true, the variant price varies
 
-  @param compare_at_price_varies {Boolean}
-    If true, the variant compare price varies
+@param compare_at_price_varies {Boolean}
+If true, the variant compare price varies
 
-  @param product_available {Boolean}
+@param product_available {Boolean}
 
-  @param on_sale {Boolean}
-    If a product, or one of it's variants is on sale
+@param on_sale {Boolean}
+If a product, or one of it's variants is on sale
 
-  @param sales_badge {Boolean}
-    False: Sold out badge only
-    True: Show sale badge
+@param sales_badge {Boolean}
+False: Sold out badge only
+True: Show sale badge
 
-  @param sales_badge_style
+@param sales_badge_style
 
-  @param preorder_badge {Boolean}
-    If true, show the pre-order badge
+@param preorder_badge {Boolean}
+If true, show the pre-order badge
 
-  @param include_hidden_badge
-    Include a hidden element with sale data to use in cases of unavailable variants or cases where no variant
-    is selected by default
-{% endcomment %}
-
-{% assign savings_money_range = 0 %}
+@param include_hidden_badge
+Include a hidden element with sale data to use in cases of unavailable variants or cases where no variant
+is selected by default
+{% endcomment %}{% assign savings_money_range = 0 %}
 {% assign savings_percentage_range = 0 %}
 
 {% assign price_min = nil %}
@@ -73,30 +71,31 @@
 {% assign compare_at_price_max = nil %}
 {% assign price_varies = price_varies | default: false %}
 {% assign compare_at_price_varies = compare_at_price_varies | default: false %}
+{% assign product_label = product_label | default: settings.product_image_label, allow_false: true %}
 
-{% for variant in product.variants %}
-  {% if price_min == nil or variant.price < price_min %}
-    {% assign price_min = variant.price %}
+  {% for variant in product.variants %}
+    {% if price_min == nil or variant.price < price_min %}
+  {% assign price_min = variant.price %}
   {% endif %}
-  {% if price_max == nil or variant.price > price_max %}
-    {% assign price_max = variant.price %}
+    {% if price_max == nil or variant.price > price_max %}
+  {% assign price_max = variant.price %}
   {% endif %}
   {% assign tmp_compare_at_price = variant.compare_at_price %}
-  {% unless variant.compare_at_price %}
-    {% assign tmp_compare_at_price = variant.price %}
+    {% unless variant.compare_at_price %}
+  {% assign tmp_compare_at_price = variant.price %}
   {% endunless %}
-  {% if compare_at_price_min == nil or tmp_compare_at_price < compare_at_price_min %}
-    {% assign compare_at_price_min = tmp_compare_at_price %}
+    {% if compare_at_price_min == nil or tmp_compare_at_price < compare_at_price_min %}
+  {% assign compare_at_price_min = tmp_compare_at_price %}
   {% endif %}
-  {% if compare_at_price_max == nil or tmp_compare_at_price > compare_at_price_max %}
-    {% assign compare_at_price_max = tmp_compare_at_price %}
+    {% if compare_at_price_max == nil or tmp_compare_at_price > compare_at_price_max %}
+  {% assign compare_at_price_max = tmp_compare_at_price %}
   {% endif %}
 
   {% assign price_difference = tmp_compare_at_price | minus: variant.price %}
-  {% if price_difference > savings_money_range %}
+    {% if price_difference > savings_money_range %}
     {% assign savings_money_range = price_difference %}
-    {% assign savings_percentage_range = savings_money_range | times: 1.0 | divided_by: variant.compare_at_price | times: 100.0 | round %}
-  {% endif %}
+  {% assign savings_percentage_range = savings_money_range | times: 1.0 | divided_by: variant.compare_at_price | times: 100.0 | round %}
+{% endif %}
 {% endfor %}
 
 {% assign savings_money_single = selected_variant.compare_at_price | minus: selected_variant.price %}
@@ -104,9 +103,8 @@
 
 {% assign product_available = product_available | default: product.available %}
 
-{%- if product_available != true -%}
-  <span class="{{ class_root }}__badge {{ class_root }}__badge--soldout">
-    {{ 'product_price.badge.sold_out' | t }}
+  {%- if product_available != true -%}
+    <span class="{{ class_root }}__badge {{ class_root }}__badge--soldout"> {{ 'product_price.badge.sold_out' | t }}
   </span>
 {%- elsif on_sale and sales_badge -%}
   {% assign on_sale = on_sale | default: true %}
@@ -116,10 +114,10 @@
     {% assign on_sale = false %}
   {% endif %}
 
-  <span class="{{ class_root }}__badge {{ class_root }}__badge--sale"
+  <span
+    class="{{ class_root }}__badge {{ class_root }}__badge--sale"
     data-badge-sales
-    {% if on_sale != true %}style="display: none;"{% endif %}
-  >
+    {% if on_sale != true %}style="display: none;"{% endif %}>
     <span data-badge-sales-range>
       {% if sales_badge_style == 'percent' %}
         {% if price_varies or compare_at_price_varies %}
@@ -150,6 +148,11 @@
 {%- elsif preorder_badge -%}
   <span class="{{ class_root }}__badge {{ class_root }}__badge--pre-order">
     {{ 'product_price.badge.pre_order' | t }}
+  </span>
+{%- endif -%}
+{%- if product_label and product.metafields.custom.product_label != blank -%}
+  <span class="{{ class_root }}__badge {{ class_root }}__badge--label">
+    {{ product.metafields.custom.product_label }}
   </span>
 {%- endif -%}
 {% comment %}Inject @pixelunion/shopify-price-ui/sale-badge end{% endcomment %}
