@@ -139,6 +139,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./src/features/fix-ui.js":
+/*!********************************!*\
+  !*** ./src/features/fix-ui.js ***!
+  \********************************/
+/***/ (() => {
+
+/**
+ * Fix UI
+ */
+
+;
+(function (w, $) {
+  'use strict';
+
+  var productBadgePosition = function productBadgePosition() {
+    var $badge = $('body.template-product .product-details .product-pricing .product__badge--label');
+    var $newPosWrapper = $('.product--outer .product-gallery');
+    if ($badge.length && $newPosWrapper.length) {
+      $newPosWrapper.prepend($badge);
+    }
+  };
+  $(function () {
+    productBadgePosition();
+  });
+})(window, jQuery);
+
+/***/ }),
+
 /***/ "./src/features/products-grid.js":
 /*!***************************************!*\
   !*** ./src/features/products-grid.js ***!
@@ -285,12 +313,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _features_products_grid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_features_products_grid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _features_collection_product_loadmore_ajax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./features/collection-product-loadmore-ajax */ "./src/features/collection-product-loadmore-ajax.js");
 /* harmony import */ var _features_collection_product_loadmore_ajax__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_features_collection_product_loadmore_ajax__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _features_fix_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./features/fix-ui */ "./src/features/fix-ui.js");
+/* harmony import */ var _features_fix_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_features_fix_ui__WEBPACK_IMPORTED_MODULE_2__);
 /**
  * Javascript 
  * 
  * @since 1.0.0
  * @author Mike
  */
+
 
 
 

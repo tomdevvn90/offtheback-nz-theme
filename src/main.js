@@ -7,3 +7,4 @@
 
 import './features/products-grid';
 import './features/collection-product-loadmore-ajax';
+import './features/fix-ui';

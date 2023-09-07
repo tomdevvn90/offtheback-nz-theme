@@ -143,3 +143,24 @@
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
 }
+
+body.template-product .product-details .product-pricing {
+
+  .product__badge--label {
+    display: none;
+  }
+}
+
+.product--outer {
+
+  .product-gallery {
+
+    .product__badge--label {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 9;
+      height: auto;
+    }
+  }
+}
