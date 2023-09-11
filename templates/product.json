@@ -41,6 +41,61 @@
           "disabled": true,
           "settings": {
           }
+        },
+        "65c83a17-58e6-48d4-88bf-3d4fe3e2abb9": {
+          "type": "inventory_status",
+          "settings": {
+            "inventory_display": "hidden",
+            "inventory_transfer_notice": true
+          }
+        },
+        "923a0b60-af76-4877-a2aa-a1b0a7dc97b4": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "{{ product.metafields.custom.supplier_message | metafield_text }}"
+          }
+        },
+        "f241b417-c236-4e79-9bc3-e48440ff6af8": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Why Shop at OffTheBack?<\/strong><\/p>"
+          }
+        },
+        "08d92d22-887e-4f22-9443-fac9bbd8d7ec": {
+          "type": "key_details",
+          "settings": {
+            "icon": "icon-delivery-package",
+            "image": "shopify:\/\/shop_images\/Frame_d6e89122-5191-4b83-a114-354eaaea6382.png",
+            "title": "FAST DELIVERIES",
+            "text": "<p>Delivered to your door<\/p>",
+            "text_color": "#1D1D1D",
+            "icon_color": "#1D1D1D",
+            "background_color": "#fafafa"
+          }
+        },
+        "db0a4984-d4ef-4be9-bd39-38ba8ea9d321": {
+          "type": "key_details",
+          "settings": {
+            "icon": "icon-delivery-package",
+            "image": "shopify:\/\/shop_images\/Frame_3be83c51-f0ee-4e0a-b0d0-31b48289364b.png",
+            "title": "OVER 1 MILLION",
+            "text": "<p>Items delivered<\/p>",
+            "text_color": "#1D1D1D",
+            "icon_color": "#1D1D1D",
+            "background_color": "#fafafa"
+          }
+        },
+        "a75d5b5e-7422-4acf-8315-b977a4032dc2": {
+          "type": "key_details",
+          "settings": {
+            "icon": "icon-delivery-package",
+            "image": "shopify:\/\/shop_images\/Group_cfeb0285-d4a5-43bc-8d0a-c44475684139.png",
+            "title": "SECURE TRANSACTIONS",
+            "text": "<p>Protected by SSL Certificates<\/p>",
+            "text_color": "#1D1D1D",
+            "icon_color": "#1D1D1D",
+            "background_color": "#fafafa"
+          }
         }
       },
       "block_order": [
@@ -50,7 +105,13 @@
         "price",
         "description",
         "form",
-        "share"
+        "share",
+        "65c83a17-58e6-48d4-88bf-3d4fe3e2abb9",
+        "923a0b60-af76-4877-a2aa-a1b0a7dc97b4",
+        "f241b417-c236-4e79-9bc3-e48440ff6af8",
+        "08d92d22-887e-4f22-9443-fac9bbd8d7ec",
+        "db0a4984-d4ef-4be9-bd39-38ba8ea9d321",
+        "a75d5b5e-7422-4acf-8315-b977a4032dc2"
       ],
       "settings": {
         "gallery_aspect_ratio": "natural",
