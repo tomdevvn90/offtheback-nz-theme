@@ -114,7 +114,7 @@
             "mobile_background_image": "shopify:\/\/shop_images\/20__Banner_580x290_v2B.jpg",
             "title": "",
             "text": "",
-            "color": "#FFFFFF",
+            "color": "#ffffff",
             "link": "shopify:\/\/collections\/20-sale",
             "text_alignment": "center",
             "button_one_label": "",
@@ -132,6 +132,7 @@
       "block_order": [
         "template--15387056898107__49dfe952-b3f4-4748-af5e-f664f9dd41a5-slide-1"
       ],
+      "disabled": true,
       "settings": {
         "enable_autoplay": true,
         "autoplay_duration": 8,
@@ -151,7 +152,7 @@
             "mobile_background_image": "shopify:\/\/shop_images\/Drone_580x290_7d0857c2-9567-499a-ab3a-73bda1502758.jpg",
             "title": "",
             "text": "",
-            "color": "#FFFFFF",
+            "color": "#ffffff",
             "link": "https:\/\/www.offtheback.co.nz\/products\/zero-x-maverick-full-hd-drone-with-gps-wifi?_pos=7&_sid=067e791c4&_ss=r",
             "text_alignment": "center",
             "button_one_label": "",
@@ -169,6 +170,7 @@
       "block_order": [
         "6b28853b-0307-4f1b-929b-d60c769a3a7f"
       ],
+      "disabled": true,
       "settings": {
         "enable_autoplay": true,
         "autoplay_duration": 8,
