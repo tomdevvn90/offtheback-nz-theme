@@ -1,5 +1,51 @@
 {
   "sections": {
+    "dynamic_highlights_banner": {
+      "type": "dynamic-highlights-banner",
+      "blocks": {
+        "highlight-1": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-store",
+            "title": "100%",
+            "text": "<p>NZ Owned and Operated<\/p>",
+            "link": ""
+          }
+        },
+        "highlight-2": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-delivery",
+            "title": "1,000,000+",
+            "text": "<p>Items Shipped<\/p>",
+            "link": ""
+          }
+        },
+        "highlight-3": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-rating-five-star",
+            "title": "ONLINE FOR OVER",
+            "text": "<p>15 Years<\/p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "highlight-1",
+        "highlight-2",
+        "highlight-3"
+      ],
+      "settings": {
+        "section_spacing": false,
+        "section_width": "content-width",
+        "icon_layout": "left",
+        "color": "#1d1d1d",
+        "icon_color": "#046e82",
+        "background_color": "#ffffff",
+        "mobile_layout": "grid"
+      }
+    },
     "dynamic_slideshow": {
       "type": "dynamic-slideshow",
       "blocks": {
@@ -56,52 +102,6 @@
         "slideshow_height": "medium",
         "slideshow_height_mobile": "x-large",
         "slideshow_text_below_image": false
-      }
-    },
-    "dynamic_highlights_banner": {
-      "type": "dynamic-highlights-banner",
-      "blocks": {
-        "highlight-1": {
-          "type": "highlight",
-          "settings": {
-            "icon": "icon-store",
-            "title": "100%",
-            "text": "<p>NZ Owned and Operated<\/p>",
-            "link": ""
-          }
-        },
-        "highlight-2": {
-          "type": "highlight",
-          "settings": {
-            "icon": "icon-delivery",
-            "title": "1,000,000+",
-            "text": "<p>Items Shipped<\/p>",
-            "link": ""
-          }
-        },
-        "highlight-3": {
-          "type": "highlight",
-          "settings": {
-            "icon": "icon-rating-five-star",
-            "title": "ONLINE FOR OVER",
-            "text": "<p>15 Years<\/p>",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "highlight-1",
-        "highlight-2",
-        "highlight-3"
-      ],
-      "settings": {
-        "section_spacing": false,
-        "section_width": "content-width",
-        "icon_layout": "left",
-        "color": "#1d1d1d",
-        "icon_color": "#046e82",
-        "background_color": "#ffffff",
-        "mobile_layout": "grid"
       }
     },
     "49dfe952-b3f4-4748-af5e-f664f9dd41a5": {
@@ -259,6 +259,28 @@
         "compress_blocks": false
       }
     },
+    "02f503e5-92db-4fd5-986c-4c8b735ae78d": {
+      "type": "dynamic-featured-collection",
+      "settings": {
+        "title": "",
+        "layout": "grid",
+        "collection": "top-picks",
+        "product_count": 25,
+        "cta_label": "See More",
+        "cta_button_style": "primary"
+      }
+    },
+    "d9b9b94e-58be-40ac-b439-ae9fcc2764d1": {
+      "type": "dynamic-featured-collection",
+      "settings": {
+        "title": "",
+        "layout": "grid",
+        "collection": "more-top-picks",
+        "product_count": 25,
+        "cta_label": "See More",
+        "cta_button_style": "primary"
+      }
+    },
     "db75e0da-1755-4915-96c1-c7ad7694cadd": {
       "type": "products-grid",
       "settings": {
@@ -328,11 +350,13 @@
     }
   },
   "order": [
-    "dynamic_slideshow",
     "dynamic_highlights_banner",
+    "dynamic_slideshow",
     "49dfe952-b3f4-4748-af5e-f664f9dd41a5",
     "0ed44edc-6cac-4f03-8018-39be260e65b1",
     "dynamic_promo_mosaic",
+    "02f503e5-92db-4fd5-986c-4c8b735ae78d",
+    "d9b9b94e-58be-40ac-b439-ae9fcc2764d1",
     "db75e0da-1755-4915-96c1-c7ad7694cadd",
     "8097d0ce-e0ad-4e8e-ae22-ce7f7a685b8c",
     "4c01b90d-4922-4aa8-8c52-d6c93e034ba0"
